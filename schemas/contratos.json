@@ -1,0 +1,1338 @@
+{
+  "profile": {
+    "additionalProperties": false,
+    "description": "Preferências declaradas, sem identificação pessoal nem inferência clínica.",
+    "properties": {
+      "onboarding_confirmed": {
+        "title": "Onboarding Confirmed",
+        "type": "boolean"
+      },
+      "excluded_ingredients": {
+        "items": {
+          "maxLength": 10000,
+          "minLength": 1,
+          "type": "string"
+        },
+        "maxItems": 200,
+        "title": "Excluded Ingredients",
+        "type": "array"
+      },
+      "allergies": {
+        "items": {
+          "maxLength": 10000,
+          "minLength": 1,
+          "type": "string"
+        },
+        "maxItems": 200,
+        "title": "Allergies",
+        "type": "array"
+      },
+      "intolerances": {
+        "items": {
+          "maxLength": 10000,
+          "minLength": 1,
+          "type": "string"
+        },
+        "maxItems": 200,
+        "title": "Intolerances",
+        "type": "array"
+      },
+      "preferences": {
+        "items": {
+          "maxLength": 10000,
+          "minLength": 1,
+          "type": "string"
+        },
+        "maxItems": 200,
+        "title": "Preferences",
+        "type": "array"
+      },
+      "equipment": {
+        "items": {
+          "maxLength": 10000,
+          "minLength": 1,
+          "type": "string"
+        },
+        "maxItems": 200,
+        "title": "Equipment",
+        "type": "array"
+      },
+      "region": {
+        "anyOf": [
+          {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Region"
+      },
+      "language_style": {
+        "default": "simples",
+        "enum": [
+          "simples",
+          "tecnico"
+        ],
+        "title": "Language Style",
+        "type": "string"
+      },
+      "servings": {
+        "default": 4,
+        "exclusiveMinimum": 0,
+        "maximum": 1000,
+        "title": "Servings",
+        "type": "integer"
+      },
+      "alcohol_free": {
+        "default": true,
+        "title": "Alcohol Free",
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "onboarding_confirmed"
+    ],
+    "title": "Profile",
+    "type": "object"
+  },
+  "request": {
+    "$defs": {
+      "Profile": {
+        "additionalProperties": false,
+        "description": "Preferências declaradas, sem identificação pessoal nem inferência clínica.",
+        "properties": {
+          "onboarding_confirmed": {
+            "title": "Onboarding Confirmed",
+            "type": "boolean"
+          },
+          "excluded_ingredients": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Excluded Ingredients",
+            "type": "array"
+          },
+          "allergies": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Allergies",
+            "type": "array"
+          },
+          "intolerances": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Intolerances",
+            "type": "array"
+          },
+          "preferences": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Preferences",
+            "type": "array"
+          },
+          "equipment": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Equipment",
+            "type": "array"
+          },
+          "region": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Region"
+          },
+          "language_style": {
+            "default": "simples",
+            "enum": [
+              "simples",
+              "tecnico"
+            ],
+            "title": "Language Style",
+            "type": "string"
+          },
+          "servings": {
+            "default": 4,
+            "exclusiveMinimum": 0,
+            "maximum": 1000,
+            "title": "Servings",
+            "type": "integer"
+          },
+          "alcohol_free": {
+            "default": true,
+            "title": "Alcohol Free",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "onboarding_confirmed"
+        ],
+        "title": "Profile",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "description": "Identidade do prato resolvida pelo usuário e pelo host antes da busca.",
+    "properties": {
+      "dish": {
+        "maxLength": 500,
+        "minLength": 1,
+        "title": "Dish",
+        "type": "string"
+      },
+      "country": {
+        "pattern": "^[A-Z]{2}$",
+        "title": "Country",
+        "type": "string"
+      },
+      "variant": {
+        "maxLength": 500,
+        "minLength": 1,
+        "title": "Variant",
+        "type": "string"
+      },
+      "ambiguity_resolved": {
+        "title": "Ambiguity Resolved",
+        "type": "boolean"
+      },
+      "profile": {
+        "$ref": "#/$defs/Profile"
+      }
+    },
+    "required": [
+      "dish",
+      "country",
+      "variant",
+      "ambiguity_resolved",
+      "profile"
+    ],
+    "title": "Request",
+    "type": "object"
+  },
+  "research": {
+    "$defs": {
+      "EditorialCountryEvidence": {
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Text",
+            "type": "string"
+          },
+          "url": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text",
+          "url"
+        ],
+        "title": "EditorialCountryEvidence",
+        "type": "object"
+      },
+      "Profile": {
+        "additionalProperties": false,
+        "description": "Preferências declaradas, sem identificação pessoal nem inferência clínica.",
+        "properties": {
+          "onboarding_confirmed": {
+            "title": "Onboarding Confirmed",
+            "type": "boolean"
+          },
+          "excluded_ingredients": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Excluded Ingredients",
+            "type": "array"
+          },
+          "allergies": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Allergies",
+            "type": "array"
+          },
+          "intolerances": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Intolerances",
+            "type": "array"
+          },
+          "preferences": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Preferences",
+            "type": "array"
+          },
+          "equipment": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Equipment",
+            "type": "array"
+          },
+          "region": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Region"
+          },
+          "language_style": {
+            "default": "simples",
+            "enum": [
+              "simples",
+              "tecnico"
+            ],
+            "title": "Language Style",
+            "type": "string"
+          },
+          "servings": {
+            "default": 4,
+            "exclusiveMinimum": 0,
+            "maximum": 1000,
+            "title": "Servings",
+            "type": "integer"
+          },
+          "alcohol_free": {
+            "default": true,
+            "title": "Alcohol Free",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "onboarding_confirmed"
+        ],
+        "title": "Profile",
+        "type": "object"
+      },
+      "Query": {
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Text",
+            "type": "string"
+          },
+          "derived_from": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Derived From"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "Query",
+        "type": "object"
+      },
+      "ReformulationsByTrack": {
+        "additionalProperties": false,
+        "properties": {
+          "base": {
+            "anyOf": [
+              {
+                "maximum": 2,
+                "minimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Base"
+          },
+          "domestic_regional": {
+            "anyOf": [
+              {
+                "maximum": 2,
+                "minimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Domestic Regional"
+          }
+        },
+        "required": [
+          "base",
+          "domestic_regional"
+        ],
+        "title": "ReformulationsByTrack",
+        "type": "object"
+      },
+      "Request": {
+        "additionalProperties": false,
+        "description": "Identidade do prato resolvida pelo usuário e pelo host antes da busca.",
+        "properties": {
+          "dish": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Dish",
+            "type": "string"
+          },
+          "country": {
+            "pattern": "^[A-Z]{2}$",
+            "title": "Country",
+            "type": "string"
+          },
+          "variant": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Variant",
+            "type": "string"
+          },
+          "ambiguity_resolved": {
+            "title": "Ambiguity Resolved",
+            "type": "boolean"
+          },
+          "profile": {
+            "$ref": "#/$defs/Profile"
+          }
+        },
+        "required": [
+          "dish",
+          "country",
+          "variant",
+          "ambiguity_resolved",
+          "profile"
+        ],
+        "title": "Request",
+        "type": "object"
+      },
+      "SourceEvidence": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Id",
+            "type": "string"
+          },
+          "title": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Title",
+            "type": "string"
+          },
+          "url": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Url",
+            "type": "string"
+          },
+          "author": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Author",
+            "type": "string"
+          },
+          "publisher": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Publisher",
+            "type": "string"
+          },
+          "editorial_group": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Editorial Group",
+            "type": "string"
+          },
+          "country": {
+            "pattern": "^[A-Z]{2}$",
+            "title": "Country",
+            "type": "string"
+          },
+          "editorial_country_evidence": {
+            "$ref": "#/$defs/EditorialCountryEvidence"
+          },
+          "accessed_at": {
+            "format": "date",
+            "title": "Accessed At",
+            "type": "string"
+          },
+          "publication_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Publication Date"
+          },
+          "read_status": {
+            "enum": [
+              "complete",
+              "snippet",
+              "unavailable"
+            ],
+            "title": "Read Status",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "domestic",
+              "editorial",
+              "institutional"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "research_track": {
+            "enum": [
+              "base",
+              "domestic_regional"
+            ],
+            "title": "Research Track",
+            "type": "string"
+          },
+          "sections": {
+            "$ref": "#/$defs/SourceSections"
+          },
+          "ingredients": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Ingredients",
+            "type": "array"
+          },
+          "technique_summary": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Technique Summary",
+            "type": "string"
+          },
+          "detail_notes": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Detail Notes",
+            "type": "array"
+          },
+          "provenance_origin": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Provenance Origin",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "url",
+          "author",
+          "publisher",
+          "editorial_group",
+          "country",
+          "editorial_country_evidence",
+          "accessed_at",
+          "read_status",
+          "kind",
+          "research_track",
+          "sections",
+          "ingredients",
+          "technique_summary",
+          "provenance_origin"
+        ],
+        "title": "SourceEvidence",
+        "type": "object"
+      },
+      "SourceSections": {
+        "additionalProperties": false,
+        "properties": {
+          "ingredients": {
+            "enum": [
+              "read",
+              "absent",
+              "unavailable"
+            ],
+            "title": "Ingredients",
+            "type": "string"
+          },
+          "method": {
+            "enum": [
+              "read",
+              "absent",
+              "unavailable"
+            ],
+            "title": "Method",
+            "type": "string"
+          },
+          "notes": {
+            "enum": [
+              "read",
+              "absent",
+              "unavailable"
+            ],
+            "title": "Notes",
+            "type": "string"
+          },
+          "comments": {
+            "enum": [
+              "read",
+              "absent",
+              "unavailable"
+            ],
+            "title": "Comments",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ingredients",
+          "method",
+          "notes",
+          "comments"
+        ],
+        "title": "SourceSections",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "request": {
+        "$ref": "#/$defs/Request"
+      },
+      "sources": {
+        "items": {
+          "$ref": "#/$defs/SourceEvidence"
+        },
+        "maxItems": 100,
+        "title": "Sources",
+        "type": "array"
+      },
+      "queries": {
+        "items": {
+          "$ref": "#/$defs/Query"
+        },
+        "maxItems": 100,
+        "title": "Queries",
+        "type": "array"
+      },
+      "completed_tracks": {
+        "items": {
+          "enum": [
+            "base",
+            "domestic_regional"
+          ],
+          "type": "string"
+        },
+        "maxItems": 10,
+        "title": "Completed Tracks",
+        "type": "array"
+      },
+      "pages_read": {
+        "maximum": 1000,
+        "minimum": 0,
+        "title": "Pages Read",
+        "type": "integer"
+      },
+      "researchers_count": {
+        "maximum": 3,
+        "minimum": 1,
+        "title": "Researchers Count",
+        "type": "integer"
+      },
+      "reformulations_by_track": {
+        "$ref": "#/$defs/ReformulationsByTrack"
+      },
+      "reviewer_notes": {
+        "items": {
+          "maxLength": 10000,
+          "minLength": 1,
+          "type": "string"
+        },
+        "maxItems": 200,
+        "title": "Reviewer Notes",
+        "type": "array"
+      }
+    },
+    "required": [
+      "request",
+      "sources",
+      "queries",
+      "completed_tracks",
+      "pages_read",
+      "researchers_count",
+      "reformulations_by_track"
+    ],
+    "title": "ResearchBatch",
+    "type": "object"
+  },
+  "delivery": {
+    "$defs": {
+      "EditorialCountryEvidence": {
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Text",
+            "type": "string"
+          },
+          "url": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text",
+          "url"
+        ],
+        "title": "EditorialCountryEvidence",
+        "type": "object"
+      },
+      "IngredientItem": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "aliases": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Aliases",
+            "type": "array"
+          },
+          "components": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Components",
+            "type": "array"
+          },
+          "alcohol": {
+            "default": false,
+            "title": "Alcohol",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "IngredientItem",
+        "type": "object"
+      },
+      "Profile": {
+        "additionalProperties": false,
+        "description": "Preferências declaradas, sem identificação pessoal nem inferência clínica.",
+        "properties": {
+          "onboarding_confirmed": {
+            "title": "Onboarding Confirmed",
+            "type": "boolean"
+          },
+          "excluded_ingredients": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Excluded Ingredients",
+            "type": "array"
+          },
+          "allergies": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Allergies",
+            "type": "array"
+          },
+          "intolerances": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Intolerances",
+            "type": "array"
+          },
+          "preferences": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Preferences",
+            "type": "array"
+          },
+          "equipment": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Equipment",
+            "type": "array"
+          },
+          "region": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Region"
+          },
+          "language_style": {
+            "default": "simples",
+            "enum": [
+              "simples",
+              "tecnico"
+            ],
+            "title": "Language Style",
+            "type": "string"
+          },
+          "servings": {
+            "default": 4,
+            "exclusiveMinimum": 0,
+            "maximum": 1000,
+            "title": "Servings",
+            "type": "integer"
+          },
+          "alcohol_free": {
+            "default": true,
+            "title": "Alcohol Free",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "onboarding_confirmed"
+        ],
+        "title": "Profile",
+        "type": "object"
+      },
+      "Query": {
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Text",
+            "type": "string"
+          },
+          "derived_from": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Derived From"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "Query",
+        "type": "object"
+      },
+      "ReformulationsByTrack": {
+        "additionalProperties": false,
+        "properties": {
+          "base": {
+            "anyOf": [
+              {
+                "maximum": 2,
+                "minimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Base"
+          },
+          "domestic_regional": {
+            "anyOf": [
+              {
+                "maximum": 2,
+                "minimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Domestic Regional"
+          }
+        },
+        "required": [
+          "base",
+          "domestic_regional"
+        ],
+        "title": "ReformulationsByTrack",
+        "type": "object"
+      },
+      "Request": {
+        "additionalProperties": false,
+        "description": "Identidade do prato resolvida pelo usuário e pelo host antes da busca.",
+        "properties": {
+          "dish": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Dish",
+            "type": "string"
+          },
+          "country": {
+            "pattern": "^[A-Z]{2}$",
+            "title": "Country",
+            "type": "string"
+          },
+          "variant": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Variant",
+            "type": "string"
+          },
+          "ambiguity_resolved": {
+            "title": "Ambiguity Resolved",
+            "type": "boolean"
+          },
+          "profile": {
+            "$ref": "#/$defs/Profile"
+          }
+        },
+        "required": [
+          "dish",
+          "country",
+          "variant",
+          "ambiguity_resolved",
+          "profile"
+        ],
+        "title": "Request",
+        "type": "object"
+      },
+      "ResearchBatch": {
+        "additionalProperties": false,
+        "properties": {
+          "request": {
+            "$ref": "#/$defs/Request"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/$defs/SourceEvidence"
+            },
+            "maxItems": 100,
+            "title": "Sources",
+            "type": "array"
+          },
+          "queries": {
+            "items": {
+              "$ref": "#/$defs/Query"
+            },
+            "maxItems": 100,
+            "title": "Queries",
+            "type": "array"
+          },
+          "completed_tracks": {
+            "items": {
+              "enum": [
+                "base",
+                "domestic_regional"
+              ],
+              "type": "string"
+            },
+            "maxItems": 10,
+            "title": "Completed Tracks",
+            "type": "array"
+          },
+          "pages_read": {
+            "maximum": 1000,
+            "minimum": 0,
+            "title": "Pages Read",
+            "type": "integer"
+          },
+          "researchers_count": {
+            "maximum": 3,
+            "minimum": 1,
+            "title": "Researchers Count",
+            "type": "integer"
+          },
+          "reformulations_by_track": {
+            "$ref": "#/$defs/ReformulationsByTrack"
+          },
+          "reviewer_notes": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Reviewer Notes",
+            "type": "array"
+          }
+        },
+        "required": [
+          "request",
+          "sources",
+          "queries",
+          "completed_tracks",
+          "pages_read",
+          "researchers_count",
+          "reformulations_by_track"
+        ],
+        "title": "ResearchBatch",
+        "type": "object"
+      },
+      "SourceEvidence": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Id",
+            "type": "string"
+          },
+          "title": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Title",
+            "type": "string"
+          },
+          "url": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Url",
+            "type": "string"
+          },
+          "author": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Author",
+            "type": "string"
+          },
+          "publisher": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Publisher",
+            "type": "string"
+          },
+          "editorial_group": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Editorial Group",
+            "type": "string"
+          },
+          "country": {
+            "pattern": "^[A-Z]{2}$",
+            "title": "Country",
+            "type": "string"
+          },
+          "editorial_country_evidence": {
+            "$ref": "#/$defs/EditorialCountryEvidence"
+          },
+          "accessed_at": {
+            "format": "date",
+            "title": "Accessed At",
+            "type": "string"
+          },
+          "publication_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Publication Date"
+          },
+          "read_status": {
+            "enum": [
+              "complete",
+              "snippet",
+              "unavailable"
+            ],
+            "title": "Read Status",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "domestic",
+              "editorial",
+              "institutional"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "research_track": {
+            "enum": [
+              "base",
+              "domestic_regional"
+            ],
+            "title": "Research Track",
+            "type": "string"
+          },
+          "sections": {
+            "$ref": "#/$defs/SourceSections"
+          },
+          "ingredients": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Ingredients",
+            "type": "array"
+          },
+          "technique_summary": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Technique Summary",
+            "type": "string"
+          },
+          "detail_notes": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Detail Notes",
+            "type": "array"
+          },
+          "provenance_origin": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Provenance Origin",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "url",
+          "author",
+          "publisher",
+          "editorial_group",
+          "country",
+          "editorial_country_evidence",
+          "accessed_at",
+          "read_status",
+          "kind",
+          "research_track",
+          "sections",
+          "ingredients",
+          "technique_summary",
+          "provenance_origin"
+        ],
+        "title": "SourceEvidence",
+        "type": "object"
+      },
+      "SourceSections": {
+        "additionalProperties": false,
+        "properties": {
+          "ingredients": {
+            "enum": [
+              "read",
+              "absent",
+              "unavailable"
+            ],
+            "title": "Ingredients",
+            "type": "string"
+          },
+          "method": {
+            "enum": [
+              "read",
+              "absent",
+              "unavailable"
+            ],
+            "title": "Method",
+            "type": "string"
+          },
+          "notes": {
+            "enum": [
+              "read",
+              "absent",
+              "unavailable"
+            ],
+            "title": "Notes",
+            "type": "string"
+          },
+          "comments": {
+            "enum": [
+              "read",
+              "absent",
+              "unavailable"
+            ],
+            "title": "Comments",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ingredients",
+          "method",
+          "notes",
+          "comments"
+        ],
+        "title": "SourceSections",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "description": "Lote e perfil únicos; o pedido operacional deriva exclusivamente do lote.",
+    "properties": {
+      "research": {
+        "$ref": "#/$defs/ResearchBatch"
+      },
+      "ingredients": {
+        "items": {
+          "$ref": "#/$defs/IngredientItem"
+        },
+        "maxItems": 200,
+        "title": "Ingredients",
+        "type": "array"
+      },
+      "steps": {
+        "items": {
+          "maxLength": 10000,
+          "minLength": 1,
+          "type": "string"
+        },
+        "maxItems": 200,
+        "title": "Steps",
+        "type": "array"
+      },
+      "labels_reviewed": {
+        "title": "Labels Reviewed",
+        "type": "boolean"
+      },
+      "cross_contact_reviewed": {
+        "default": false,
+        "title": "Cross Contact Reviewed",
+        "type": "boolean"
+      },
+      "adaptation_notes": {
+        "items": {
+          "maxLength": 10000,
+          "minLength": 1,
+          "type": "string"
+        },
+        "maxItems": 200,
+        "title": "Adaptation Notes",
+        "type": "array"
+      }
+    },
+    "required": [
+      "research",
+      "ingredients",
+      "steps",
+      "labels_reviewed"
+    ],
+    "title": "Delivery",
+    "type": "object"
+  }
+}
