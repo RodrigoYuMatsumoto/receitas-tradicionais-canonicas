@@ -1,3 +1,3 @@
-"""Pesquisa culinária documentada, experimental e sem persistência de perfis."""
+"""Pesquisa culinária documentada e sem persistência de perfis."""
 
-__version__ = "0.1.0"
+__version__ = "1.0.0"

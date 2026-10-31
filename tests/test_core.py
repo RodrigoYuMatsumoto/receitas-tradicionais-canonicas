@@ -35,7 +35,7 @@ def batch_data() -> dict:
                 "publisher": f"Publicação sintética {index}",
                 "editorial_group": f"Grupo sintético {index}",
                 "country": "BR",
-                "editorial_country_evidence": {"text": "Declaração sintética para teste do contrato.", "url": f"https://fonte{index}.example.test/sobre"},
+                "editorial_country_evidence": {"text": "Declaração sintética para teste do contrato.", "url": f"https://fonte{index}.example.test/sobre", "verification": "confirmed"},
                 "accessed_at": date.today().isoformat(),
                 "publication_date": None,
                 "read_status": "complete",
@@ -46,6 +46,7 @@ def batch_data() -> dict:
                 "technique_summary": "Técnica sintética registrada somente para testar o contrato.",
                 "detail_notes": ["Detalhe sintético documentado apenas no contexto do teste."],
                 "provenance_origin": f"https://fonte{index}.example.test/receita",
+                "provenance_verification": "confirmed",
             }
             for index in range(7)
         ],
@@ -115,6 +116,43 @@ class ResearchTests(unittest.TestCase):
             data["sources"][0]["editorial_country_evidence"] = change
             with self.subTest(change=change), self.assertRaises(ValidationError):
                 ResearchBatch.model_validate(data)
+
+    def test_omitted_qualifications_default_to_pending_and_block_gate(self) -> None:
+        data = batch_data()
+        del data["sources"][0]["editorial_country_evidence"]["verification"]
+        del data["sources"][0]["provenance_verification"]
+        batch = ResearchBatch.model_validate(data)
+        self.assertEqual(batch.sources[0].editorial_country_evidence.verification, "pending")
+        self.assertEqual(batch.sources[0].provenance_verification, "pending")
+        report = validate_research(batch)
+        self.assertFalse(report.ok)
+        self.assertEqual(
+            {issue.code: issue.path for issue in report.issues},
+            {
+                "pais_editorial_pendente": "sources.0.editorial_country_evidence.verification",
+                "independencia_pendente": "sources.0.provenance_verification",
+            },
+        )
+
+    def test_each_explicit_pending_qualification_blocks_independently(self) -> None:
+        for field, code in [("editorial_country_evidence", "pais_editorial_pendente"), ("provenance_verification", "independencia_pendente")]:
+            data = batch_data()
+            if field == "editorial_country_evidence":
+                data["sources"][2][field]["verification"] = "pending"
+            else:
+                data["sources"][2][field] = "pending"
+            with self.subTest(field=field):
+                self.assertEqual(self.codes(data), {code})
+
+    def test_provenance_origin_is_a_url_and_schema_explains_original_publication(self) -> None:
+        data = batch_data()
+        data["sources"][0]["provenance_origin"] = "Publicação original do próprio autor."
+        with self.assertRaises(ValidationError):
+            ResearchBatch.model_validate(data)
+        field = ResearchBatch.model_json_schema()["$defs"]["SourceEvidence"]["properties"]["provenance_origin"]
+        self.assertEqual(field["format"], "uri")
+        self.assertIn("URL HTTP(S)", field["description"])
+        self.assertIn("publicação original", field["description"])
 
     def test_snippet_and_unavailable_are_blocked(self) -> None:
         for status in ["snippet", "unavailable"]:
@@ -331,6 +369,31 @@ class DeliveryTests(unittest.TestCase):
         self.assertIn("alcool_nas_etapas", self.codes(data))
         data["ingredients"] = [{"name": "Ingrediente sintético", "components": ["Álcool etílico"]}]
         self.assertIn("alcool_na_entrega", self.codes(data))
+
+    def test_adaptation_notes_cannot_reintroduce_restricted_ingredients(self) -> None:
+        for field in ["excluded_ingredients", "allergies", "intolerances"]:
+            data = delivery_data()
+            data["research"]["request"]["profile"][field] = ["amendoim"]
+            data["cross_contact_reviewed"] = True
+            data["adaptation_notes"] = ["Acrescente pasta de AMENDOIM na adaptação."]
+            with self.subTest(field=field):
+                report = validate_delivery(Delivery.model_validate(data))
+                self.assertFalse(report.ok)
+                self.assertEqual({issue.code: issue.path for issue in report.issues}, {"restricao_nas_notas": "adaptation_notes.0"})
+        data["adaptation_notes"] = ["Use a alternativa já confirmada no inventário."]
+        self.assertTrue(validate_delivery(Delivery.model_validate(data)).ok)
+
+    def test_additional_policy_aliases_are_blocked_in_inventory_steps_and_notes(self) -> None:
+        for term in ["chopp", "sidra", "soju", "shaoxing"]:
+            for field, code in [("ingredients", "alcool_na_entrega"), ("steps", "alcool_nas_etapas"), ("adaptation_notes", "alcool_nas_notas")]:
+                data = delivery_data()
+                data[field] = [{"name": term}] if field == "ingredients" else [term]
+                with self.subTest(term=term, field=field):
+                    report = validate_delivery(Delivery.model_validate(data))
+                    self.assertFalse(report.ok)
+                    self.assertIn(code, {issue.code for issue in report.issues})
+                    expected_path = "ingredients.0.alcohol" if field == "ingredients" else f"{field}.0"
+                    self.assertTrue(any(issue.code == code and issue.path == expected_path for issue in report.issues))
 
 
 if __name__ == "__main__":

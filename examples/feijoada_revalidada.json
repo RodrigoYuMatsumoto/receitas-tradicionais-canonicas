@@ -32,7 +32,8 @@
       "country": "BR",
       "editorial_country_evidence": {
         "text": "Termos identificam a Editora Panelinha, produtora de conteúdo culinário, com aplicação das leis brasileiras e foro de São Paulo. A política identifica operação e contato local.",
-        "url": "https://panelinha.com.br/termos-de-uso"
+        "url": "https://panelinha.com.br/termos-de-uso",
+        "verification": "confirmed"
       },
       "accessed_at": "2026-10-31",
       "publication_date": null,
@@ -64,7 +65,8 @@
         "method": "read",
         "notes": "read",
         "comments": "unavailable"
-      }
+      },
+      "provenance_verification": "confirmed"
     },
     {
       "id": "S2",
@@ -76,7 +78,8 @@
       "country": "BR",
       "editorial_country_evidence": {
         "text": "Receita do É de Casa com Delci Gomes, Mangueira e identificação de Globo Comunicação e Participações S.A.; o contexto editorial brasileiro foi revisado. Não se afirma que a cidade esteja escrita literalmente na página.",
-        "url": "https://receitas.globo.com/receitas-da-tv/e-de-casa/feijoada-e-de-casa.ghtml"
+        "url": "https://receitas.globo.com/receitas-da-tv/e-de-casa/feijoada-e-de-casa.ghtml",
+        "verification": "confirmed"
       },
       "accessed_at": "2026-10-31",
       "publication_date": null,
@@ -111,7 +114,8 @@
         "method": "read",
         "notes": "read",
         "comments": "unavailable"
-      }
+      },
+      "provenance_verification": "confirmed"
     },
     {
       "id": "S3",
@@ -123,7 +127,8 @@
       "country": "BR",
       "editorial_country_evidence": {
         "text": "História institucional identifica operação brasileira desde 1963 e unidades produtivas no Brasil. É fonte comercial da fabricante.",
-        "url": "https://www.camil.com.br/historia/"
+        "url": "https://www.camil.com.br/historia/",
+        "verification": "confirmed"
       },
       "accessed_at": "2026-10-31",
       "publication_date": null,
@@ -158,7 +163,8 @@
         "method": "read",
         "notes": "read",
         "comments": "unavailable"
-      }
+      },
+      "provenance_verification": "confirmed"
     },
     {
       "id": "S4",
@@ -170,7 +176,8 @@
       "country": "BR",
       "editorial_country_evidence": {
         "text": "A página institucional declara publicação brasileira do Grupo Contteudo com sede em Maringá, Paraná, e equipe própria de culinaristas.",
-        "url": "https://www.receiteria.com.br/sobre/"
+        "url": "https://www.receiteria.com.br/sobre/",
+        "verification": "confirmed"
       },
       "accessed_at": "2026-10-31",
       "publication_date": null,
@@ -208,7 +215,8 @@
         "method": "read",
         "notes": "read",
         "comments": "read"
-      }
+      },
+      "provenance_verification": "confirmed"
     },
     {
       "id": "S5",
@@ -220,7 +228,8 @@
       "country": "BR",
       "editorial_country_evidence": {
         "text": "A página institucional identifica Receita da Boa como parte do SJCC, Grupo JCPM, com veículos em Recife e outras cidades pernambucanas; hospedagem UOL não define o grupo editorial.",
-        "url": "https://jc.uol.com.br/receitadaboa/quem-somos"
+        "url": "https://jc.uol.com.br/receitadaboa/quem-somos",
+        "verification": "confirmed"
       },
       "accessed_at": "2026-10-31",
       "publication_date": "2026-06-03",
@@ -252,7 +261,8 @@
         "method": "read",
         "notes": "read",
         "comments": "unavailable"
-      }
+      },
+      "provenance_verification": "confirmed"
     },
     {
       "id": "S6",
@@ -264,7 +274,8 @@
       "country": "BR",
       "editorial_country_evidence": {
         "text": "Página do MasterChef Brasil relata preparo aprendido com a avó Lídia por Salvador Cordovil, ritmista da Portela, e identifica a redação da Band.",
-        "url": "https://www.band.com.br/entretenimento/realities/masterchef/ritmista-da-portela-salvador-ensina-feijoada-perfeita-para-preparar-ouvindo-samba-veja-a-receita-16310456"
+        "url": "https://www.band.com.br/entretenimento/realities/masterchef/ritmista-da-portela-salvador-ensina-feijoada-perfeita-para-preparar-ouvindo-samba-veja-a-receita-16310456",
+        "verification": "confirmed"
       },
       "accessed_at": "2026-10-31",
       "publication_date": "2020-09-19",
@@ -306,7 +317,8 @@
         "method": "read",
         "notes": "read",
         "comments": "unavailable"
-      }
+      },
+      "provenance_verification": "confirmed"
     },
     {
       "id": "S7",
@@ -318,7 +330,8 @@
       "country": "BR",
       "editorial_country_evidence": {
         "text": "Política identifica Webedia Internet Brasil S.A. como proprietária da plataforma e controladora com sede no Rio de Janeiro. A receita tem colaborador identificado.",
-        "url": "https://www.tudogostoso.com.br/privacidade"
+        "url": "https://www.tudogostoso.com.br/privacidade",
+        "verification": "confirmed"
       },
       "accessed_at": "2026-10-31",
       "publication_date": null,
@@ -357,7 +370,8 @@
         "method": "read",
         "notes": "unavailable",
         "comments": "unavailable"
-      }
+      },
+      "provenance_verification": "confirmed"
     }
   ],
   "queries": [

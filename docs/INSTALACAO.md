@@ -1,7 +1,7 @@
 ---
 lang: pt-BR
 title: Instalação e conexão com sua IA
-subject: Uso por instrução copiada, repositório local e MCP
+subject: Uso pela conversa, pacote local e configuração de clientes MCP
 author: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
 keywords: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
 manager: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
@@ -9,17 +9,17 @@ manager: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
 
 # Instalação e conexão com sua IA
 
-## Pela conversa, sem instalar programas
+## Comece pela conversa
 
-Copie [a instrução completa](../prompts/INSTRUCAO_PROJETO.md) para sua IA. Se houver um campo de instruções de projeto, prefira esse campo. Caso contrário, cole no início de uma conversa e peça que a IA confirme as perguntas iniciais.
+Abra [a instrução completa](../prompts/INSTRUCAO_PROJETO.md), copie o conteúdo e coloque nas instruções de projeto da sua IA. Se não existir esse campo, cole no início de uma conversa. Depois diga: “Vamos configurar minha cozinha”. Você pode responder uma pergunta por vez e aproveitar informações que já contou.
 
-A IA precisa conseguir pesquisar e abrir páginas. Se só conhece informações memorizadas, não pode declarar que pesquisou sete receitas nesta utilização. Um link para este repositório não significa que uma IA tenha lido seu conteúdo.
+A IA precisa conseguir pesquisar e abrir páginas para executar uma pesquisa nova. Um link para o repositório não significa que ela tenha lido a instrução. Quando a interface aceitar voz, você pode responder falando e pedir a leitura de uma etapa por vez; este projeto não instala áudio próprio.
 
-Quando a interface aceitar voz, você pode responder falando e pedir que ela leia uma etapa por vez. O projeto não instala um serviço próprio de áudio.
+Essa alternativa também serve a clientes web que não conseguem iniciar processos locais. O projeto fornece MCP local por `stdio`; não há endpoint remoto hospedado. Os resultados observados em cada interface estão em [clientes testados](CLIENTES_TESTADOS.md).
 
-## Pelo repositório local
+## Instale o pacote local
 
-Requisitos: Git e Python 3.11 ou superior. Execute em uma pasta de sua escolha:
+Esta opção exige Git e Python 3.11 ou superior. Execute em uma pasta escolhida por você:
 
 ```powershell
 git clone https://github.com/RodrigoYuMatsumoto/receitas-tradicionais-canonicas.git
@@ -29,11 +29,65 @@ python -m venv .venv
 .venv\Scripts\python.exe -m receitas_tradicionais onboarding
 ```
 
-No Linux ou macOS, use `.venv/bin/python` no lugar de `.venv\Scripts\python.exe`.
+No Linux ou macOS, troque `.venv\Scripts\python.exe` por `.venv/bin/python`. O onboarding devolve um perfil em JSON e não grava as respostas automaticamente. Para uso cotidiano, a conversa com a IA costuma ser mais simples.
 
-O onboarding faz perguntas e devolve um perfil em JSON. Não grava as respostas automaticamente. A conversa com a IA é a opção mais simples; o comando é útil para integrações.
+O pacote fixa MCP 2.3.0 e Pydantic 2.14.2. Atualizar essas dependências exige os testes de integração, além da troca dos números.
 
-Para conferir a revalidação real, o exemplo sintético e o registro histórico da pesquisa:
+## Entenda a conexão MCP
+
+No transporte `stdio`, o cliente inicia o Python instalado e conversa com ele pela entrada e saída padrão. Não é necessário abrir porta. O servidor oferece:
+
+| Ferramenta | Para que serve |
+|---|---|
+| `onboarding_questions` | Fornecer as perguntas iniciais. |
+| `plan_research` | Planejar a pesquisa após perfil e prato confirmados. |
+| `validate_research` | Conferir o registro das sete fontes. |
+| `validate_delivery` | Conferir a entrega e as exclusões do perfil incorporado. |
+
+A instrução integral agora está embarcada no pacote, na inicialização MCP e no recurso `receitas://project/instructions`. Ela funciona fora da pasta do clone. Caso o cliente não aplique as instruções recebidas do servidor, carregue também o prompt completo no projeto ou na sessão, como no exemplo Claude Code abaixo.
+
+O MCP não pesquisa na web, não chama modelos, não salva perfis e não altera configurações globais. A IA conectada fornece busca e agentes. Aprovação estrutural não comprova, sozinha, leitura real ou tradição culinária.
+
+## Claude Code: configuração ensaiada
+
+O ensaio de 31/10/2026 usou **Claude Code 2.1.304**, MCP local e instrução completa anexada à sessão. Houve chamadas reais às quatro ferramentas, aceitação do lote de sete fontes, rejeição do lote de seis e rejeição de entrega incompatível com uma exclusão fictícia. Outro teste pediu escolha entre sentidos de canjica antes de pesquisar. Isso não foi uma nova pesquisa culinária nem um estudo de usabilidade.
+
+1. Copie [o modelo Claude Code](../configs/claude_code.json) para `.local/claude_code.json` no clone. Crie a pasta `.local` se necessário. Se o arquivo já existir, use outro nome para preservar a configuração anterior.
+2. No arquivo copiado, substitua `CAMINHO_ABSOLUTO_DO_PYTHON` pelo executável do ambiente instalado. Use caminho absoluto; no Windows, barras simples `/` evitam escapes no JSON. Mantenha o arquivo preenchido apenas na sua máquina.
+3. Abra uma sessão interativa a partir da raiz do clone:
+
+```powershell
+$instrucaoReceitas = Get-Content -LiteralPath prompts/INSTRUCAO_PROJETO.md -Raw -Encoding UTF8
+claude --mcp-config .local/claude_code.json --strict-mcp-config --append-system-prompt $instrucaoReceitas
+```
+
+Diga: “Liste as quatro ferramentas do MCP receitas, chame onboarding_questions e vamos configurar minha cozinha”. A configuração vale para essa execução. `--strict-mcp-config` restringe os servidores MCP aos fornecidos no arquivo; as demais políticas e permissões do Claude continuam aplicáveis. O modo interativo segue a política de histórico do aplicativo.
+
+Para um diagnóstico curto sem persistir a sessão local do Claude:
+
+```powershell
+claude --print --no-session-persistence --max-budget-usd 0.50 --mcp-config .local/claude_code.json --strict-mcp-config --append-system-prompt $instrucaoReceitas "Liste as quatro ferramentas do MCP receitas e chame onboarding_questions. Não pesquise nem salve arquivos."
+```
+
+Os nomes das ferramentas podem aparecer com o prefixo `mcp__receitas__`. A opção de orçamento aplica-se ao modo `--print`. O ensaio automatizado também limitou as ferramentas permitidas às quatro deste servidor, usou diretório temporário e não alterou configuração global. Não usou modo de permissões irrestritas nem modo mínimo de autenticação. A ausência de persistência local não altera a política de histórico ou retenção do provedor.
+
+As opções acima foram conferidas em `claude --help` e na [referência oficial da CLI](https://code.claude.com/docs/en/cli-reference). A [documentação oficial MCP](https://code.claude.com/docs/en/mcp) explica conexão, permissões e políticas gerenciadas.
+
+## Gemini CLI: modelo disponível, sem homologação local
+
+O [modelo Gemini CLI](../configs/gemini_cli.json) apresenta o bloco `mcpServers` para o arquivo `.gemini/settings.json` da pasta de trabalho escolhida. Preencha o executável e mescle apenas esse bloco com configurações existentes; não substitua um arquivo inteiro nem altere o perfil global. O modelo mantém confirmações de ferramentas, conforme a [documentação oficial do Gemini CLI](https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md).
+
+O ensaio com **Gemini CLI 0.61.0** foi recusado pelo provedor com `UNSUPPORTED_CLIENT`, antes de qualquer chamada de modelo ou ferramenta MCP. Portanto, o exemplo não é comprovação de compatibilidade funcional nesta instalação. Não foi feita nova tentativa nem alteração de credenciais ou da confiança da pasta para contornar a recusa. Use a instrução portátil na interface web enquanto esse cliente estiver indisponível; consulte [clientes testados](CLIENTES_TESTADOS.md) para o estado dos ensaios web.
+
+Em uma instalação elegível, a futura conferência começa na pasta do projeto com `gemini --allowed-mcp-server-names receitas`. Esse comando foi conferido no help local, mas seu funcionamento com o servidor ainda exige novo ensaio. Reveja normalmente as solicitações de confiança e permissão apresentadas pelo aplicativo.
+
+## Como reconhecer uma conexão funcional
+
+A IA deve reconhecer as quatro ferramentas, chamar `onboarding_questions` e iniciar um perfil conversacional sem presumir ausência de restrições. Um nome ambíguo exige opções com ingredientes básicos antes da escolha. Depois, o plano precisa conservar o nome confirmado como primeira consulta.
+
+Para uma verificação completa, o cliente deve aceitar o lote real de sete fontes e rejeitar uma cópia com seis. Também deve rejeitar entrega que recomende ingrediente explicitamente excluído. O relato precisa distinguir esses dados de teste de uma pesquisa nova. Se só houver texto simulando chamadas, a conexão ainda não foi comprovada.
+
+Os exemplos podem ser conferidos diretamente:
 
 ```powershell
 .venv\Scripts\python.exe -m receitas_tradicionais validate examples/feijoada_revalidada.json
@@ -42,38 +96,12 @@ Para conferir a revalidação real, o exemplo sintético e o registro histórico
 .venv\Scripts\python.exe -m receitas_tradicionais schema
 ```
 
-A revalidação real e o exemplo sintético devem retornar código 0, que indica estrutura aceita. A revalidação reutiliza fontes conhecidas e mede seus próprios contadores; o exemplo sintético não apresenta fontes reais. O registro histórico de feijoada deve retornar código 1: há sete fontes, mas as reformulações após buscas sem fonte elegível não foram medidas. O protocolo novo bloqueia essa lacuna; os contadores desconhecidos não foram preenchidos com zero. O comando `schema` retorna código 0 e não faz pesquisa.
-
-O pacote fixa o SDK oficial MCP em 2.3.0. Uma atualização da dependência exige os testes de integração, não apenas a troca do número.
-
-## MCP local
-
-Use um cliente que aceite servidores MCP por `stdio`. Nesse transporte, o cliente inicia um processo local e se comunica com ele pela entrada e saída padrão. Não é necessário abrir uma porta nem publicar um serviço.
-
-O [modelo de configuração](../configs/mcp_local.json) usa a estrutura `mcpServers`, comum em clientes desktop. Substitua o caminho do executável pelo Python do ambiente que acabou de criar. Esse caminho deve ser absoluto. A sintaxe e o local de configuração variam entre clientes; importe a configuração pelo mecanismo documentado pelo seu cliente.
-
-O processo executado é:
-
-```powershell
-CAMINHO_DO_PYTHON_DO_AMBIENTE -m receitas_tradicionais mcp
-```
-
-Depois da conexão, peça à IA para listar as ferramentas deste projeto e chamar `onboarding_questions`. Confirme que as ferramentas `plan_research`, `validate_research` e `validate_delivery` também aparecem. Em seguida, carregue a instrução completa no projeto da IA.
-
-O MCP não faz instalação automática em aplicativos, não altera instruções globais e não guarda perfis. As configurações de um usuário não são distribuídas com o repositório.
-
-Clientes web que aceitam somente MCP remoto não conseguem iniciar diretamente este servidor local. Nesses clientes, use a instrução pela conversa. Esta versão não fornece um endpoint remoto hospedado.
-
-## Papéis e acesso à internet
-
-Uma IA com subagentes pode distribuir as duas frentes de pesquisa e a auditoria conforme [os papéis](../agents/PAPEIS.md). Se não tiver subagentes, executa os papéis em etapas e informa que a revisão ocorreu no mesmo contexto. O MCP não cria agentes nem contrata provedores.
-
-As ferramentas de busca e leitura pertencem à IA utilizada. Verifique seus custos e permissões nesse aplicativo. O servidor deste repositório não solicita chave de API e não envia perfis à rede por conta própria.
+Os dois primeiros retornam código 0 para estrutura aceita. O registro histórico retorna código 1 porque seus retries não foram medidos e não contém os novos estados de qualificação; as lacunas foram preservadas. O comando `schema` exporta contratos e não pesquisa.
 
 ## Atualização e retirada
 
-Para atualizar, mantenha suas configurações particulares fora do clone, leia o changelog e faça novo ambiente antes de trocar uma versão em uso. Para voltar, use a versão anterior em seu próprio ambiente. Para retirar a conexão, remova a entrada deste MCP no cliente; o projeto não instala tarefas recorrentes.
+Para atualizar, preserve a configuração particular, leia o changelog e instale a nova versão em outro ambiente antes de trocar o executável em uso. Para voltar, aponte para o ambiente anterior. No Claude Code iniciado pelos comandos acima, basta encerrar e deixar de fornecer o arquivo. No Gemini CLI, remova apenas a entrada `receitas` do arquivo local usado. O projeto não instala tarefas recorrentes.
 
-Confiança: alta nos comandos testados no ambiente descrito em [verificação](VERIFICACAO.md); média no encaixe com interfaces ainda não ensaiadas.
+Confiança: alta nos comportamentos observados do Claude Code e nos testes do pacote; limitada nos demais clientes e interfaces, conforme [clientes testados](CLIENTES_TESTADOS.md).
 
-Pendências: confirmação de configuração nas interfaces específicas de cada cliente e teste de compreensão com usuários finais.
+Pendências: ensaio funcional do Gemini CLI em instalação elegível e estudo de compreensão com usuários finais. Outras limitações e a cobertura de cada versão estão em [verificação](VERIFICACAO.md).

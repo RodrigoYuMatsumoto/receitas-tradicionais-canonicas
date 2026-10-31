@@ -93,6 +93,10 @@ class Request(StrictModel):
 class EditorialCountryEvidence(StrictModel):
     text: Text
     url: Text
+    verification: Literal["confirmed", "pending"] = Field(
+        default="pending",
+        description="Qualificação declarada da relação editorial com o país; exige revisão semântica das evidências.",
+    )
 
     @field_validator("url")
     @classmethod
@@ -149,7 +153,14 @@ class SourceEvidence(StrictModel):
     ingredients: TextList
     technique_summary: Text
     detail_notes: TextList = Field(default_factory=list)
-    provenance_origin: Text
+    provenance_origin: Text = Field(
+        description="URL HTTP(S) da publicação original da receita, usada para identificar republicações; não informe descrição em prosa.",
+        json_schema_extra={"format": "uri"},
+    )
+    provenance_verification: Literal["confirmed", "pending"] = Field(
+        default="pending",
+        description="Qualificação declarada da origem e da independência editorial; exige revisão semântica das evidências.",
+    )
 
     @field_validator("country")
     @classmethod

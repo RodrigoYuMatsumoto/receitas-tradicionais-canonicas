@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "receitas": {
+      "command": "CAMINHO_ABSOLUTO_DO_PYTHON",
+      "args": [
+        "-m",
+        "receitas_tradicionais",
+        "mcp"
+      ],
+      "includeTools": [
+        "onboarding_questions",
+        "plan_research",
+        "validate_research",
+        "validate_delivery"
+      ],
+      "trust": false
+    }
+  }
+}
