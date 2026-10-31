@@ -1,0 +1,471 @@
+{
+  "request": {
+    "dish": "Feijoada Tradicional Brasileira",
+    "country": "BR",
+    "variant": "Panorama comparativo autorizado de variantes brasileiras; nenhuma receita operacional escolhida.",
+    "ambiguity_resolved": true,
+    "profile": {
+      "onboarding_confirmed": true,
+      "excluded_ingredients": [],
+      "allergies": [],
+      "intolerances": [],
+      "preferences": [
+        "Exemplo fictício para ensaio comparativo; não é perfil de pessoa real."
+      ],
+      "language_style": "simples",
+      "servings": 6,
+      "alcohol_free": true,
+      "equipment": [
+        "Panela comum; equipamento do exemplo, sem indicação de execução."
+      ],
+      "region": "Brasil"
+    }
+  },
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Feijoada na pressão",
+      "url": "https://panelinha.com.br/receita/feijoada-na-pressao",
+      "author": "Panelinha",
+      "publisher": "Editora Panelinha",
+      "editorial_group": "panelinha",
+      "country": "BR",
+      "editorial_country_evidence": {
+        "text": "Termos identificam a Editora Panelinha, produtora de conteúdo culinário, com aplicação das leis brasileiras e foro de São Paulo. A política identifica operação e contato local.",
+        "url": "https://panelinha.com.br/termos-de-uso"
+      },
+      "accessed_at": "2026-10-31",
+      "publication_date": null,
+      "read_status": "complete",
+      "kind": "editorial",
+      "ingredients": [
+        "feijão preto",
+        "carne-seca",
+        "costela salgada",
+        "lombo salgado",
+        "paio",
+        "cebola",
+        "alho",
+        "louro",
+        "cominho"
+      ],
+      "technique_summary": "Cozinha carnes e feijão em etapas; usa parte do caldo das carnes e engrossa o refogado com grãos amassados.",
+      "detail_notes": [
+        "Reserva quatro xícaras do caldo das carnes e cozinha os paios inteiros com o feijão.",
+        "Data de publicação não localizada."
+      ],
+      "provenance_origin": "https://panelinha.com.br/receita/feijoada-na-pressao",
+      "research_track": "base",
+      "sections": {
+        "ingredients": "read",
+        "method": "read",
+        "notes": "read",
+        "comments": "unavailable"
+      }
+    },
+    {
+      "id": "S2",
+      "title": "Feijoada de Delci Gomes",
+      "url": "https://receitas.globo.com/receitas-da-tv/e-de-casa/feijoada-e-de-casa.ghtml",
+      "author": "Delci Gomes",
+      "publisher": "Receitas Globo",
+      "editorial_group": "globo",
+      "country": "BR",
+      "editorial_country_evidence": {
+        "text": "Página do É de Casa identifica Delci Gomes como cozinheira da feijoada mensal da Mangueira, no Rio de Janeiro; rodapé identifica Globo Comunicação e Participações S.A.",
+        "url": "https://receitas.globo.com/receitas-da-tv/e-de-casa/feijoada-e-de-casa.ghtml"
+      },
+      "accessed_at": "2026-10-31",
+      "publication_date": null,
+      "read_status": "complete",
+      "kind": "domestic",
+      "ingredients": [
+        "feijão preto",
+        "carne-seca",
+        "costela",
+        "lombo",
+        "paio",
+        "calabresa",
+        "pé de porco",
+        "rabo",
+        "orelha",
+        "bacon",
+        "louro",
+        "cominho"
+      ],
+      "technique_summary": "Cozinha as carnes inteiras, corta depois e serve separadas, umedecidas com caldo.",
+      "detail_notes": [
+        "A apresentação separa carnes e feijão; não é obrigação nacional.",
+        "Data de publicação não localizada."
+      ],
+      "provenance_origin": "https://receitas.globo.com/receitas-da-tv/e-de-casa/feijoada-e-de-casa.ghtml",
+      "research_track": "domestic_regional",
+      "sections": {
+        "ingredients": "read",
+        "method": "read",
+        "notes": "read",
+        "comments": "unavailable"
+      }
+    },
+    {
+      "id": "S3",
+      "title": "Feijoada",
+      "url": "https://www.camil.com.br/receitas/feijoada",
+      "author": "Camil",
+      "publisher": "Camil",
+      "editorial_group": "camil",
+      "country": "BR",
+      "editorial_country_evidence": {
+        "text": "História institucional identifica operação brasileira desde 1963 e unidades produtivas no Brasil. É fonte comercial da fabricante.",
+        "url": "https://www.camil.com.br/historia/"
+      },
+      "accessed_at": "2026-10-31",
+      "publication_date": null,
+      "read_status": "complete",
+      "kind": "editorial",
+      "ingredients": [
+        "feijão preto",
+        "carne-seca",
+        "lombo defumado",
+        "costelinha defumada",
+        "rabo",
+        "orelha",
+        "bacon",
+        "paio",
+        "calabresa",
+        "laranja"
+      ],
+      "technique_summary": "Aferventa grupos de carnes separadamente antes de reuni-los ao feijão; retira a laranja depois de cozinhar.",
+      "detail_notes": [
+        "A laranja entra sem casca quando o caldo começa a engrossar; é retirada vinte minutos depois.",
+        "Não inferir absorção química de gordura pela fruta.",
+        "Data de publicação não localizada."
+      ],
+      "provenance_origin": "https://www.camil.com.br/receitas/feijoada",
+      "research_track": "base",
+      "sections": {
+        "ingredients": "read",
+        "method": "read",
+        "notes": "read",
+        "comments": "unavailable"
+      }
+    },
+    {
+      "id": "S4",
+      "title": "Feijoada completa e clássica",
+      "url": "https://www.receiteria.com.br/receita/feijoada/",
+      "author": "Rodrigo Vilasbôas",
+      "publisher": "Receiteria",
+      "editorial_group": "contteudo",
+      "country": "BR",
+      "editorial_country_evidence": {
+        "text": "A página institucional declara publicação brasileira do Grupo Contteudo com sede em Maringá, Paraná, e equipe própria de culinaristas.",
+        "url": "https://www.receiteria.com.br/sobre/"
+      },
+      "accessed_at": "2026-10-31",
+      "publication_date": null,
+      "read_status": "complete",
+      "kind": "editorial",
+      "ingredients": [
+        "feijão preto",
+        "banha",
+        "lombo",
+        "costelinha",
+        "bacon",
+        "cebola",
+        "alho",
+        "louro",
+        "pé de porco",
+        "joelho",
+        "rabo",
+        "carne-seca",
+        "orelha",
+        "paio",
+        "calabresa",
+        "salsinha",
+        "laranja"
+      ],
+      "technique_summary": "Cozinha sem pressão e ajusta a entrada e retirada das carnes conforme o ponto.",
+      "detail_notes": [
+        "A capa do bacon é reservada para cozinhar com o feijão e depois retirada.",
+        "A data informada é de atualização; publicação inicial não localizada."
+      ],
+      "provenance_origin": "https://www.receiteria.com.br/receita/feijoada/",
+      "research_track": "base",
+      "sections": {
+        "ingredients": "read",
+        "method": "read",
+        "notes": "read",
+        "comments": "read"
+      }
+    },
+    {
+      "id": "S5",
+      "title": "Aprenda como fazer feijoada: receita tradicional brasileira para reunir a família à mesa",
+      "url": "https://jc.uol.com.br/receitadaboa/aprenda-como-fazer-feijoada-receita-tradicional-brasileira-para-reunir-a-familia-a-mesa.html",
+      "author": "Gabriella Zilma",
+      "publisher": "Receita da Boa",
+      "editorial_group": "jcpm_sjcc",
+      "country": "BR",
+      "editorial_country_evidence": {
+        "text": "A página institucional identifica Receita da Boa como parte do SJCC, Grupo JCPM, com veículos em Recife e outras cidades pernambucanas; hospedagem UOL não define o grupo editorial.",
+        "url": "https://jc.uol.com.br/receitadaboa/quem-somos"
+      },
+      "accessed_at": "2026-10-31",
+      "publication_date": "2026-06-03",
+      "read_status": "complete",
+      "kind": "editorial",
+      "ingredients": [
+        "feijão preto",
+        "carne-seca",
+        "costelinha",
+        "lombo",
+        "paio",
+        "calabresa",
+        "bacon",
+        "alho",
+        "cebola",
+        "louro",
+        "cheiro-verde"
+      ],
+      "technique_summary": "Começa o feijão separadamente, doura carnes no refogado e reúne os preparos.",
+      "detail_notes": [
+        "Não foi identificado detalhe raro nesta receita."
+      ],
+      "provenance_origin": "https://jc.uol.com.br/receitadaboa/aprenda-como-fazer-feijoada-receita-tradicional-brasileira-para-reunir-a-familia-a-mesa.html",
+      "research_track": "base",
+      "sections": {
+        "ingredients": "read",
+        "method": "read",
+        "notes": "read",
+        "comments": "unavailable"
+      }
+    },
+    {
+      "id": "S6",
+      "title": "Feijoada da família de Salvador Cordovil",
+      "url": "https://www.band.com.br/entretenimento/realities/masterchef/ritmista-da-portela-salvador-ensina-feijoada-perfeita-para-preparar-ouvindo-samba-veja-a-receita-16310456",
+      "author": "Salvador Cordovil; redação Band",
+      "publisher": "Band",
+      "editorial_group": "bandeirantes",
+      "country": "BR",
+      "editorial_country_evidence": {
+        "text": "Página do MasterChef Brasil relata preparo aprendido com a avó Lídia por Salvador Cordovil, ritmista da Portela, e identifica a redação da Band.",
+        "url": "https://www.band.com.br/entretenimento/realities/masterchef/ritmista-da-portela-salvador-ensina-feijoada-perfeita-para-preparar-ouvindo-samba-veja-a-receita-16310456"
+      },
+      "accessed_at": "2026-10-31",
+      "publication_date": "2020-09-19",
+      "read_status": "complete",
+      "kind": "domestic",
+      "ingredients": [
+        "feijão preto",
+        "paio",
+        "calabresa",
+        "linguiça portuguesa",
+        "costela salgada",
+        "costela defumada",
+        "bacon",
+        "carne-seca",
+        "língua suína",
+        "rabo",
+        "laranja",
+        "louro",
+        "salsinha",
+        "cebola",
+        "óleo",
+        "alho"
+      ],
+      "technique_summary": "Cozinha carnes inteiras e as corta perto do ponto; engrossa um refogado separado com feijão batido.",
+      "detail_notes": [
+        "Documenta transmissão familiar e retirada física de gordura superficial; isso não é comprovação de efeito digestivo.",
+        "Inventário registra a panela principal; acompanhamentos permanecem na fonte."
+      ],
+      "provenance_origin": "https://www.band.com.br/entretenimento/realities/masterchef/ritmista-da-portela-salvador-ensina-feijoada-perfeita-para-preparar-ouvindo-samba-veja-a-receita-16310456",
+      "research_track": "domestic_regional",
+      "sections": {
+        "ingredients": "read",
+        "method": "read",
+        "notes": "read",
+        "comments": "unavailable"
+      }
+    },
+    {
+      "id": "S7",
+      "title": "Feijoada baiana de André Albuquerque",
+      "url": "https://www.tudogostoso.com.br/receita/296211-feijoada-baiana.html",
+      "author": "André Albuquerque",
+      "publisher": "TudoGostoso",
+      "editorial_group": "webedia",
+      "country": "BR",
+      "editorial_country_evidence": {
+        "text": "Política identifica Webedia Internet Brasil S.A. como proprietária da plataforma e controladora com sede no Rio de Janeiro. A receita tem colaborador identificado.",
+        "url": "https://www.tudogostoso.com.br/privacidade"
+      },
+      "accessed_at": "2026-10-31",
+      "publication_date": null,
+      "read_status": "complete",
+      "kind": "domestic",
+      "ingredients": [
+        "paio",
+        "bacon",
+        "carne de porco defumada",
+        "costela defumada",
+        "joelho defumado",
+        "feijão carioca",
+        "pimentões",
+        "azeite",
+        "pimenta-do-reino",
+        "louro",
+        "cominho",
+        "noz-moscada",
+        "coentro",
+        "cebolinha",
+        "cebola",
+        "tomate",
+        "alho",
+        "hortelã fresca"
+      ],
+      "technique_summary": "Bate os temperos com água e incorpora esse preparo ao feijão e às carnes.",
+      "detail_notes": [
+        "Achado regional minoritário: a erva fresca aparece no inventário e no preparo, não apenas em comentário.",
+        "Não há teste editorial de cozinha demonstrado. Não adotar a alegação de eliminação de toxinas encontrada no texto.",
+        "Data de publicação não localizada."
+      ],
+      "provenance_origin": "https://www.tudogostoso.com.br/receita/296211-feijoada-baiana.html",
+      "research_track": "domestic_regional",
+      "sections": {
+        "ingredients": "read",
+        "method": "read",
+        "notes": "unavailable",
+        "comments": "unavailable"
+      }
+    }
+  ],
+  "queries": [
+    {
+      "text": "Feijoada Tradicional Brasileira",
+      "derived_from": null
+    },
+    {
+      "text": "feijoada cominho receita",
+      "derived_from": "Rodada 1: S2, inventário de Delci Gomes."
+    },
+    {
+      "text": "feijoada carnes inteiras cozinhar",
+      "derived_from": "Rodada 1: S2, preparo com carnes inteiras."
+    },
+    {
+      "text": "feijoada pernambucana receita",
+      "derived_from": "Rodada 1: exploração das diferenças regionais encontradas."
+    },
+    {
+      "text": "feijoada Rita Lobo cominho",
+      "derived_from": "Exceção metodológica da rodada 1: nome visto no resultado antes de ler a página."
+    },
+    {
+      "text": "feijoada TudoGostoso engrossar caldo",
+      "derived_from": "Exceção metodológica da rodada 1: nome visto no resultado antes de ler a página."
+    },
+    {
+      "text": "feijoada feijão preto carne-seca louro receita",
+      "derived_from": "Rodada 1: ingredientes lidos nas receitas-base."
+    },
+    {
+      "text": "feijoada panela de pressão cominho",
+      "derived_from": "Rodada 1: comparação da técnica de S1 com preparo sem pressão."
+    },
+    {
+      "text": "feijoada receitas regionais",
+      "derived_from": "Rodada 1: lacuna regional na seleção-base."
+    },
+    {
+      "text": "TudoGostoso Webedia Brasil quem somos",
+      "derived_from": "Rodada 1: qualificação da responsabilidade editorial."
+    },
+    {
+      "text": "Feijoada Baiana",
+      "derived_from": "Rodada 2: direção regional fornecida pelo coordenador após a lacuna da rodada 1."
+    },
+    {
+      "text": "Feijoada baiana TudoReceitas",
+      "derived_from": "Rodada 2: Efuxico atribui sua receita ao TudoReceitas."
+    },
+    {
+      "text": "Feijoada baiana mulatinho",
+      "derived_from": "Rodada 2: variedade do feijão lida nas fontes baianas."
+    },
+    {
+      "text": "site:tudoreceitas.com \"Feijoada baiana\"",
+      "derived_from": "Rodada 2: localizar original explicitamente indicado por Efuxico."
+    },
+    {
+      "text": "feijoada receita de família segredo",
+      "derived_from": "Coordenador, ordem interna 1: expansão doméstica/regional a partir do prato; conhecia o alvo, sem incluí-lo na consulta."
+    },
+    {
+      "text": "feijoada tempero segredo avó",
+      "derived_from": "Coordenador, ordem interna 2: expansão doméstica/regional a partir do prato; conhecia o alvo, sem incluí-lo na consulta."
+    },
+    {
+      "text": "feijoada tradicional dicas comentários",
+      "derived_from": "Coordenador, ordem interna 3: expansão doméstica/regional a partir do prato; conhecia o alvo, sem incluí-lo na consulta."
+    },
+    {
+      "text": "feijoada tradicional temperos ervas receita caseira",
+      "derived_from": "Coordenador, ordem interna 4: expansão doméstica/regional a partir do prato; conhecia o alvo, sem incluí-lo na consulta."
+    },
+    {
+      "text": "feijoada brasileira receitas regionais",
+      "derived_from": "Coordenador, ordem interna 5: expansão doméstica/regional a partir do prato; conhecia o alvo, sem incluí-lo na consulta."
+    },
+    {
+      "text": "feijoada receita tradicional depoimento cozinheira",
+      "derived_from": "Coordenador, ordem interna 6: expansão doméstica/regional a partir do prato; conhecia o alvo, sem incluí-lo na consulta."
+    },
+    {
+      "text": "feijoada baiana receita tradicional",
+      "derived_from": "Coordenador, ordem interna 7: expansão doméstica/regional a partir do prato; conhecia o alvo, sem incluí-lo na consulta."
+    },
+    {
+      "text": "feijoada pernambucana receita tradicional",
+      "derived_from": "Coordenador, ordem interna 8: expansão doméstica/regional a partir do prato; conhecia o alvo, sem incluí-lo na consulta."
+    },
+    {
+      "text": "feijoada brasileira toque especial ervas",
+      "derived_from": "Coordenador, ordem interna 9: expansão doméstica/regional a partir do prato; conhecia o alvo, sem incluí-lo na consulta."
+    },
+    {
+      "text": "site:tudogostoso.com.br privacidade Webedia Internet Brasil sede Rio Janeiro",
+      "derived_from": "Coordenador: qualificação editorial das fontes encontradas; não é descoberta culinária cega."
+    },
+    {
+      "text": "site.panelinha.com.br Editora Panelinha Ltda Brasil CNPJ endereço",
+      "derived_from": "Coordenador: qualificação editorial das fontes encontradas; não é descoberta culinária cega."
+    },
+    {
+      "text": "site.delicioso.com.br expediente sobre Brasil redação",
+      "derived_from": "Coordenador: qualificação editorial das fontes encontradas; não é descoberta culinária cega."
+    }
+  ],
+  "reviewer_notes": [
+    "Exemplo real de pesquisa com perfil fictício. Não é entrega operacional.",
+    "A base da rodada 1 foi revista após exploração regional, sem duplicar grupos.",
+    "Duas consultas da rodada 1 não obedeceram à derivação somente de páginas já abertas; a limitação não é apagada pelo gate estrutural.",
+    "A seleção inclui variantes diferentes para o ensaio comparativo solicitado; não deve ser sintetizada como receita nacional única.",
+    "A leitura e o país editorial são declarações documentadas por pesquisa humana/agentiva; o validador não navega para comprová-las.",
+    "As consultas estão agrupadas por pesquisador; a ordem interna de cada grupo foi preservada, sem afirmar cronologia global entre trabalhos paralelos.",
+    "pages_read=27 identifica páginas culinárias e de procedência únicas com conteúdo lido; tentativas falhas e documentação de software são registradas separadamente.",
+    "Teto do protocolo novo: 32 consultas e 40 páginas; observado integrado: 26 consultas e 27 páginas lidas.",
+    "Os retries de fracasso por trajetória não foram medidos no ensaio inicial; valores desconhecidos permanecem null. O protocolo novo deve bloquear essa lacuna, sem apagar as sete fontes ou inferir zero."
+  ],
+  "completed_tracks": [
+    "base",
+    "domestic_regional"
+  ],
+  "pages_read": 27,
+  "researchers_count": 2,
+  "reformulations_by_track": {
+    "base": null,
+    "domestic_regional": null
+  }
+}

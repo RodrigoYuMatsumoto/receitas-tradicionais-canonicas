@@ -1,0 +1,23 @@
+name: Sugerir uma fonte
+description: Compartilhe uma receita ou detalhe de preparo com procedência.
+title: "[Fonte] "
+body:
+  - type: input
+    id: dish
+    attributes:
+      label: Nome do prato, país e região
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Endereço da fonte original
+    validations:
+      required: true
+  - type: textarea
+    id: detail
+    attributes:
+      label: Qual detalhe merece atenção?
+      description: Resuma com suas palavras, sem copiar a receita inteira.
+    validations:
+      required: true

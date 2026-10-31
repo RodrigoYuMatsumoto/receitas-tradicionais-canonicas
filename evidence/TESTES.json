@@ -1,0 +1,39 @@
+{
+  "lang": "pt-BR",
+  "run_at_utc": "2026-10-31T19:18:58.843787+00:00",
+  "python": "3.14.3",
+  "platform": "win32",
+  "mcp": "2.3.0",
+  "pydantic": "2.14.2",
+  "tests_run": 39,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "ok": true,
+  "scope": "Núcleo, CLI e MCP stdio real; fixtures sintéticas; não comprova tradição ou experiência em interfaces comerciais.",
+  "outside_repository": {
+    "installed_package": true,
+    "commands": {
+      "synthetic_research": {
+        "returncode": 0,
+        "expected_returncode": 0,
+        "ok": true
+      },
+      "historical_research": {
+        "returncode": 1,
+        "expected_returncode": 1,
+        "ok": true
+      },
+      "synthetic_delivery": {
+        "returncode": 0,
+        "expected_returncode": 0,
+        "ok": true
+      },
+      "plan": {
+        "returncode": 0,
+        "expected_returncode": 0,
+        "ok": true
+      }
+    }
+  }
+}

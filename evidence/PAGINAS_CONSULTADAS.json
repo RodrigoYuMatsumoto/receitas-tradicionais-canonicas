@@ -1,0 +1,66 @@
+{
+  "lang": "pt-BR",
+  "accessed_at": "2026-10-31",
+  "read_unique_count": 27,
+  "queries_count": 26,
+  "read_urls": [
+    "https://panelinha.com.br/receita/feijoada-na-pressao",
+    "https://receitas.globo.com/receitas-da-tv/e-de-casa/feijoada-e-de-casa.ghtml",
+    "https://www.camil.com.br/receitas/feijoada",
+    "https://www.receiteria.com.br/receita/feijoada/",
+    "https://jc.uol.com.br/receitadaboa/aprenda-como-fazer-feijoada-receita-tradicional-brasileira-para-reunir-a-familia-a-mesa.html",
+    "https://www.band.com.br/entretenimento/realities/masterchef/ritmista-da-portela-salvador-ensina-feijoada-perfeita-para-preparar-ouvindo-samba-veja-a-receita-16310456",
+    "https://www.tudogostoso.com.br/receita/296211-feijoada-baiana.html",
+    "https://www.superkoch.com.br/receitas/1944/feijoada-tradicional-brasileira",
+    "https://www.cpt.com.br/artigos/feijoada-completa-aprenda-a-fazer",
+    "https://www.tudogostoso.com.br/noticias/feijoada-perfeita-a2555.htm",
+    "https://www.tudogostoso.com.br/receita/2998-feijoada.html",
+    "https://www.receiteria.com.br/sobre/",
+    "https://jc.uol.com.br/receitadaboa/quem-somos",
+    "https://www.camil.com.br/historia/",
+    "https://panelinha.com.br/politica-de-privacidade",
+    "https://receitas.globo.com/regionais/rede-bahia/conexao-bahia/confira-a-receita-da-feijoada-na-panela-de-barro-do-cozinha-e-afeto-g.ghtml",
+    "https://receitas.globo.com/tipos-de-prato/acompanhamentos/feijoada-pernambucana.ghtml",
+    "https://receitas.band.com.br/dia-dia/receita/feijoada-baiana-band-receitas-id-10258",
+    "https://efuxico.com/domingo-e-dia-do-e-de-cumer-no-efuxico-feijoada-baiana-de-jorge-da-unipres/",
+    "https://www.comidadabahia.com.br/2023/11/comida-da-bahia-onde-comer-feijoada.html",
+    "https://www.delicioso.com.br/receitas/feijoada-baiana-como-fazer",
+    "https://www.tudoreceitas.com/receita-de-feijoada-baiana-9730.html",
+    "https://lab.procomum.org/wp-content/uploads/2021/10/Receitas-Ancestrais-digital.pdf",
+    "https://www.ibahia.com/diversao/gastronomia/aprenda-a-fazer-uma-deliciosa-feijoada-baiana",
+    "https://www.ibahia.com/quem-somos",
+    "https://panelinha.com.br/termos-de-uso",
+    "https://www.tudogostoso.com.br/privacidade"
+  ],
+  "failed_or_incomplete": [
+    {
+      "url": "https://abimilho.com.br/receita/feijoada-pernambucana",
+      "reason": "Falha de recuperação; alias www também falhou. Não contada como leitura."
+    },
+    {
+      "url": "https://acozinhabrasileira.com.br/receita-de-feijoada/",
+      "reason": "Falha de recuperação."
+    },
+    {
+      "url": "https://www.receitasnestle.com.br/receitas/feijoada",
+      "reason": "Bloqueio 403 no pesquisador; não contada como leitura integral."
+    },
+    {
+      "url": "https://www.sjc.sp.gov.br/media/pzabwgyj/livro-sabor-de-memorias.pdf",
+      "reason": "Tempo de recuperação excedido."
+    },
+    {
+      "url": "https://claudia.abril.com.br/cozinha/gastronomia/a-feijoada-da-portela/",
+      "reason": "Bloqueio 403."
+    },
+    {
+      "url": "https://www.ba.senac.br/museu/Receitas/receita?categoria=Feij%C3%A3o&receita=Feijoada+Baiana&verifica=56",
+      "reason": "Conteúdo retornado apenas como iframe, sem receita legível."
+    }
+  ],
+  "notes": [
+    "Ordens de consulta paralelas não foram convertidas em uma cronologia global inventada.",
+    "O relato de leitura dos agentes é evidência declarativa; não foram arquivados os textos integrais protegidos.",
+    "Documentação de software e licenças foi pesquisada em etapa separada."
+  ]
+}

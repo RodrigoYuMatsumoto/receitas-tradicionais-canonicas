@@ -1,0 +1,22 @@
+name: Relatar um erro
+description: Mostre um problema com exemplo inventado e sem dados pessoais.
+title: "[Erro] "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: O que aconteceu?
+      description: Informe o comportamento observado e o esperado.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Como repetir o problema?
+      description: Use nomes e perfis inventados. Não inclua dados pessoais.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Versão e aplicativo utilizado

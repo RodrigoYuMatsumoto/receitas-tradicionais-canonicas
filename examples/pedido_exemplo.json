@@ -1,0 +1,22 @@
+{
+  "dish": "Feijoada Tradicional Brasileira",
+  "country": "BR",
+  "variant": "Panorama comparativo autorizado de variantes brasileiras; nenhuma receita operacional escolhida.",
+  "ambiguity_resolved": true,
+  "profile": {
+    "onboarding_confirmed": true,
+    "excluded_ingredients": [],
+    "allergies": [],
+    "intolerances": [],
+    "preferences": [
+      "Exemplo fictício para ensaio comparativo; não é perfil de pessoa real."
+    ],
+    "language_style": "simples",
+    "servings": 6,
+    "alcohol_free": true,
+    "equipment": [
+      "Panela comum; equipamento do exemplo, sem indicação de execução."
+    ],
+    "region": "Brasil"
+  }
+}

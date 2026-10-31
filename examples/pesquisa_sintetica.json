@@ -1,0 +1,261 @@
+{
+  "request": {
+    "dish": "Prato sintético de teste",
+    "country": "BR",
+    "variant": "Variante sintética sem alegação histórica",
+    "ambiguity_resolved": true,
+    "profile": {
+      "onboarding_confirmed": true,
+      "servings": 4
+    }
+  },
+  "sources": [
+    {
+      "id": "teste_0",
+      "title": "Receita sintética de teste 0",
+      "url": "https://fonte0.example.test/receita",
+      "author": "Autoria sintética de teste",
+      "publisher": "Publicação sintética 0",
+      "editorial_group": "Grupo sintético 0",
+      "country": "BR",
+      "editorial_country_evidence": {
+        "text": "Declaração sintética para teste do contrato.",
+        "url": "https://fonte0.example.test/sobre"
+      },
+      "accessed_at": "2026-10-31",
+      "publication_date": null,
+      "read_status": "complete",
+      "kind": "domestic",
+      "research_track": "domestic_regional",
+      "sections": {
+        "ingredients": "read",
+        "method": "read",
+        "notes": "read",
+        "comments": "unavailable"
+      },
+      "ingredients": [
+        "arroz",
+        "água"
+      ],
+      "technique_summary": "Técnica sintética registrada somente para testar o contrato.",
+      "detail_notes": [
+        "Detalhe sintético documentado apenas no contexto do teste."
+      ],
+      "provenance_origin": "https://fonte0.example.test/receita"
+    },
+    {
+      "id": "teste_1",
+      "title": "Receita sintética de teste 1",
+      "url": "https://fonte1.example.test/receita",
+      "author": "Autoria sintética de teste",
+      "publisher": "Publicação sintética 1",
+      "editorial_group": "Grupo sintético 1",
+      "country": "BR",
+      "editorial_country_evidence": {
+        "text": "Declaração sintética para teste do contrato.",
+        "url": "https://fonte1.example.test/sobre"
+      },
+      "accessed_at": "2026-10-31",
+      "publication_date": null,
+      "read_status": "complete",
+      "kind": "editorial",
+      "research_track": "base",
+      "sections": {
+        "ingredients": "read",
+        "method": "read",
+        "notes": "read",
+        "comments": "unavailable"
+      },
+      "ingredients": [
+        "arroz",
+        "água"
+      ],
+      "technique_summary": "Técnica sintética registrada somente para testar o contrato.",
+      "detail_notes": [
+        "Detalhe sintético documentado apenas no contexto do teste."
+      ],
+      "provenance_origin": "https://fonte1.example.test/receita"
+    },
+    {
+      "id": "teste_2",
+      "title": "Receita sintética de teste 2",
+      "url": "https://fonte2.example.test/receita",
+      "author": "Autoria sintética de teste",
+      "publisher": "Publicação sintética 2",
+      "editorial_group": "Grupo sintético 2",
+      "country": "BR",
+      "editorial_country_evidence": {
+        "text": "Declaração sintética para teste do contrato.",
+        "url": "https://fonte2.example.test/sobre"
+      },
+      "accessed_at": "2026-10-31",
+      "publication_date": null,
+      "read_status": "complete",
+      "kind": "editorial",
+      "research_track": "base",
+      "sections": {
+        "ingredients": "read",
+        "method": "read",
+        "notes": "read",
+        "comments": "unavailable"
+      },
+      "ingredients": [
+        "arroz",
+        "água"
+      ],
+      "technique_summary": "Técnica sintética registrada somente para testar o contrato.",
+      "detail_notes": [
+        "Detalhe sintético documentado apenas no contexto do teste."
+      ],
+      "provenance_origin": "https://fonte2.example.test/receita"
+    },
+    {
+      "id": "teste_3",
+      "title": "Receita sintética de teste 3",
+      "url": "https://fonte3.example.test/receita",
+      "author": "Autoria sintética de teste",
+      "publisher": "Publicação sintética 3",
+      "editorial_group": "Grupo sintético 3",
+      "country": "BR",
+      "editorial_country_evidence": {
+        "text": "Declaração sintética para teste do contrato.",
+        "url": "https://fonte3.example.test/sobre"
+      },
+      "accessed_at": "2026-10-31",
+      "publication_date": null,
+      "read_status": "complete",
+      "kind": "editorial",
+      "research_track": "base",
+      "sections": {
+        "ingredients": "read",
+        "method": "read",
+        "notes": "read",
+        "comments": "unavailable"
+      },
+      "ingredients": [
+        "arroz",
+        "água"
+      ],
+      "technique_summary": "Técnica sintética registrada somente para testar o contrato.",
+      "detail_notes": [
+        "Detalhe sintético documentado apenas no contexto do teste."
+      ],
+      "provenance_origin": "https://fonte3.example.test/receita"
+    },
+    {
+      "id": "teste_4",
+      "title": "Receita sintética de teste 4",
+      "url": "https://fonte4.example.test/receita",
+      "author": "Autoria sintética de teste",
+      "publisher": "Publicação sintética 4",
+      "editorial_group": "Grupo sintético 4",
+      "country": "BR",
+      "editorial_country_evidence": {
+        "text": "Declaração sintética para teste do contrato.",
+        "url": "https://fonte4.example.test/sobre"
+      },
+      "accessed_at": "2026-10-31",
+      "publication_date": null,
+      "read_status": "complete",
+      "kind": "editorial",
+      "research_track": "base",
+      "sections": {
+        "ingredients": "read",
+        "method": "read",
+        "notes": "read",
+        "comments": "unavailable"
+      },
+      "ingredients": [
+        "arroz",
+        "água"
+      ],
+      "technique_summary": "Técnica sintética registrada somente para testar o contrato.",
+      "detail_notes": [
+        "Detalhe sintético documentado apenas no contexto do teste."
+      ],
+      "provenance_origin": "https://fonte4.example.test/receita"
+    },
+    {
+      "id": "teste_5",
+      "title": "Receita sintética de teste 5",
+      "url": "https://fonte5.example.test/receita",
+      "author": "Autoria sintética de teste",
+      "publisher": "Publicação sintética 5",
+      "editorial_group": "Grupo sintético 5",
+      "country": "BR",
+      "editorial_country_evidence": {
+        "text": "Declaração sintética para teste do contrato.",
+        "url": "https://fonte5.example.test/sobre"
+      },
+      "accessed_at": "2026-10-31",
+      "publication_date": null,
+      "read_status": "complete",
+      "kind": "editorial",
+      "research_track": "base",
+      "sections": {
+        "ingredients": "read",
+        "method": "read",
+        "notes": "read",
+        "comments": "unavailable"
+      },
+      "ingredients": [
+        "arroz",
+        "água"
+      ],
+      "technique_summary": "Técnica sintética registrada somente para testar o contrato.",
+      "detail_notes": [
+        "Detalhe sintético documentado apenas no contexto do teste."
+      ],
+      "provenance_origin": "https://fonte5.example.test/receita"
+    },
+    {
+      "id": "teste_6",
+      "title": "Receita sintética de teste 6",
+      "url": "https://fonte6.example.test/receita",
+      "author": "Autoria sintética de teste",
+      "publisher": "Publicação sintética 6",
+      "editorial_group": "Grupo sintético 6",
+      "country": "BR",
+      "editorial_country_evidence": {
+        "text": "Declaração sintética para teste do contrato.",
+        "url": "https://fonte6.example.test/sobre"
+      },
+      "accessed_at": "2026-10-31",
+      "publication_date": null,
+      "read_status": "complete",
+      "kind": "editorial",
+      "research_track": "base",
+      "sections": {
+        "ingredients": "read",
+        "method": "read",
+        "notes": "read",
+        "comments": "unavailable"
+      },
+      "ingredients": [
+        "arroz",
+        "água"
+      ],
+      "technique_summary": "Técnica sintética registrada somente para testar o contrato.",
+      "detail_notes": [
+        "Detalhe sintético documentado apenas no contexto do teste."
+      ],
+      "provenance_origin": "https://fonte6.example.test/receita"
+    }
+  ],
+  "queries": [
+    {
+      "text": "Prato sintético de teste",
+      "derived_from": null
+    }
+  ],
+  "completed_tracks": [
+    "base",
+    "domestic_regional"
+  ],
+  "pages_read": 7,
+  "researchers_count": 2,
+  "reformulations_by_track": {
+    "base": 1,
+    "domestic_regional": 0
+  }
+}
