@@ -78,13 +78,21 @@ class CliTests(unittest.TestCase):
                             self.assertNotIn("marcador_privado", result.stdout + result.stderr)
 
     def test_interactive_onboarding_accepts_allergy_without_writing(self) -> None:
-        answers = "\namendoim\n\n\npanela\n\n4\nsimples\nsim\n"
+        answers = "nenhum\namendoim\nnenhum\nnenhum\npanela\n\n4\nsimples\nsim\n"
         result = self.run_cli("onboarding", input=answers)
         self.assertEqual(result.returncode, 0, result.stderr)
         profile = json.loads(result.stdout)
         self.assertEqual(profile["allergies"], ["amendoim"])
         self.assertTrue(profile["onboarding_confirmed"])
         self.assertTrue(profile["alcohol_free"])
+
+    def test_blank_answer_does_not_confirm_absence_of_restrictions(self) -> None:
+        result = self.run_cli("onboarding", input="\n")
+        self.assertEqual(result.returncode, 2)
+        response = json.loads(result.stdout)
+        self.assertFalse(response["ok"])
+        self.assertIn("não confirma ausência", response["message"])
+        self.assertNotIn("onboarding_confirmed", response)
 
     def test_missing_path_and_unknown_argument_are_json(self) -> None:
         for args in [("plan",), ("comando_inexistente",)]:

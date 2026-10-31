@@ -4,15 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "receitas-tradicionais-canonicas"
-version = "0.1.0"
-description = "Protocolo experimental de pesquisa documentada de receitas tradicionais e adaptação alimentar."
+version = "1.0.0"
+description = "Protocolo de pesquisa documentada de receitas tradicionais e adaptação alimentar."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
 authors = [{name = "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"}]
 keywords = ["Rodrigo Yú Matsumoto OAB/PE nº 1.338-B", "culinária", "pesquisa", "receitas tradicionais", "MCP"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
     "Natural Language :: Portuguese (Brazilian)",
@@ -25,6 +24,9 @@ receitas-mcp = "receitas_tradicionais.server:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+receitas_tradicionais = ["INSTRUCAO_PROJETO.md"]
 
 [tool.receitas_tradicionais.metadata]
 lang = "pt-BR"

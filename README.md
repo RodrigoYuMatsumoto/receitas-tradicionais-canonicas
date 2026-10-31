@@ -13,7 +13,7 @@ Peça um prato à sua IA. Ela pesquisa sete receitas em sites do país de origem
 
 Você recebe ingredientes, passos curtos e sinais para reconhecer o ponto. Pode pedir uma etapa por vez, medidas caseiras ou uma explicação técnica mais detalhada.
 
-**Versão 0.1.0 experimental.** A pesquisa depende de uma IA com acesso à internet. O projeto organiza e verifica o processo; não promete encontrar todo conhecimento culinário existente.
+**Distribuição 1.0.0, instrução v6.1.** A pesquisa depende de uma IA com acesso à internet. O projeto organiza e verifica o processo; não promete encontrar todo conhecimento culinário existente.
 
 ## Comece pela conversa
 
@@ -31,7 +31,7 @@ O perfil vale para a conversa. Guardá-lo em memória ou arquivo depende de sua 
 - Duas frentes: receitas de referência e receitas domésticas ou regionais. O saber de quem cozinha em casa tem lugar na pesquisa, com autoria e procedência.
 - Ingredientes, preparo, observações e comentários são lidos antes da seleção. Detalhes minoritários não desaparecem por votação.
 - As sete receitas são comparadas sem juntar, silenciosamente, versões regionais diferentes. Uma adaptação é identificada como adaptação.
-- Quando faltarem fontes elegíveis, a IA explica o que faltou. Não inventa a sétima receita.
+- Quando faltarem fontes elegíveis ou a qualificação editorial estiver pendente, a IA explica o que faltou. O contrato rejeita a pendência; não inventa a sétima receita.
 - Perguntas sobre alimentos evitados entram na configuração inicial. Avisos aparecem quando há uma questão concreta, sem repetir ressalvas genéricas a cada resposta.
 
 O padrão deste projeto é preparo sem bebidas alcoólicas. As demais escolhas alimentares são configuráveis; instruções superiores da sua IA continuam aplicáveis.
@@ -40,7 +40,7 @@ O padrão deste projeto é preparo sem bebidas alcoólicas. As demais escolhas a
 
 O servidor local oferece perguntas iniciais, plano de pesquisa, esquemas e validadores. Ele não navega na internet nem chama outros modelos. A IA conectada realiza as buscas e a coordenação dos papéis com suas próprias ferramentas.
 
-Veja a [instalação e conexão](docs/INSTALACAO.md). Também é possível usar apenas a instrução, sem instalar software.
+A instrução completa acompanha o pacote e é oferecida pelo MCP. Veja a [instalação e conexão](docs/INSTALACAO.md) e os [clientes efetivamente testados](docs/CLIENTES_TESTADOS.md). Também é possível usar apenas a instrução, sem instalar software.
 
 ## Ensaio de feijoada
 
@@ -54,6 +54,6 @@ Pode copiar, adaptar e distribuir. Preserve os créditos e cite o [repositório 
 
 Receitas e imagens dos sites consultados continuam sob os direitos de seus respectivos autores. Os exemplos contêm inventários factuais e resumos próprios, com links, sem reproduzir os textos integrais.
 
-Confiança: média na portabilidade do conjunto, pois os testes locais não equivalem ao uso em todas as IAs.
+Confiança: alta nos contratos e cenários ensaiados; a experiência em outras IAs depende das capacidades do cliente.
 
-Pendências: revisão por outra família de modelos e ensaios em interfaces de usuários finais, descritos em [verificação](docs/VERIFICACAO.md).
+Pendências de cobertura: interfaces não ensaiadas, outros pratos e estudos com usuários. Consulte [verificação](docs/VERIFICACAO.md) e [clientes testados](docs/CLIENTES_TESTADOS.md) para o alcance das evidências.

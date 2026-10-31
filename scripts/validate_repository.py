@@ -122,8 +122,10 @@ def check() -> list[str]:
     from receitas_tradicionais.core import validate_research
     from receitas_tradicionais.models import ResearchBatch
     report = validate_research(ResearchBatch.model_validate(case))
-    if report.ok or {issue.code for issue in report.issues} != {"reformulacoes_nao_medidas"}:
-        errors.append("O lote histórico deve declarar exclusivamente a lacuna real dos retries não medidos.")
+    # Compatibilidade do registro 0.1: os novos campos ausentes permanecem pendentes.
+    historical_issues = {"reformulacoes_nao_medidas", "pais_editorial_pendente", "independencia_pendente"}
+    if report.ok or {issue.code for issue in report.issues} != historical_issues:
+        errors.append("O lote histórico 0.1 deve preservar os retries não medidos e as qualificações estruturadas ainda não registradas, sem retropreenchimento.")
     revalidated = json.loads((ROOT / "examples" / "feijoada_revalidada.json").read_text(encoding="utf-8"))
     if not validate_research(ResearchBatch.model_validate(revalidated)).ok:
         errors.append("O lote real revalidado precisa passar no contrato documental.")

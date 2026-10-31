@@ -1,0 +1,18 @@
+{
+  "lang": "pt-BR",
+  "title": "Testes da distribuição 1.0.0",
+  "subject": "Suíte final do pacote instalado e regressões dos achados",
+  "author": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+  "keywords": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+  "manager": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+  "tests_run": 52,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "success": true,
+  "python": "3.14.3",
+  "mcp": "2.3.0",
+  "pydantic": "2.14.2",
+  "instruction_sha256": "2c3d58100eacf59515ad45c64794fb86bf2448a750af73fbd9fd05bdede0d0a9",
+  "log_sha256": "2ccf7bc02c6da09c792e6651cc87ae30f915d277c707b13a485adfea69059aec"
+}

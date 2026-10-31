@@ -70,10 +70,12 @@ def interactive_onboarding() -> Profile:
     list_fields = {"excluded_ingredients", "allergies", "intolerances", "preferences", "equipment"}
     for item in onboarding_questions()["questions"]:
         field = item["field"]
-        suffix = " Separe itens por ponto e vírgula; Enter indica nenhum." if field in list_fields else ""
+        suffix = " Separe itens por ponto e vírgula; digite nenhum para confirmar ausência. Não deixe em branco." if field in list_fields else ""
         answer = _ask(item["question"] + suffix)
         if field in list_fields:
-            values[field] = [value.strip() for value in answer.split(";") if value.strip()]
+            if not answer:
+                raise InputError("Resposta em branco não confirma ausência. Informe os itens ou digite nenhum; se preferir não informar, use o modo de conversa e declare a lacuna.")
+            values[field] = [] if answer.casefold() in {"nenhum", "nenhuma"} else [value.strip() for value in answer.split(";") if value.strip()]
         elif field == "region":
             values[field] = answer or None
         elif field == "servings":
@@ -101,7 +103,7 @@ def main(argv: list[str] | None = None) -> int:
     for stream in (sys.stdout, sys.stderr):
         if hasattr(stream, "reconfigure"):
             stream.reconfigure(encoding="utf-8")
-    parser = JsonArgumentParser(description="Pesquisa culinária documentada, experimental e local.")
+    parser = JsonArgumentParser(description="Pesquisa culinária documentada e local.")
     sub = parser.add_subparsers(dest="command", required=True, parser_class=JsonArgumentParser)
     sub.add_parser("onboarding", help="Levantamento alimentar interativo, sem salvar perfil.")
     plan = sub.add_parser("plan", help="Planeja a busca a partir de pedido JSON explícito.")

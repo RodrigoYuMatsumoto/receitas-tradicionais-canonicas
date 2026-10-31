@@ -1,0 +1,468 @@
+{
+  "metadata": {
+    "lang": "pt-BR",
+    "title": "Ensaios reais de clientes da distribuição 1.0.0",
+    "subject": "Interoperabilidade, conversa e insuficiências observadas",
+    "author": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+    "keywords": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+    "manager": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
+  },
+  "not_b9": true,
+  "initial_contract": {
+    "metadata": {
+      "lang": "pt-BR",
+      "title": "Ensaios reais de clientes de IA para a versão 1.0.0",
+      "subject": "Uso observado de ferramentas MCP e desambiguação culinária",
+      "author": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "keywords": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "manager": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
+    },
+    "not_b9": true,
+    "package_version_observed": "1.0.0",
+    "instruction_sha256": "c5fe354bffe369cd4dd63019bb115fb8eb3e060a38011b34e5aca42151801c8d",
+    "canonical_instruction_mode": "Instrução integral anexada ao sistema da sessão Claude; MCP local por stdio. Nenhuma configuração global foi alterada.",
+    "claude": {
+      "client_version": "2.1.304",
+      "model_observed": [
+        "claude-sonnet-5-5"
+      ],
+      "mcp_server_connected": true,
+      "available_tool_names": [
+        "mcp__receitas__onboarding_questions",
+        "mcp__receitas__plan_research",
+        "mcp__receitas__validate_delivery",
+        "mcp__receitas__validate_research"
+      ],
+      "smoke": {
+        "status": "PASS",
+        "elapsed_seconds": 73.03,
+        "arguments_identical_to_fixtures": true,
+        "tool_calls": 5,
+        "tool_results": 5,
+        "cases": [
+          {
+            "case": "onboarding",
+            "tool": "mcp__receitas__onboarding_questions",
+            "ok": null,
+            "issues": [],
+            "semantic_review_required": null,
+            "question_count": 9
+          },
+          {
+            "case": "plan",
+            "tool": "mcp__receitas__plan_research",
+            "ok": true,
+            "issues": [],
+            "semantic_review_required": null,
+            "question_count": null
+          },
+          {
+            "case": "research_7",
+            "tool": "mcp__receitas__validate_research",
+            "ok": true,
+            "issues": [],
+            "semantic_review_required": true,
+            "question_count": null
+          },
+          {
+            "case": "research_6",
+            "tool": "mcp__receitas__validate_research",
+            "ok": false,
+            "issues": [
+              "contagem_fontes"
+            ],
+            "semantic_review_required": true,
+            "question_count": null
+          },
+          {
+            "case": "delivery_excluded",
+            "tool": "mcp__receitas__validate_delivery",
+            "ok": false,
+            "issues": [
+              "ingrediente_restrito",
+              "restricao_nas_etapas"
+            ],
+            "semantic_review_required": true,
+            "question_count": null
+          }
+        ],
+        "stdout_sha256": "efd5ed74ed5f6e0fb9d8af07ada62b9e8716435a8e734ae1923a9ba0453512bb"
+      },
+      "ambiguity": {
+        "status": "PASS",
+        "input": "Quero fazer canjica",
+        "elapsed_seconds": 11.76,
+        "presented_options": [
+          "Canjica de milho verde, Nordeste: milho verde, leite, açúcar e canela.",
+          "Canjica de milho branco, Sul e Sudeste: milho branco, leite, leite de coco, açúcar e canela; chamada mungunzá em parte do Nordeste."
+        ],
+        "asked_user_to_choose": true,
+        "hypotheses_marked_unverified": true,
+        "research_started": false,
+        "operational_recipe_provided": false,
+        "tool_calls": 0,
+        "stdout_sha256": "d0971247b672fe0014f2a7ed62a5d58a922b17bb8e63f246f39b7e7a0c93e0e4"
+      },
+      "cost_usd_reported": 0.36998949999999997,
+      "permission_denials": []
+    },
+    "gemini_cli": {
+      "client_version": "0.61.0",
+      "status": "BLOCKED_PROVIDER",
+      "returncode": 55,
+      "elapsed_seconds": 12.49,
+      "reason": "IneligibleTierError: UNSUPPORTED_CLIENT, Gemini Code Assist for individuals recusou o cliente antes de eventos de modelo ou chamadas MCP.",
+      "stderr_sha256": "d7211deb2acba6e33444a02e95f6ad54c119dcaaae91424ba5cd122e98e098d5",
+      "stdout_bytes": 0,
+      "model_calls_observed": 0,
+      "mcp_tool_calls_observed": 0,
+      "retry_performed": false,
+      "additional_configuration_notice": "A pasta temporária ainda não era confiável; não foi alterada a confiança porque a recusa de elegibilidade do provedor já impedia o teste."
+    },
+    "budget": {
+      "session_attempts": 3,
+      "limit": 6,
+      "claude_attempts": 2,
+      "claude_session_budget_usd": 0.5,
+      "claude_total_budget_usd": 1.5,
+      "timeout_seconds": 180,
+      "automatic_retries": 0
+    },
+    "confidence": "Alta nos comportamentos observados no Claude Code; nenhuma conclusão de compatibilidade funcional do Gemini CLI.",
+    "pending": [
+      "Gemini CLI indisponível por política de elegibilidade do provedor; testar outro cliente ou a instrução portátil na interface web.",
+      "Os ensaios usam perfis fictícios e corpus reutilizado; não equivalem a estudo de usabilidade com usuários nem a pesquisa culinária nova."
+    ]
+  },
+  "fresh_research": {
+    "lang": "pt-BR",
+    "title": "Resultado verificado do ensaio Claude",
+    "subject": "Interoperabilidade real e insuficiências semânticas observadas",
+    "author": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+    "keywords": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+    "manager": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+    "client": "Claude Code",
+    "client_version": "2.1.304",
+    "model": "claude-sonnet-5-5",
+    "server_version": "1.0.0",
+    "exposed_tools": [
+      "WebFetch",
+      "WebSearch",
+      "mcp__receitas__onboarding_questions",
+      "mcp__receitas__plan_research",
+      "mcp__receitas__validate_delivery",
+      "mcp__receitas__validate_research"
+    ],
+    "mcp_servers": [
+      {
+        "name": "receitas",
+        "status": "connected",
+        "source": "dynamic"
+      }
+    ],
+    "raw_stream_sha256": "c3c93cd825df9a6e98ea9f4048ce84925e93a7d6629ae02c05888c96143a5f08",
+    "runtime": {
+      "lang": "pt-BR",
+      "title": "Pesquisa real por Claude Code com MCP de receitas",
+      "subject": "Substituição autorizada após bloqueio externo do Gemini CLI",
+      "author": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "keywords": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "manager": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "client": "Claude Code",
+      "client_version": "2.1.304",
+      "server_version": "1.0.0",
+      "status": "completed",
+      "session_directory": "Registro operacional local preservado; caminho omitido da distribuição pública.",
+      "instructions_sha256": "c5fe354bffe369cd4dd63019bb115fb8eb3e060a38011b34e5aca42151801c8d",
+      "prompt_sha256": "3eac6a9d2013461afe35f60dabd108821eb1d1cd9fa223e4ab23ed36c0cea54d",
+      "timeout_seconds": 600,
+      "max_session_turns": 48,
+      "max_budget_usd": 1.0,
+      "allowed_tools": [
+        "mcp__receitas__onboarding_questions",
+        "mcp__receitas__plan_research",
+        "mcp__receitas__validate_research",
+        "mcp__receitas__validate_delivery",
+        "WebSearch",
+        "WebFetch"
+      ],
+      "research_sessions_started": 1,
+      "corrective_resumptions": 0,
+      "global_settings_changed": false,
+      "exit_code": 0,
+      "elapsed_seconds": 317.97
+    },
+    "tool_counts": {
+      "mcp__receitas__plan_research": 1,
+      "WebSearch": 7,
+      "WebFetch": 24,
+      "mcp__receitas__validate_research": 4,
+      "mcp__receitas__validate_delivery": 1
+    },
+    "search_queries": 7,
+    "fetch_calls": 24,
+    "unique_urls_attempted": 24,
+    "observed_http_failures": [
+      {
+        "url": "https://www.canalrural.com.br/entretenimento/bom-dia-campo/aprenda-fazer-tradicional-pao-queijo-minas-gerais-27806/",
+        "http_status": 403
+      },
+      {
+        "url": "https://www.guiadasemana.com.br/receitas/noticia/receita-pao-de-queijo-mineiro",
+        "http_status": 403
+      },
+      {
+        "url": "https://www.nsctotal.com.br/quem-somos",
+        "http_status": 403
+      },
+      {
+        "url": "https://www.tupi.fm/sobre",
+        "http_status": 404
+      },
+      {
+        "url": "https://www.tudogostoso.com.br/sobre",
+        "http_status": 404
+      },
+      {
+        "url": "https://www.tribunapr.com.br/quem-somos/",
+        "http_status": 404
+      },
+      {
+        "url": "https://www.portalondasul.com.br/sobre",
+        "http_status": 404
+      },
+      {
+        "url": "https://www.nsctotal.com.br/?p=7980043",
+        "http_status": 403
+      }
+    ],
+    "successful_fetch_results": 16,
+    "num_turns": 38,
+    "total_cost_usd": 0.9929395999999999,
+    "client_result_type": "success",
+    "validation_results": [
+      {
+        "id": "toolu_01TnwFvN7rgyrGUiG5vQ7YnL",
+        "tool": "mcp__receitas__validate_research",
+        "is_error": true,
+        "result": "<tool_use_error>InputValidationError: mcp__receitas__validate_research was called with input that could not be parsed as JSON.\nYou sent (first 200 of 13613 bytes): {\"batch\": {\"request\":{\"dish\":\"Pão de queijo mineiro tradicional\",\"country\":\"BR\",\"variant\":\"Mineira assada; comparação de fontes e escolha de preparo coerente com a variante.\",\"ambiguity_resolved\":true\nCommon causes: unescaped backslashes in file paths (use / or \\\\), unescaped control characters, or truncated output. Retry with valid JSON.</tool_use_error>"
+      },
+      {
+        "id": "toolu_0137SozZ1RBKqUXGSpGDbfVo",
+        "tool": "mcp__receitas__validate_research",
+        "is_error": true,
+        "result": "<tool_use_error>InputValidationError: mcp__receitas__validate_research was called with input that could not be parsed as JSON.\nYou sent (first 200 of 12688 bytes): {\"batch\": {\"request\":{\"dish\":\"Pão de queijo mineiro tradicional\",\"country\":\"BR\",\"variant\":\"Mineira assada; comparação de fontes e escolha de preparo coerente com a variante.\",\"ambiguity_resolved\":true\nCommon causes: unescaped backslashes in file paths (use / or \\\\), unescaped control characters, or truncated output. Retry with valid JSON.</tool_use_error>"
+      },
+      {
+        "id": "toolu_011z97h4B2brrBtZzacpSikz",
+        "tool": "mcp__receitas__validate_research",
+        "is_error": true,
+        "result": "Error executing tool validate_research: 7 validation errors for validate_researchArguments\nbatch.sources.0.provenance_origin\n  Value error, Informe uma URL HTTP ou HTTPS pública e sem credenciais. [type=value_error, input_value='Matéria jornalística a...rato declarada incerta.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.14/v/value_error\nbatch.sources.1.provenance_origin\n  Value error, Informe uma URL HTTP ou HTTPS pública e sem credenciais. [type=value_error, input_value='Matéria jornalística a... gastronomia de jornal.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.14/v/value_error\nbatch.sources.2.provenance_origin\n  Value error, Informe uma URL HTTP ou HTTPS pública e sem credenciais. [type=value_error, input_value='Matéria assinada por Ed... em seção Variedades.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.14/v/value_error\nbatch.sources.3.provenance_origin\n  Value error, Informe uma URL HTTP ou HTTPS pública e sem credenciais. [type=value_error, input_value='Receita testada por cozi...tualização informada.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.14/v/value_error\nbatch.sources.4.provenance_origin\n  Value error, Informe uma URL HTTP ou HTTPS pública e sem credenciais. [type=value_error, input_value='Receita doméstica envia...ados mas não exibidos.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.14/v/value_error\nbatch.sources.5.provenance_origin\n  Value error, Informe uma URL HTTP ou HTTPS pública e sem credenciais. [type=value_error, input_value='Matéria assinada com re...zada em pão de queijo.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.14/v/value_error\nbatch.sources.6.provenance_origin\n  Value error, Informe uma URL HTTP ou HTTPS pública e sem credenciais. [type=value_error, input_value='Matéria sem autor, repu...ef docente do Senac MG.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.14/v/value_error"
+      },
+      {
+        "id": "toolu_01EsyoqD5RU9DTxHZLxY7K7h",
+        "tool": "mcp__receitas__validate_research",
+        "is_error": false,
+        "result": "{\"ok\":true,\"issues\":[],\"semantic_review_required\":true,\"limitations\":[\"Controle documental local: URLs, país, grupo e autoria são declarações que exigem revisão semântica humana.\",\"A ferramenta não acessa páginas nem comprova leitura, proveniência, tradição ou independência editorial.\",\"Aprovação da pesquisa não aprova ingredientes para o perfil nem substitui validate_delivery.\",\"Notas e comentários podem estar declarados como inacessíveis; isso não comprova sua ausência nem sua leitura.\"],\"checked_at\":\"2026-10-31\"}"
+      },
+      {
+        "id": "toolu_01AbzKL18SRsctmTMx4QR872",
+        "tool": "mcp__receitas__validate_delivery",
+        "is_error": false,
+        "result": "{\"ok\":false,\"issues\":[{\"code\":\"rotulos_pendentes\",\"message\":\"A pessoa responsável precisa conferir o inventário, os componentes e os rótulos aplicáveis.\",\"path\":\"labels_reviewed\"}],\"semantic_review_required\":true,\"limitations\":[\"Controle documental local: URLs, país, grupo e autoria são declarações que exigem revisão semântica humana.\",\"A ferramenta não acessa páginas nem comprova leitura, proveniência, tradição ou independência editorial.\",\"Aprovação da pesquisa não aprova ingredientes para o perfil nem substitui validate_delivery.\",\"Notas e comentários podem estar declarados como inacessíveis; isso não comprova sua ausência nem sua leitura.\",\"A correspondência usa somente nomes, aliases e componentes declarados; não detecta todos os alérgenos.\",\"A declaração de revisão dos rótulos não comprova ausência de contaminação ou contato cruzado.\",\"O resultado não certifica segurança alimentar nem representa orientação clínica.\",\"Técnicas, identidade editorial, direitos autorais e fidelidade da adaptação exigem revisão humana.\",\"A detecção de termos explícitos nas etapas é conservadora, não interpreta negações e pode exigir reformulação do texto.\"],\"checked_at\":\"2026-10-31\"}"
+      }
+    ],
+    "interoperability_result": "pass",
+    "complete_research_result": "not_demonstrated",
+    "delivery_result": "blocked_by_labels_reviewed_false",
+    "b9_result": "not_applicable_functional_client_trial",
+    "semantic_findings": [
+      "O cliente afirmou sete grupos distintos, mas reconheceu prova editorial do NSC apenas por resumo de busca.",
+      "O cliente reconheceu origem republicada do Portal Onda Sul atribuída a Portal da Cidade Guaxupé, cuja independência não verificou.",
+      "A conclusão afirmou que faltava apenas revisão humana de rótulos, embora qualificação editorial e independência continuassem pendentes.",
+      "O preparo foi apresentado para seis porções, embora a fonte escolhida não informasse rendimento e não houvesse escalonamento sustentado.",
+      "Duas chamadas de pesquisa falharam na análise de JSON pelo cliente; a seguinte chegou ao servidor, que rejeitou prosa em provenance_origin; a quarta passou após correção para URLs."
+    ],
+    "recommended_improvements": [
+      "Descrever provenance_origin no schema como URL da publicação original, com formato URI, para reduzir preenchimento como prosa.",
+      "Distinguir aprovação documental de qualificação semântica e proibir conclusão de pesquisa completa quando prova editorial ou origem de republicação estiverem incertas.",
+      "Declarar rendimento desconhecido ou estimado quando a fonte não o informar, sem converter automaticamente pedido de porções em rendimento comprovado."
+    ],
+    "confidence": "Alta nos fatos de execução, por trace real; a pesquisa não foi qualificada como sucesso integral.",
+    "pending": [
+      "Qualificação editorial e de republicação de duas fontes.",
+      "Rendimento sustentado para o pedido de seis porções.",
+      "Conferência humana de rótulos para a entrega.",
+      "B.9 segue fluxo separado do coordenador."
+    ],
+    "temporary_client_config_removed": true,
+    "global_settings_changed": false
+  },
+  "gemini_web": {
+    "mode_observed": "Pro; seletor mostrou 3.1 Pro",
+    "transport": "Instrução portátil anexada, sem MCP local",
+    "instruction_sha256": "c5fe354bffe369cd4dd63019bb115fb8eb3e060a38011b34e5aca42151801c8d",
+    "responses": [
+      "Perfeito, vamos começar a configurar o seu perfil culinário seguindo as diretrizes do projeto.   \nINSTRUCAO_PROJETO.md\n\nPara que eu possa adaptar as pesquisas e os preparos perfeitamente para você, há algum ingrediente que eu deva evitar por motivo de alergia, intolerância, restrição ou preferência pessoal?   \nINSTRUCAO_PROJETO.md",
+      "Perfil confirmado apenas para esta sessão: 4 porções, uso de panela comum, fogão e liquidificador, e nenhuma adição de amendoim por preferência. Como não há restrições de saúde informadas, focaremos apenas em evitar o ingrediente desejado.   \nINSTRUCAO_PROJETO.md\n+ 1\n\nAntes de iniciarmos a pesquisa, precisamos esclarecer o prato, pois o nome \"canjica\" identifica preparações materialmente diferentes dependendo da região do Brasil:   \nINSTRUCAO_PROJETO.md\n\nCanjica de milho branco (frequentemente chamada de munguzá doce no Nordeste): feita com grãos inteiros de milho branco, leite, leite de coco e especiarias.   \nINSTRUCAO_PROJETO.md\n\nCanjica nordestina (frequentemente chamada de curau no Sul/Sudeste): um creme ou pudim feito com milho verde debulhado e triturado, leite, açúcar e canela.   \nINSTRUCAO_PROJETO.md\n\nQual dessas duas opções você deseja preparar?   \nINSTRUCAO_PROJETO.md"
+    ],
+    "onboarding_question_observed": true,
+    "ambiguous_options_observed": true,
+    "selection_question_observed": true,
+    "research_started": false,
+    "mcp_validation_executed": false
+  },
+  "version_scope": "Os ensaios iniciais precedem as correções finais de qualificação; o teste pós-correção é registrado separadamente. Nenhum sucesso anterior é transferido automaticamente aos bytes finais.",
+  "post_correction": {
+    "metadata": {
+      "lang": "pt-BR",
+      "title": "Ensaio real R2 do cliente Claude Code após correções finais",
+      "subject": "Uso observado de seis chamadas MCP na versão 1.0.0",
+      "author": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "keywords": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "manager": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
+    },
+    "status": "PASS",
+    "round": "R2",
+    "not_b9": true,
+    "package_version_observed": "1.0.0",
+    "client": "Claude Code",
+    "client_version": "2.1.304",
+    "model_observed": [
+      "claude-sonnet-5-5"
+    ],
+    "instruction_sha256": "2c3d58100eacf59515ad45c64794fb86bf2448a750af73fbd9fd05bdede0d0a9",
+    "installed_instruction_sha256": "2c3d58100eacf59515ad45c64794fb86bf2448a750af73fbd9fd05bdede0d0a9",
+    "copied_instruction_sha256": "2c3d58100eacf59515ad45c64794fb86bf2448a750af73fbd9fd05bdede0d0a9",
+    "canonical_instruction_sha256": "2c3d58100eacf59515ad45c64794fb86bf2448a750af73fbd9fd05bdede0d0a9",
+    "instruction_hash_scope": "Texto UTF-8 após leitura com normalização de finais de linha, exatamente como enviado no argumento da sessão.",
+    "copied_instruction_raw_bytes_sha256": "b0a8fddbd2a51047bd4b22aeba5d36762409464166eb821c5d52e26f04a55538",
+    "canonical_instruction_raw_bytes_sha256": "2c3d58100eacf59515ad45c64794fb86bf2448a750af73fbd9fd05bdede0d0a9",
+    "instruction_mode": "Instrução canônica integral anexada ao sistema da sessão, com MCP local por stdio.",
+    "mcp_connected": true,
+    "tools_available": [
+      "mcp__receitas__onboarding_questions",
+      "mcp__receitas__plan_research",
+      "mcp__receitas__validate_delivery",
+      "mcp__receitas__validate_research"
+    ],
+    "model_web_shell_file_tools_available": false,
+    "tool_calls": 6,
+    "tool_results": 6,
+    "arguments_identical_to_current_fixtures": true,
+    "cases": [
+      {
+        "case": "onboarding",
+        "tool": "mcp__receitas__onboarding_questions",
+        "arguments_identical": true,
+        "ok": null,
+        "issues": [],
+        "semantic_review_required": null,
+        "question_count": 9
+      },
+      {
+        "case": "plan",
+        "tool": "mcp__receitas__plan_research",
+        "arguments_identical": true,
+        "ok": true,
+        "issues": [],
+        "semantic_review_required": null,
+        "question_count": null
+      },
+      {
+        "case": "research_7",
+        "tool": "mcp__receitas__validate_research",
+        "arguments_identical": true,
+        "ok": true,
+        "issues": [],
+        "semantic_review_required": true,
+        "question_count": null
+      },
+      {
+        "case": "research_6",
+        "tool": "mcp__receitas__validate_research",
+        "arguments_identical": true,
+        "ok": false,
+        "issues": [
+          "contagem_fontes"
+        ],
+        "semantic_review_required": true,
+        "question_count": null
+      },
+      {
+        "case": "delivery_excluded",
+        "tool": "mcp__receitas__validate_delivery",
+        "arguments_identical": true,
+        "ok": false,
+        "issues": [
+          "ingrediente_restrito",
+          "restricao_nas_etapas"
+        ],
+        "semantic_review_required": true,
+        "question_count": null
+      },
+      {
+        "case": "research_pending",
+        "tool": "mcp__receitas__validate_research",
+        "arguments_identical": true,
+        "ok": false,
+        "issues": [
+          "pais_editorial_pendente",
+          "independencia_pendente"
+        ],
+        "semantic_review_required": true,
+        "question_count": null
+      }
+    ],
+    "source_qualification_in_positive_fixture": {
+      "country": [
+        "confirmed",
+        "confirmed",
+        "confirmed",
+        "confirmed",
+        "confirmed",
+        "confirmed",
+        "confirmed"
+      ],
+      "provenance": [
+        "confirmed",
+        "confirmed",
+        "confirmed",
+        "confirmed",
+        "confirmed",
+        "confirmed",
+        "confirmed"
+      ]
+    },
+    "elapsed_seconds": 94.11,
+    "cost_usd_reported": 0.45541439999999994,
+    "timeout_seconds": 180,
+    "session_budget_usd": 0.5,
+    "attempts": 1,
+    "retries": 0,
+    "stdout_sha256": "508f042e89c3c8e820b45ade966357cf868fc0627502bf9dc88b30ba7682182b",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "global_configuration_changed": false,
+    "r1_history_preserved": true,
+    "confidence": "Alta nos comportamentos efetivamente observados no Claude Code e nas condições descritas.",
+    "pending": [
+      "Este ensaio reutiliza um corpus conhecido e não equivale a nova pesquisa culinária nem a revisão B.9."
+    ],
+    "source_of_evidence": "Sessão isolada com MCP instalado fora do clone; fixtures atuais e instrução integral final."
+  },
+  "gemini_web_post_correction": {
+    "mode_observed": "Gemini 3.6 Flash",
+    "instruction_sha256": "2c3d58100eacf59515ad45c64794fb86bf2448a750af73fbd9fd05bdede0d0a9",
+    "transport": "Instrução completa anexada em conversa nova; sem MCP local.",
+    "responses": [
+      "Entendido! Vamos configurar o seu perfil inicial de cozinha conforme a Seção 1 (Primeiro uso e preferências) do protocolo.   \nINSTRUCAO_PROJETO.md\n+ 1\n\nPara começarmos, por favor me responda:\n\nHá algum ingrediente que você deve evitar por alergia, intolerância, restrição ou preferência pessoal?",
+      "Perfil registrado para esta conversa (sem salvamento externo):   \nINSTRUCAO_PROJETO.md\n\nRestrições: Evitar amendoim (preferência). Nenhuma alergia ou intolerância informada.   \nINSTRUCAO_PROJETO.md\n+ 1\n\nPorções: 4 porções.   \nINSTRUCAO_PROJETO.md\n\nEquipamentos: Panela comum, fogão e liquidificador.   \nINSTRUCAO_PROJETO.md\n\nEstilo: Explicação em linguagem simples.   \nINSTRUCAO_PROJETO.md\n\nBebidas alcoólicas: Ausentes (conforme regra padrão da instrução).   \nINSTRUCAO_PROJETO.md\n\nSobre o pedido: no Brasil, o termo \"canjica\" possui dois significados regionais principais:\n\nCanjica (Região Sudeste/Sul): Preparo à base de milho-branco (canjica/mungunzá) cozido com leite, leite de coco, açúcar e especiarias (cravo e canela).   \nINSTRUCAO_PROJETO.md\n\nCanjica (Região Nordeste): Preparo à base de milho-verde ralado/batido com leite e açúcar, cozido até engrossar (também conhecido como curau no Sudeste).   \nINSTRUCAO_PROJETO.md\n\nQual dessas duas variantes de canjica você prefere preparar hoje?"
+    ],
+    "onboarding_question_observed": true,
+    "ambiguity_options_with_ingredients_observed": true,
+    "selection_question_observed": true,
+    "research_started": false,
+    "mcp_validation_executed": false,
+    "not_b9": true
+  }
+}

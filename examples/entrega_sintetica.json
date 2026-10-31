@@ -21,7 +21,8 @@
         "country": "BR",
         "editorial_country_evidence": {
           "text": "Declaração sintética para teste do contrato.",
-          "url": "https://fonte0.example.test/sobre"
+          "url": "https://fonte0.example.test/sobre",
+          "verification": "confirmed"
         },
         "accessed_at": "2026-10-31",
         "publication_date": null,
@@ -42,7 +43,8 @@
         "detail_notes": [
           "Detalhe sintético documentado apenas no contexto do teste."
         ],
-        "provenance_origin": "https://fonte0.example.test/receita"
+        "provenance_origin": "https://fonte0.example.test/receita",
+        "provenance_verification": "confirmed"
       },
       {
         "id": "teste_1",
@@ -54,7 +56,8 @@
         "country": "BR",
         "editorial_country_evidence": {
           "text": "Declaração sintética para teste do contrato.",
-          "url": "https://fonte1.example.test/sobre"
+          "url": "https://fonte1.example.test/sobre",
+          "verification": "confirmed"
         },
         "accessed_at": "2026-10-31",
         "publication_date": null,
@@ -75,7 +78,8 @@
         "detail_notes": [
           "Detalhe sintético documentado apenas no contexto do teste."
         ],
-        "provenance_origin": "https://fonte1.example.test/receita"
+        "provenance_origin": "https://fonte1.example.test/receita",
+        "provenance_verification": "confirmed"
       },
       {
         "id": "teste_2",
@@ -87,7 +91,8 @@
         "country": "BR",
         "editorial_country_evidence": {
           "text": "Declaração sintética para teste do contrato.",
-          "url": "https://fonte2.example.test/sobre"
+          "url": "https://fonte2.example.test/sobre",
+          "verification": "confirmed"
         },
         "accessed_at": "2026-10-31",
         "publication_date": null,
@@ -108,7 +113,8 @@
         "detail_notes": [
           "Detalhe sintético documentado apenas no contexto do teste."
         ],
-        "provenance_origin": "https://fonte2.example.test/receita"
+        "provenance_origin": "https://fonte2.example.test/receita",
+        "provenance_verification": "confirmed"
       },
       {
         "id": "teste_3",
@@ -120,7 +126,8 @@
         "country": "BR",
         "editorial_country_evidence": {
           "text": "Declaração sintética para teste do contrato.",
-          "url": "https://fonte3.example.test/sobre"
+          "url": "https://fonte3.example.test/sobre",
+          "verification": "confirmed"
         },
         "accessed_at": "2026-10-31",
         "publication_date": null,
@@ -141,7 +148,8 @@
         "detail_notes": [
           "Detalhe sintético documentado apenas no contexto do teste."
         ],
-        "provenance_origin": "https://fonte3.example.test/receita"
+        "provenance_origin": "https://fonte3.example.test/receita",
+        "provenance_verification": "confirmed"
       },
       {
         "id": "teste_4",
@@ -153,7 +161,8 @@
         "country": "BR",
         "editorial_country_evidence": {
           "text": "Declaração sintética para teste do contrato.",
-          "url": "https://fonte4.example.test/sobre"
+          "url": "https://fonte4.example.test/sobre",
+          "verification": "confirmed"
         },
         "accessed_at": "2026-10-31",
         "publication_date": null,
@@ -174,7 +183,8 @@
         "detail_notes": [
           "Detalhe sintético documentado apenas no contexto do teste."
         ],
-        "provenance_origin": "https://fonte4.example.test/receita"
+        "provenance_origin": "https://fonte4.example.test/receita",
+        "provenance_verification": "confirmed"
       },
       {
         "id": "teste_5",
@@ -186,7 +196,8 @@
         "country": "BR",
         "editorial_country_evidence": {
           "text": "Declaração sintética para teste do contrato.",
-          "url": "https://fonte5.example.test/sobre"
+          "url": "https://fonte5.example.test/sobre",
+          "verification": "confirmed"
         },
         "accessed_at": "2026-10-31",
         "publication_date": null,
@@ -207,7 +218,8 @@
         "detail_notes": [
           "Detalhe sintético documentado apenas no contexto do teste."
         ],
-        "provenance_origin": "https://fonte5.example.test/receita"
+        "provenance_origin": "https://fonte5.example.test/receita",
+        "provenance_verification": "confirmed"
       },
       {
         "id": "teste_6",
@@ -219,7 +231,8 @@
         "country": "BR",
         "editorial_country_evidence": {
           "text": "Declaração sintética para teste do contrato.",
-          "url": "https://fonte6.example.test/sobre"
+          "url": "https://fonte6.example.test/sobre",
+          "verification": "confirmed"
         },
         "accessed_at": "2026-10-31",
         "publication_date": null,
@@ -240,7 +253,8 @@
         "detail_notes": [
           "Detalhe sintético documentado apenas no contexto do teste."
         ],
-        "provenance_origin": "https://fonte6.example.test/receita"
+        "provenance_origin": "https://fonte6.example.test/receita",
+        "provenance_verification": "confirmed"
       }
     ],
     "queries": [

@@ -4,56 +4,26 @@ from __future__ import annotations
 
 import unicodedata
 from datetime import date
+from importlib.resources import files
 from urllib.parse import quote, unquote, urlsplit, urlunsplit
 
 from .models import Delivery, GateIssue, Request, ResearchBatch, ValidationReport
 
-PROJECT_INSTRUCTIONS = """Protocolo experimental de pesquisa culinária tradicional, versão 0.1.0.
-Antes de pesquisar, confirme exclusões, alergias declaradas, intolerâncias, preferências,
-porções e estilo de linguagem. Não faça diagnóstico nem colete nomes. Resolva homônimos
-comparando nomes, país, variante e ingredientes característicos com o usuário.
-A primeira busca contém apenas o nome canônico do prato. As demais refinam evidências
-encontradas, sem inserir o perfil alimentar em consultas externas. Adaptação vem depois.
-O host executa a busca na web e a delegação: pesquisador-base identifica receitas-fontes;
-pesquisador doméstico e regional procura testemunhos e práticas caseiras documentadas;
-auditor verifica identidade, proveniência, país editorial, acesso e divergências.
-Se o host não oferece subagentes, execute os papéis em sequência e declare essa limitação.
-Papéis sequenciais e agentes da mesma família não demonstram independência entre famílias.
-Selecione exatamente sete receitas-fontes lidas integralmente, em sete grupos editoriais
-distintos, estabelecidos no país de origem do prato. Registre texto e URL da prova editorial,
-autoria conhecida ou ausência declarada, datas e origem de republicações. Pelo menos uma
-fonte precisa documentar prática doméstica. A fonte deve conter ingredientes e técnica.
-O número sete trata de fontes pesquisadas; não exige reproduzir sete receitas integrais.
-Registre detalhes minoritários e divergências com suas fontes. Não prometa descobrir todos
-os segredos nem declare consenso sem evidência. Não copie integralmente material protegido.
-As ferramentas locais verificam a estrutura e as declarações, sem acessar ou comprovar
-conteúdo, identidade editorial, autoridade, país ou veracidade. Faça revisão semântica humana.
-validate_research precede a síntese. Fontes históricas podem conter ingredientes excluídos.
-Para a entrega operacional, use validate_delivery com o mesmo lote e perfil incorporado,
-inventário explícito de ingredientes, aliases e componentes, etapas e adaptações declaradas.
-Confira rótulos e inventário; com alergias declaradas, revise também contato cruzado.
-A correspondência textual não detecta todos os alérgenos e não comprova ausência de
-contaminação. A aprovação local não certifica segurança alimentar. Não proponha álcool.
-Nenhuma ferramenta pesquisa, chama modelos, salva perfis, lê arquivos ou executa comandos.
-Limite da trajetória: 32 consultas, 40 páginas lidas e no máximo três pesquisadores.
-Registre completed_tracks e research_track nas fontes, sem equiparar declarações a execução comprovada.
-Registre researchers_count e reformulations_by_track, com até duas reformulações por trajetória.
-Em sections, declare ingredientes, preparo, notas e comentários como lidos, ausentes ou
-inacessíveis. Ingredientes e preparo precisam estar lidos. Inacessível não equivale a ausente.
-"""
+PROJECT_INSTRUCTIONS = files("receitas_tradicionais").joinpath("INSTRUCAO_PROJETO.md").read_text(encoding="utf-8")
 
 RESEARCH_LIMITATIONS = [
     "Controle documental local: URLs, país, grupo e autoria são declarações que exigem revisão semântica humana.",
     "A ferramenta não acessa páginas nem comprova leitura, proveniência, tradição ou independência editorial.",
     "Aprovação da pesquisa não aprova ingredientes para o perfil nem substitui validate_delivery.",
     "Notas e comentários podem estar declarados como inacessíveis; isso não comprova sua ausência nem sua leitura.",
+    "As qualificações confirmadas são declarações do pesquisador e do revisor; não são comprovação automática de país ou independência.",
 ]
 DELIVERY_LIMITATIONS = [
     "A correspondência usa somente nomes, aliases e componentes declarados; não detecta todos os alérgenos.",
     "A declaração de revisão dos rótulos não comprova ausência de contaminação ou contato cruzado.",
     "O resultado não certifica segurança alimentar nem representa orientação clínica.",
     "Técnicas, identidade editorial, direitos autorais e fidelidade da adaptação exigem revisão humana.",
-    "A detecção de termos explícitos nas etapas é conservadora, não interpreta negações e pode exigir reformulação do texto.",
+    "A detecção de termos explícitos nas etapas e notas de adaptação é conservadora, não interpreta negações e pode exigir reformulação do texto.",
 ]
 
 ALCOHOL_TERMS = frozenset({
@@ -63,6 +33,7 @@ ALCOHOL_TERMS = frozenset({
     "conhaque", "cognac", "brandy", "tequila", "gin", "gim", "licor", "liqueur",
     "sake", "saque", "mirin", "marsala", "sherry", "xerez", "vermouth", "vermute",
     "aguardente", "aguardiente", "pisco", "mezcal", "cider", "cidra", "cognac",
+    "chopp", "sidra", "soju", "shaoxing",
 })
 
 
@@ -168,6 +139,10 @@ def validate_research(batch: ResearchBatch, *, today: date | None = None) -> Val
             seen[field].add(canonical)
         if source.country != batch.request.country:
             add("pais_divergente", "A fonte precisa estar editorialmente estabelecida no país de origem informado para o prato.", f"{path}.country")
+        if source.editorial_country_evidence.verification != "confirmed":
+            add("pais_editorial_pendente", "Conclua e registre a qualificação da relação editorial com o país antes de admitir a fonte.", f"{path}.editorial_country_evidence.verification")
+        if source.provenance_verification != "confirmed":
+            add("independencia_pendente", "Conclua e registre a qualificação da origem e da independência editorial antes de admitir a fonte.", f"{path}.provenance_verification")
         if source.read_status != "complete":
             add("leitura_incompleta", "Trecho de busca ou página indisponível não constitui receita-fonte integralmente lida.", f"{path}.read_status")
         if source.sections.ingredients != "read" or source.sections.method != "read":
@@ -220,4 +195,9 @@ def validate_delivery(delivery: Delivery, *, today: date | None = None) -> Valid
             add("alcool_nas_etapas", "As etapas contêm termo explícito incompatível com a política sem álcool.", f"steps.{index}")
         if any(_ingredient_match(restriction, step) for restriction in restrictions):
             add("restricao_nas_etapas", "As etapas contêm correspondência textual com uma restrição declarada.", f"steps.{index}")
+    for index, note in enumerate(delivery.adaptation_notes):
+        if ALCOHOL_TERMS.intersection(normalize_text(note).split()):
+            add("alcool_nas_notas", "As notas de adaptação contêm termo explícito incompatível com a política sem álcool.", f"adaptation_notes.{index}")
+        if any(_ingredient_match(restriction, note) for restriction in restrictions):
+            add("restricao_nas_notas", "As notas de adaptação contêm correspondência textual com uma restrição declarada.", f"adaptation_notes.{index}")
     return ValidationReport(ok=not issues, issues=issues, limitations=[*RESEARCH_LIMITATIONS, *DELIVERY_LIMITATIONS], checked_at=report.checked_at)

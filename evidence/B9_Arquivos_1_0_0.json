@@ -1,0 +1,125 @@
+{
+  "metadata": {
+    "lang": "pt-BR",
+    "title": "Arquivos congelados da revisão B.9",
+    "subject": "Escopo e SHA-256 da distribuição funcional avaliada",
+    "author": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+    "keywords": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+    "manager": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
+  },
+  "version": "1.0.0",
+  "files": {
+    "README.md": "d3427ed0f08df784c42b10ae186df4bc50e1f5bc9b00288e79a483d191b4405c",
+    "AGENTS.md": "adc70b99e8625bbf5a87d4d6e19f65befec15226aaeeb869f4d1ecaa8709efeb",
+    "LICENSE.md": "4ddd20e554d90effffaf786a35601e0b4dd8019534663b7d1a9ad3227cead4d6",
+    "NOTICE.md": "0127474d27e0dc7f6a5d65d0d660d2a9f5a3c3919503dd5926eebfb6c71206f8",
+    "pyproject.toml": "14a707cba01d9cdead1db2245db503f59c52e2ef1feb30aae167f8dd1b5c3f5c",
+    "prompts/INSTRUCAO_PROJETO.md": "2c3d58100eacf59515ad45c64794fb86bf2448a750af73fbd9fd05bdede0d0a9",
+    "agents/PAPEIS.md": "69afd6a51ce6e2db78b69c0caab94b0b672db512ff89d5528272bd56e47ffe23",
+    "docs/INSTALACAO.md": "7c2277a6b069ad7003ac674d5706c2a73e89d6b4975a4bea354ae201c8f8e08d",
+    "docs/CLIENTES_TESTADOS.md": "39868768f340e1663949532edd8488c35c2b1515809ea0ac99726ed14a9da77f",
+    "docs/VERIFICACAO.md": "b9326f70a2f083bd2ba1c9c1171b2c21f4170ae2c1898d3bc30b49c237bca20b",
+    "schemas/contratos.json": "d77521bcb42810423f9efeb6a645d6d0b7e2d4c16e55b0c6baa22875da81c5b5",
+    "scripts/validate_repository.py": "b63b199eacd0fd8913a8637857e24bc9e90dd98bef9701d2aaa7908f0b63aa38",
+    ".github/workflows/ci.yml": "5252333ecc21be3fb89cbc0c073ff5b90d146e7483d132786f1d40b91e6487e8",
+    "src/receitas_tradicionais/__init__.py": "736f85281db4b90490a5c9d6a7737bdeac8b80571d8489abaff50637eb4f5c73",
+    "src/receitas_tradicionais/__main__.py": "1698941fc1aeb65e0a4d55c43877e25e632e5e19cf4a108505b5d48f8b373ee8",
+    "src/receitas_tradicionais/cli.py": "223756a4bcfe430f1c914216dc3105d82343028a997d8af0250659473a91a0d2",
+    "src/receitas_tradicionais/core.py": "c5afac58541e0aa25072d0a56a84783cb45e894a7bfc166f05189134c802beb5",
+    "src/receitas_tradicionais/models.py": "f90530176b05e2121d96e06ba1ccee64c4b47f479b42f6c2dd2ac1d43052d855",
+    "src/receitas_tradicionais/server.py": "e1a0d802c862c25097dc3a2c5b13bb04acb2d8ec8e089e50b47ed727f1310346",
+    "src/receitas_tradicionais/INSTRUCAO_PROJETO.md": "2c3d58100eacf59515ad45c64794fb86bf2448a750af73fbd9fd05bdede0d0a9",
+    "tests/test_cli.py": "e37de5365f0ee6192a353dfd4d52a02980a08f86d3e1289320caa1843471f10b",
+    "tests/test_core.py": "76b8b6c4c940b1f8931e4e10a331379d1a759682f24c9b6bd4a32241d6d7c68d",
+    "tests/test_mcp.py": "606c924c691a85ea3c3350fb6554874928b7f5e3e680b3c6efc3997b75fd38c4",
+    "tests/test_package.py": "068dd8c6c1bd827c0fcee44c2560cb378e4efffadd3ceb44878315b01e50ce4d",
+    "configs/mcp_local.json": "e136b35cd3616af44a16af6f9c89483a9f48134563065e55ef88abd2b5774b68",
+    "configs/claude_code.json": "f307e3ca25c7070bf490cfdad19cd059ae1333fd773b6b175efdb8975f51e3e0",
+    "configs/gemini_cli.json": "e43924679f974d5c5f1706c209f868835851a9ed8cc97c381d11c89a515c6bf8",
+    "examples/pesquisa_sintetica.json": "71d0db3c0c0b80dd800bb23579e8c1b0b6e5d8a327921d7e390446c514e2e2a7",
+    "examples/entrega_sintetica.json": "e0db6cd15fc73bb2baee82d939848b6e30ca30f6bf2ec33c1119e1bc9228acab",
+    "examples/feijoada_revalidada.json": "b0168648e1b9861782b0398c94f46a2fe84b0d756194b4d8f1034c542e07a02f",
+    "evidence/TESTES_1_0_0.json": "8a5f89de4f7c07dedff8d19671508095c8d72b46c89d92a926b3eac193fb680d"
+  },
+  "instruction_sha256": "2c3d58100eacf59515ad45c64794fb86bf2448a750af73fbd9fd05bdede0d0a9",
+  "bundles": {
+    "round_1": {
+      "artefato_sha256": "9e11cf9211cdb4a8c6d1725949f25736e8a6173c8c8e96f76da8a824bdce816d",
+      "artefato_original_sha256": "9e11cf9211cdb4a8c6d1725949f25736e8a6173c8c8e96f76da8a824bdce816d",
+      "criterios_sha256": "ca7e9066ba03d8ce2a995c9f0b7392d9f542c35b4b53c5ce31551ef608ff3823",
+      "pacote_sha256": "cb68f5df57f42b73ae351658152e32c615c8ffba804be0cf68816ba619a05e14",
+      "aggregate_hash": "8d48a7ffc203787c192fb31f4f9793e22362615378044cea05cb84644cf14167",
+      "pacote_id": "138083c2647f"
+    },
+    "round_2": {
+      "artefato_sha256": "7c96cb8f4e65228fb52455c4ccf4ade12b98cd446f1da6c245cf72b2a13080d9",
+      "artefato_original_sha256": "7c96cb8f4e65228fb52455c4ccf4ade12b98cd446f1da6c245cf72b2a13080d9",
+      "criterios_sha256": "ca7e9066ba03d8ce2a995c9f0b7392d9f542c35b4b53c5ce31551ef608ff3823",
+      "pacote_sha256": "6bc78f37ec3b67b3b085b3bbedf2bdb84a2cee7b1f3f4b4b64601ba0a2b79e7e",
+      "aggregate_hash": "b5ef3dcaf43b38dcb89a83ea04b30c6c24b56f1318c34d30686983fe96762f69",
+      "pacote_id": "db0469ebc718"
+    }
+  },
+  "criteria": {
+    "dominio": "tecnico",
+    "criterios": [
+      {
+        "id": "C1",
+        "pergunta": "Como a instrução trata o primeiro uso, as informações alimentares já dadas e a escolha entre pratos de nome ambíguo?",
+        "evidencia_exigida": "Arquivo e trecho concreto do artefato; quando pertinente, fonte técnica oficial. Não inventar execução de testes.",
+        "falseador": "Comandos ou regras que presumem restrições ausentes ou escolhem variante sem esclarecimento material.",
+        "severidade": "bloqueante"
+      },
+      {
+        "id": "C2",
+        "pergunta": "Quais condições efetivamente impedem a aprovação de um lote com contagem diferente de sete ou sem identificação editorial no país do prato?",
+        "evidencia_exigida": "Arquivo e trecho concreto do artefato; quando pertinente, fonte técnica oficial. Não inventar execução de testes.",
+        "falseador": "Aprovação demonstrável de seis ou oito receitas, grupo/origem duplicados ou prova editorial ausente.",
+        "severidade": "bloqueante"
+      },
+      {
+        "id": "C3",
+        "pergunta": "De que modo a busca preserva a exploração doméstica/regional e detalhes minoritários sem exigir uma resposta ou ingrediente antecipado?",
+        "evidencia_exigida": "Arquivo e trecho concreto do artefato; quando pertinente, fonte técnica oficial. Não inventar execução de testes.",
+        "falseador": "Regra que descarte necessariamente achados minoritários, imponha ingrediente esperado ou omita exploração regional.",
+        "severidade": "bloqueante"
+      },
+      {
+        "id": "C4",
+        "pergunta": "Que correspondência existe entre a instrução portátil, o recurso MCP e o texto entregue na inicialização do pacote instalado fora do clone?",
+        "evidencia_exigida": "Arquivo e trecho concreto do artefato; quando pertinente, fonte técnica oficial. Não inventar execução de testes.",
+        "falseador": "Código que distribua resumo divergente ou dependa de caminho do clone para obter a instrução integral.",
+        "severidade": "bloqueante"
+      },
+      {
+        "id": "C5",
+        "pergunta": "Que inconsistências entre perfil confirmado, ingredientes, componentes e etapas poderiam atravessar a validação operacional apesar das limitações declaradas?",
+        "evidencia_exigida": "Arquivo e trecho concreto do artefato; quando pertinente, fonte técnica oficial. Não inventar execução de testes.",
+        "falseador": "Bypass demonstrável para ingrediente explicitamente excluído nos campos declarados, troca do perfil ou lote inválido.",
+        "severidade": "bloqueante"
+      },
+      {
+        "id": "C6",
+        "pergunta": "Que alegações de leitura, tradição, independência editorial ou efeitos de saúde são apresentadas como demonstradas apenas pela validação estrutural?",
+        "evidencia_exigida": "Arquivo e trecho concreto do artefato; quando pertinente, fonte técnica oficial. Não inventar execução de testes.",
+        "falseador": "Afirmação categórica de comprovação factual ou sanitária por resultado estrutural local.",
+        "severidade": "bloqueante"
+      },
+      {
+        "id": "C7",
+        "pergunta": "Que riscos concretos de entrada malformada, execução não autorizada ou instrução embutida em fonte externa permanecem sem tratamento compatível com o escopo?",
+        "evidencia_exigida": "Arquivo e trecho concreto do artefato; quando pertinente, fonte técnica oficial. Não inventar execução de testes.",
+        "falseador": "Execução arbitrária de dados recebidos, exposição de segredo, contorno material ou regra que autorize fonte a mudar contrato.",
+        "severidade": "bloqueante"
+      },
+      {
+        "id": "C8",
+        "pergunta": "Quais problemas materiais de clareza ou compatibilidade contratual impedem uma pessoa de seguir a instrução e distinguir pesquisa completa de insuficiência de evidência?",
+        "evidencia_exigida": "Arquivo e trecho concreto do artefato; quando pertinente, fonte técnica oficial. Não inventar execução de testes.",
+        "falseador": "Contradição material ou ausência de instrução indispensável à execução dos quatro instrumentos do MCP.",
+        "severidade": "bloqueante"
+      }
+    ]
+  },
+  "scope": "Os arquivos indicados permaneceram idênticos após o congelamento. Relatórios, respostas, metadados e notas de publicação são registros posteriores; não se atribui a eles revisão anterior."
+}

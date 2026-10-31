@@ -1,0 +1,144 @@
+{
+  "metadata": {
+    "lang": "pt-BR",
+    "title": "Resultado da revisão B.9 da distribuição 1.0.0",
+    "subject": "Quórum independente e triagem das ressalvas",
+    "author": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+    "keywords": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+    "manager": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
+  },
+  "generator_family": "openai",
+  "transport": "Navegador nas contas já autenticadas; nenhuma API ou CLI de modelo foi utilizada para B.9.",
+  "consolidated": {
+    "estado": "CONFIRMADA_COM_RESSALVAS",
+    "estado_maquina": "APPROVE_WITH_CAVEATS",
+    "rotulo": "CONFIRMADA COM RESSALVAS",
+    "familias_validas": [
+      "google",
+      "xai"
+    ],
+    "piso_familias": 2,
+    "motivos": [
+      "apontamento de gravidade média fora dos critérios (C0)"
+    ],
+    "por_criterio": {
+      "C1": {
+        "estado": "CONFIRMADO",
+        "votos": {
+          "google": "SUPPORTED",
+          "xai": "SUPPORTED"
+        },
+        "severidade": "bloqueante"
+      },
+      "C2": {
+        "estado": "CONFIRMADO",
+        "votos": {
+          "google": "SUPPORTED",
+          "xai": "SUPPORTED"
+        },
+        "severidade": "bloqueante"
+      },
+      "C3": {
+        "estado": "CONFIRMADO",
+        "votos": {
+          "google": "SUPPORTED",
+          "xai": "SUPPORTED"
+        },
+        "severidade": "bloqueante"
+      },
+      "C4": {
+        "estado": "CONFIRMADO",
+        "votos": {
+          "google": "SUPPORTED",
+          "xai": "SUPPORTED"
+        },
+        "severidade": "bloqueante"
+      },
+      "C5": {
+        "estado": "CONFIRMADO",
+        "votos": {
+          "google": "SUPPORTED",
+          "xai": "SUPPORTED"
+        },
+        "severidade": "bloqueante"
+      },
+      "C6": {
+        "estado": "CONFIRMADO",
+        "votos": {
+          "google": "SUPPORTED",
+          "xai": "SUPPORTED"
+        },
+        "severidade": "bloqueante"
+      },
+      "C7": {
+        "estado": "CONFIRMADO",
+        "votos": {
+          "google": "SUPPORTED",
+          "xai": "SUPPORTED"
+        },
+        "severidade": "bloqueante"
+      },
+      "C8": {
+        "estado": "CONFIRMADO",
+        "votos": {
+          "google": "SUPPORTED",
+          "xai": "SUPPORTED"
+        },
+        "severidade": "bloqueante"
+      }
+    },
+    "c0": {
+      "google": "SEM_APONTAMENTO",
+      "xai": "MEDIO"
+    }
+  },
+  "models": {
+    "google": "Gemini 3.6 Raciocínio",
+    "xai": "Grok 4.7 Thinking, na Perplexity"
+  },
+  "round_1_status": "DIVERGENTE",
+  "round_2_bundle": {
+    "artefato_sha256": "7c96cb8f4e65228fb52455c4ccf4ade12b98cd446f1da6c245cf72b2a13080d9",
+    "artefato_original_sha256": "7c96cb8f4e65228fb52455c4ccf4ade12b98cd446f1da6c245cf72b2a13080d9",
+    "criterios_sha256": "ca7e9066ba03d8ce2a995c9f0b7392d9f542c35b4b53c5ce31551ef608ff3823",
+    "pacote_sha256": "6bc78f37ec3b67b3b085b3bbedf2bdb84a2cee7b1f3f4b4b64601ba0a2b79e7e",
+    "aggregate_hash": "b5ef3dcaf43b38dcb89a83ea04b30c6c24b56f1318c34d30686983fe96762f69",
+    "pacote_id": "db0469ebc718"
+  },
+  "all_frozen_files_unchanged": true,
+  "triage": [
+    {
+      "item": "Publicação do repositório",
+      "assessment": "A busca do revisor não encontrou o repositório recente. A existência pública foi conferida diretamente no GitHub. A distribuição era candidata durante a avaliação e sua promoção depende dos gates.",
+      "source": "https://github.com/RodrigoYuMatsumoto/receitas-tradicionais-canonicas"
+    },
+    {
+      "item": "Descrição de provenance_origin e URL pública",
+      "assessment": "A descrição abrevia URL como HTTPS; o validador aceita HTTP e HTTPS. As notas desta versão explicitam o contrato efetivo. O servidor não faz rede nem comprova endereço público, DNS ou país pelo endereço; essas condições permanecem na revisão semântica.",
+      "source": "src/receitas_tradicionais/models.py"
+    },
+    {
+      "item": "Versões e testes",
+      "assessment": "Versões foram observadas nos executáveis e metadados locais; 52 testes foram executados. As dependências foram conferidas no PyPI oficial. A ausência de repetição pelo verificador continua declarada.",
+      "sources": [
+        "evidence/TESTES_1_0_0.json",
+        "evidence/CLIENTES_1_0_0.json",
+        "https://pypi.org/project/mcp/2.3.0/",
+        "https://pypi.org/project/pydantic/2.14.2/"
+      ]
+    },
+    {
+      "item": "Pin de setup-python",
+      "assessment": "git ls-remote no repositório oficial confirmou refs/tags/v7 no SHA usado pelo workflow.",
+      "source": "https://github.com/actions/setup-python",
+      "git_sha": "6d4fd22b20465ccc0f7354476588e8df7c9ca0e0"
+    }
+  ],
+  "limitations": [
+    "Grok declarou leitura por trechos e não executou os testes.",
+    "A revisão cobre critérios e arquivos congelados; não certifica toda receita, fonte futura ou saúde individual.",
+    "A adaptação estrutural do JSON preservou integralmente os valores e está registrada.",
+    "A tentativa Maritaca da rodada final teve objeto incompleto e não contou para o quórum."
+  ],
+  "blocking_pending": []
+}

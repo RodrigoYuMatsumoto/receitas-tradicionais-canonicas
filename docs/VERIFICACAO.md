@@ -1,63 +1,50 @@
 ---
 lang: pt-BR
-title: Verificação e limites da versão inicial
-subject: Evidências de pesquisa, testes de software e compatibilidade
+title: Verificação da distribuição 1.0.0
+subject: Escopo da estabilidade, evidências técnicas e revisão independente
 author: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
 keywords: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
 manager: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
 ---
 
-# Verificação e limites da versão inicial
+# Verificação da distribuição 1.0.0
 
-A versão 0.1.0 reúne instrução portátil v6.0, papéis de pesquisa, código Python, servidor MCP local, testes e um ensaio documentado. Sua publicação é experimental. Aprovação estrutural não equivale a comprovação factual, segurança alimentar ou promoção estável.
+A distribuição reúne instrução portátil v6.1, papéis de pesquisa, CLI e servidor MCP local. A estabilidade publicada é identificada pela release correspondente no GitHub. Os rótulos de versão não certificam leitura de páginas, identidade editorial, tradição ou segurança alimentar.
 
-## Evidência por requisito
+## Contratos e evidências
 
-| Requisito | Evidência disponível | Limite |
-|---|---|---|
-| Preservar a instrução original | Hash da v5.1 no diagnóstico; sucessora gravada em novo caminho | O original privado não é publicado. |
-| Configurar preferências no primeiro uso | Prompt, ferramenta de perguntas e comando `onboarding` | A IA hospedeira deve iniciar a conversa e respeitar a escolha sobre persistência. |
-| Não presumir prato ambíguo | Pergunta com nomes, regiões e ingredientes no prompt; gate de pedido pendente | O programa não conhece todas as homonímias e depende da identificação semântica do host. |
-| Pesquisar sete receitas | Gate rejeita 6 ou 8 e exige sete IDs, grupos e origens distintos | Metadados falsos não se tornam verdadeiros por passarem no schema. |
-| Usar sites do país | País e prova editorial obrigatórios; sete fontes reais identificadas no exemplo | Não é geolocalização automática nem verificação societária exaustiva. |
-| Procurar saber doméstico | Duas trajetórias e ao menos uma fonte doméstica obrigatórias | O conteúdo da pesquisa exige leitura e revisão semântica. |
-| Descobrir detalhes sem inseri-los nas buscas | Pesquisa separada, log de consultas e achado regional no ensaio | Um único prato, com direção regional explícita na segunda rodada; não prova cobertura universal. |
-| Múltiplos agentes | Papéis, handoffs e pesquisa independente executada durante a construção | O servidor não fornece modelos; um host sem delegação executa etapas sequenciais e declara isso. |
-| Impedir incompatibilidade alimentar explícita | Verificação de inventário, componentes, aliases e texto das etapas | Não detecta todos os ingredientes ocultos, sinônimos ou contato cruzado. |
-| Conectar por MCP ou outro meio | Instrução copiável; pacote instalável; testes com cliente oficial por `stdio` | Sem endpoint remoto hospedado e sem instalação automática em aplicativos. |
-| Copiar e adaptar com crédito | MIT para código, CC BY 4.0 para textos e aviso de origem | Materiais de terceiros mantêm seus direitos. |
-| Pesquisa com limites | Tetos de 32 consultas, 40 páginas e três pesquisadores; contadores de reformulações | O host declara a execução. Contador desconhecido bloqueia a aprovação. |
+O lote exige exatamente sete fontes de grupos e origens distintos, país do pedido, ingredientes e preparo lidos, duas trajetórias e pelo menos uma prática doméstica. Qualificação de país e independência têm estados explícitos: `pending` impede aprovação. Campos omitidos não recebem confirmação automática. Mesmo `confirmed` é uma declaração do revisor, que deve confrontar a prova com o conteúdo lido.
 
-## O que os testes exercitam
+A entrega incorpora o lote e seu único perfil. Inventário, componentes, aliases, etapas e notas de adaptação são comparados com as restrições explícitas. Aprovação não certifica ingredientes ocultos, contato cruzado ou segurança individual. Revisão de rótulos e, quando aplicável, contato cruzado dependem da pessoa responsável.
 
-A suíte cobre contagem de fontes, URLs normalizadas, grupos editoriais, origem de republicação, país, datas, leitura de seções, trajetórias, teto de chamadas, contadores desconhecidos, onboarding, ambiguidade, restrições nas etapas e inventário, entrada inválida, limite de tamanho e saída JSON em UTF-8.
+A primeira consulta é exatamente o nome confirmado do prato. O host executa busca e papéis com teto global de 32 consultas, 40 páginas lidas, três pesquisadores e duas reformulações por trajetória. O servidor confere declarações e não mede nem executa a navegação do host.
 
-Os testes MCP iniciam o servidor como processo local e executam negociação, `initialize`, listagem de ferramentas, chamadas e leitura dos recursos de instruções e schemas. São chamadas reais ao servidor, com fontes inventadas e sem navegação externa. O teste do pacote fora do repositório verifica a instalação, não a experiência de uma interface comercial.
+## Portabilidade e regressões
 
-Uma revisão em contexto separado encontrou dois bypasses antes da publicação: marcação omitida de ingrediente proibido e ingrediente restrito escrito apenas em uma etapa. As correções acrescentam inspeção textual conservadora. Uma frase que mencione um ingrediente para negá-lo também pode ser rejeitada; nesse caso, reescreva a etapa com a alternativa permitida.
+A instrução completa é dado do pacote e precisa ser idêntica ao prompt canônico. Testes leem o recurso instalado fora do clone, sem `PYTHONPATH`, e verificam a instrução na inicialização MCP. O contrato é exercitado por negociação, listagem das quatro ferramentas, chamadas e leitura de recursos.
 
-Os 42 testes locais passaram, sem falhas, erros ou testes ignorados, em Windows com Python 3.14.3, MCP 2.3.0 e Pydantic 2.14.2, incluindo as regressões de URLs IDNA inválidas. Também foram executados fora do repositório os comandos de plano, pesquisa sintética, entrega sintética e pesquisa histórica com rejeição esperada. O resultado está em [TESTES.json](../evidence/TESTES.json) e a [rechecagem independente](../evidence/REVISAO_INDEPENDENTE.md) documenta os controles corrigidos. A matriz de CI cobre Windows e Linux, Python 3.11 e 3.14; só o estado efetivo dos jobs permite afirmar aprovação em cada combinação. O workflow não publica pacotes nem faz deploy.
+A suíte cobre contagem, países, qualificação pendente, URLs, grupos, origem de republicação, datas, leitura de seções, limites, ambiguidade, onboarding, inventário, etapas e notas incompatíveis, JSON malformado e erros sem eco de dados privados. Os resultados finais desta distribuição constam em [testes 1.0.0](../evidence/TESTES_1_0_0.json); o registro experimental de 42 testes permanece histórico.
 
-## Pesquisa real e dados sintéticos
+Os [clientes ensaiados](CLIENTES_TESTADOS.md) separam chamadas funcionais, comportamento da conversa e pesquisa real. A aprovação documental de uma IA não foi tratada como sucesso semântico quando suas próprias notas reconheciam prova insuficiente.
 
-O registro real tem sete receitas e identifica a presença culinária do ingrediente-alvo em uma variante. Seus contadores de reformulações após fracasso não foram medidos. Por isso a CLI retorna rejeição documental específica nesse registro, preservando o resultado e a lacuna, sem inventar zero. O [ensaio](../evidence/ENSAIO_FEIJOADA.md) explica esse limite.
+## Estudo culinário inicial
 
-Uma rodada posterior revalidou as sete fontes em dois contextos de pesquisa: uma consulta neutra, 12 URLs distintas abertas sem falha e nenhum retry. O [registro dessa rodada](../evidence/REVALIDACAO_DOCUMENTAL.json) e o [lote real aprovado](../examples/feijoada_revalidada.json) demonstram a passagem pelo contrato corrigido, também chamado pelo cliente MCP real com o servidor instalado e executado fora do repositório. Os endereços eram conhecidos; essa rodada não demonstra nova descoberta cega nem apaga a lacuna histórica. Os inventários resumidos do registro anterior foram complementados na nova rodada.
+O [ensaio de feijoada](../evidence/ENSAIO_FEIJOADA.md) preserva a sequência original: primeira exploração sem o detalhe procurado; descoberta posterior na ampliação regional, sem incluir o ingrediente-alvo nas consultas. Presença culinária não confirma infusão, remoção de gordura ou efeito digestivo.
 
-O exemplo sintético tem contadores conhecidos e deve passar nos controles estruturais. Ele não comprova a existência de fonte, tradição, país ou segurança. Os três exemplos têm funções diferentes e não devem ser apresentados como equivalentes.
+O [lote revalidado](../examples/feijoada_revalidada.json) reúne sete fontes já qualificadas e contadores medidos; seus estados explícitos registram a revisão documental anterior. Reutiliza URLs conhecidas e não é outra descoberta cega. O [registro histórico](../examples/feijoada_pesquisa.json) não foi reescrito: além dos retries não medidos, não contém os novos estados de qualificação. Deve ser rejeitado pelo contrato atual, sem retropreencher confirmações.
 
-## Fontes técnicas consultadas
+## Revisão B.9 e publicação
 
-Em 31/10/2026 foram conferidos o [SDK oficial MCP](https://github.com/modelcontextprotocol/python-sdk), a [documentação de execução](https://py.sdk.modelcontextprotocol.io/run/), a [versão no PyPI](https://pypi.org/project/mcp/2.3.0/), o [checkout do GitHub Actions](https://github.com/actions/checkout) e o [setup-python](https://github.com/actions/setup-python). As Actions foram fixadas por SHA dos respectivos rótulos v7 consultados. O pacote fixa MCP 2.3.0 e Pydantic 2.14.2, versões efetivamente instaladas no ensaio técnico.
+A B.9 avalia um conjunto funcional congelado, com critérios fixados antes das respostas, gerador identificado como OpenAI e verificadores de outras famílias pelo navegador. Relatórios, objeções e triagem ficam em [revisão B.9](../evidence/B9_1_0_0.md). A revisão cobre os arquivos e hashes indicados, não alterações futuras ou todos os dados factuais da internet.
 
-A revisão removeu tabelas universais de segurança e altitude do prompt original. Não as substituiu por números memorizados. Uma orientação concreta de risco exige fonte oficial aplicável à técnica e ao local de preparo.
+A publicação estável depende do resultado conclusivo da rodada final, da resolução das objeções materiais, das regressões e da CI sobre a alteração integrada. Um parecer do próprio gerador ou teste técnico não substitui esse requisito. Não há promoção por simples troca de número de versão.
 
-## Próximas avaliações
+## Fontes técnicas e limites
 
-Antes de promover uma versão estável, submeter o conjunto congelado por hash a uma família de modelos distinta da do gerador, resolver objeções e ensaiar a experiência em clientes finais. Repetir o estudo culinário com outros pratos e medir retries desde o início. Não houve diagnóstico nem prescrição nutricional neste trabalho.
+Foram consultados o [SDK oficial MCP](https://github.com/modelcontextprotocol/python-sdk), sua [documentação](https://py.sdk.modelcontextprotocol.io/), o [CLI oficial Claude Code](https://code.claude.com/docs/en/cli-reference) e a [documentação MCP do Gemini CLI](https://geminicli.com/docs/tools/mcp-server/). A configuração foi confrontada com as versões locais efetivamente executadas.
 
-Os perfis dos exemplos são fictícios. Não foram instaladas rotinas recorrentes, salvos perfis pessoais ou alteradas configurações globais de IA. Markdown registra propriedades no frontmatter; código e JSON usam [registro auxiliar de metadados](../ARTIFACT_METADATA.json), pois esses formatos não possuem campos documentais nativos universais. No pacote Python, gerente e idioma ficam em campos personalizados.
+Markdown registra idioma, título, assunto, autor, palavras-chave e gerente no frontmatter. Código e JSON usam [registro auxiliar](../ARTIFACT_METADATA.json), pois não possuem propriedades documentais nativas universais. Não há serviço remoto hospedado, persistência automática de perfis ou instalação global.
 
-Confiança: alta nas condições cobertas pelos testes efetivamente aprovados; média na portabilidade de ponta a ponta, que depende das ferramentas e do comportamento do host.
+Confiança: alta nos contratos e execuções cobertos pelas evidências; média na generalização do método culinário, avaliado em poucos cenários.
 
-Pendências: B.9 por outra família antes da promoção estável; ensaios em clientes finais e com usuários; ampliação da avaliação culinária para outros pratos. As lacunas específicas do ensaio histórico permanecem em seu registro.
+Pendências de cobertura: pesquisa comparativa com outros pratos, interfaces não ensaiadas e estudos com usuários. Não se promete descoberta universal de saber não publicado.

@@ -256,6 +256,16 @@
             "minLength": 1,
             "title": "Url",
             "type": "string"
+          },
+          "verification": {
+            "default": "pending",
+            "description": "Qualificação declarada da relação editorial com o país; exige revisão semântica das evidências.",
+            "enum": [
+              "confirmed",
+              "pending"
+            ],
+            "title": "Verification",
+            "type": "string"
           }
         },
         "required": [
@@ -592,9 +602,21 @@
             "type": "array"
           },
           "provenance_origin": {
+            "description": "URL HTTP(S) da publicação original da receita, usada para identificar republicações; não informe descrição em prosa.",
+            "format": "uri",
             "maxLength": 10000,
             "minLength": 1,
             "title": "Provenance Origin",
+            "type": "string"
+          },
+          "provenance_verification": {
+            "default": "pending",
+            "description": "Qualificação declarada da origem e da independência editorial; exige revisão semântica das evidências.",
+            "enum": [
+              "confirmed",
+              "pending"
+            ],
+            "title": "Provenance Verification",
             "type": "string"
           }
         },
@@ -755,6 +777,16 @@
             "maxLength": 10000,
             "minLength": 1,
             "title": "Url",
+            "type": "string"
+          },
+          "verification": {
+            "default": "pending",
+            "description": "Qualificação declarada da relação editorial com o país; exige revisão semântica das evidências.",
+            "enum": [
+              "confirmed",
+              "pending"
+            ],
+            "title": "Verification",
             "type": "string"
           }
         },
@@ -1205,9 +1237,21 @@
             "type": "array"
           },
           "provenance_origin": {
+            "description": "URL HTTP(S) da publicação original da receita, usada para identificar republicações; não informe descrição em prosa.",
+            "format": "uri",
             "maxLength": 10000,
             "minLength": 1,
             "title": "Provenance Origin",
+            "type": "string"
+          },
+          "provenance_verification": {
+            "default": "pending",
+            "description": "Qualificação declarada da origem e da independência editorial; exige revisão semântica das evidências.",
+            "enum": [
+              "confirmed",
+              "pending"
+            ],
+            "title": "Provenance Verification",
             "type": "string"
           }
         },

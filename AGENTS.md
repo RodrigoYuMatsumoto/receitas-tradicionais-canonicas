@@ -1,17 +1,17 @@
 ---
 lang: pt-BR
 title: "Orientações para agentes do Receitas Tradicionais Canônicas"
-subject: "Escopo, contratos e verificação da versão experimental"
+subject: "Escopo, contratos e verificação da distribuição"
 author: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
 keywords: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
 manager: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
-version: "0.1.0"
-status: experimental
+version: "1.0.0"
+status: versioned
 ---
 
 # Orientações para agentes
 
-Este repositório público contém o Receitas Tradicionais Canônicas, versão 0.1.0 experimental, e a instrução sucessora v6.0. Repositório: [receitas-tradicionais-canonicas](https://github.com/RodrigoYuMatsumoto/receitas-tradicionais-canonicas).
+Este repositório público contém o Receitas Tradicionais Canônicas, distribuição 1.0.0, e a instrução sucessora v6.1. Repositório: [receitas-tradicionais-canonicas](https://github.com/RodrigoYuMatsumoto/receitas-tradicionais-canonicas).
 
 Leia [a instrução portátil](prompts/INSTRUCAO_PROJETO.md) antes de pesquisar e [os papéis](agents/PAPEIS.md) antes de delegar. O [diagnóstico e plano de migração](docs/DIAGNOSTICO_E_MIGRACAO.md) explica as mudanças em relação à v5.1. O README contém instalação e execução.
 
@@ -38,4 +38,4 @@ Todo Markdown novo deve manter frontmatter com `lang: pt-BR`, título e assunto 
 
 Antes de concluir uma mudança, execute os testes pertinentes indicados no README e confira links, metadados, contagens e ausência de dados privados. Diferencie execução bem-sucedida, revisão semântica e verificação externa. Não anuncie B.9 concluído por revisão da mesma família.
 
-Cada entrega substantiva informa confiança e sua justificativa, seguida de pendências explícitas ou “Pendências: zero”. A publicação experimental não equivale à promoção estável. B.9 permanece pendente para promoção estável até haver evidência adequada.
+Cada entrega substantiva informa confiança e sua justificativa, seguida de pendências explícitas ou “Pendências: zero”. Consulte o relatório B.9 e os hashes da distribuição antes de atribuir revisão independente; a revisão não cobre alterações futuras.
