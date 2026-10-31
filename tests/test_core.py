@@ -227,6 +227,24 @@ class ResearchTests(unittest.TestCase):
     def test_url_port_and_percent_normalization(self) -> None:
         self.assertEqual(normalize_url("https://www.example.test:443/a%62/?x=1#z"), normalize_url("http://example.test/ab"))
 
+    def test_invalid_idna_hosts_are_rejected_in_all_source_url_fields(self) -> None:
+        invalid_hosts = ["a..example.test", "a" * 64 + ".example.test", "é" * 64 + ".example.test"]
+        for field in ["url", "provenance_origin", "editorial_country_evidence"]:
+            for hostname in invalid_hosts:
+                data = batch_data()
+                url = f"https://{hostname}/receita"
+                if field == "editorial_country_evidence":
+                    data["sources"][0][field]["url"] = url
+                else:
+                    data["sources"][0][field] = url
+                with self.subTest(field=field, hostname=hostname), self.assertRaises(ValidationError):
+                    ResearchBatch.model_validate(data)
+
+    def test_valid_international_idna_host_remains_accepted(self) -> None:
+        data = batch_data()
+        data["sources"][0]["url"] = "https://bücher.example.test/receita"
+        self.assertTrue(validate_research(ResearchBatch.model_validate(data)).ok)
+
     def test_international_ingredient_and_group_names_are_preserved(self) -> None:
         self.assertEqual(normalize_text("小麦"), "小麦")
         data = delivery_data()

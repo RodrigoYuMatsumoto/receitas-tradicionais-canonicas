@@ -36,13 +36,15 @@ Os testes MCP iniciam o servidor como processo local e executam negociação, `i
 
 Uma revisão em contexto separado encontrou dois bypasses antes da publicação: marcação omitida de ingrediente proibido e ingrediente restrito escrito apenas em uma etapa. As correções acrescentam inspeção textual conservadora. Uma frase que mencione um ingrediente para negá-lo também pode ser rejeitada; nesse caso, reescreva a etapa com a alternativa permitida.
 
-Os 39 testes locais passaram, sem falhas, erros ou testes ignorados, em Windows com Python 3.14.3, MCP 2.3.0 e Pydantic 2.14.2. Também foram executados fora do repositório os comandos de plano, pesquisa sintética, entrega sintética e pesquisa histórica com rejeição esperada. O resultado está em [TESTES.json](../evidence/TESTES.json) e a [rechecagem independente](../evidence/REVISAO_INDEPENDENTE.md) documenta os controles corrigidos. A matriz de CI cobre Windows e Linux, Python 3.11 e 3.14; só o estado efetivo dos jobs permite afirmar aprovação em cada combinação. O workflow não publica pacotes nem faz deploy.
+Os 42 testes locais passaram, sem falhas, erros ou testes ignorados, em Windows com Python 3.14.3, MCP 2.3.0 e Pydantic 2.14.2, incluindo as regressões de URLs IDNA inválidas. Também foram executados fora do repositório os comandos de plano, pesquisa sintética, entrega sintética e pesquisa histórica com rejeição esperada. O resultado está em [TESTES.json](../evidence/TESTES.json) e a [rechecagem independente](../evidence/REVISAO_INDEPENDENTE.md) documenta os controles corrigidos. A matriz de CI cobre Windows e Linux, Python 3.11 e 3.14; só o estado efetivo dos jobs permite afirmar aprovação em cada combinação. O workflow não publica pacotes nem faz deploy.
 
 ## Pesquisa real e dados sintéticos
 
 O registro real tem sete receitas e identifica a presença culinária do ingrediente-alvo em uma variante. Seus contadores de reformulações após fracasso não foram medidos. Por isso a CLI retorna rejeição documental específica nesse registro, preservando o resultado e a lacuna, sem inventar zero. O [ensaio](../evidence/ENSAIO_FEIJOADA.md) explica esse limite.
 
-O exemplo sintético tem contadores conhecidos e deve passar nos controles estruturais. Ele não comprova a existência de fonte, tradição, país ou segurança. Os dois exemplos têm funções diferentes e não devem ser apresentados como equivalentes.
+Uma rodada posterior revalidou as sete fontes em dois contextos de pesquisa: uma consulta neutra, 12 URLs distintas abertas sem falha e nenhum retry. O [registro dessa rodada](../evidence/REVALIDACAO_DOCUMENTAL.json) e o [lote real aprovado](../examples/feijoada_revalidada.json) demonstram a passagem pelo contrato corrigido, também chamado pelo cliente MCP real com o servidor instalado e executado fora do repositório. Os endereços eram conhecidos; essa rodada não demonstra nova descoberta cega nem apaga a lacuna histórica. Os inventários resumidos do registro anterior foram complementados na nova rodada.
+
+O exemplo sintético tem contadores conhecidos e deve passar nos controles estruturais. Ele não comprova a existência de fonte, tradição, país ou segurança. Os três exemplos têm funções diferentes e não devem ser apresentados como equivalentes.
 
 ## Fontes técnicas consultadas
 

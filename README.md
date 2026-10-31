@@ -46,7 +46,7 @@ Veja a [instalação e conexão](docs/INSTALACAO.md). Também é possível usar 
 
 A [pesquisa inicial](evidence/ENSAIO_FEIJOADA.md) registra o que funcionou e o que falhou. A primeira rodada não encontrou o detalhe procurado. A exploração de variantes regionais encontrou o uso culinário do ingrediente-alvo, sem inseri-lo nas consultas. Isso não comprova os efeitos fisiológicos atribuídos a ele.
 
-Há um [lote real com sete fontes](examples/feijoada_pesquisa.json), o log de consultas e testes com casos sintéticos. O exemplo é um registro de pesquisa, não uma certificação de segurança nem uma receita clínica.
+Há um [lote real revalidado com sete fontes](examples/feijoada_revalidada.json), o [registro histórico da descoberta](examples/feijoada_pesquisa.json) e testes com casos sintéticos. A revalidação posterior passou no contrato documental com contadores medidos; ela reutiliza fontes conhecidas e não é outra descoberta cega. Nenhum exemplo é certificação de segurança ou receita clínica.
 
 ## Para contribuir ou reutilizar
 

@@ -124,6 +124,9 @@ def check() -> list[str]:
     report = validate_research(ResearchBatch.model_validate(case))
     if report.ok or {issue.code for issue in report.issues} != {"reformulacoes_nao_medidas"}:
         errors.append("O lote histórico deve declarar exclusivamente a lacuna real dos retries não medidos.")
+    revalidated = json.loads((ROOT / "examples" / "feijoada_revalidada.json").read_text(encoding="utf-8"))
+    if not validate_research(ResearchBatch.model_validate(revalidated)).ok:
+        errors.append("O lote real revalidado precisa passar no contrato documental.")
     return errors
 
 

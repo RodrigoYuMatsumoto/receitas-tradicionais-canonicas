@@ -33,15 +33,16 @@ No Linux ou macOS, use `.venv/bin/python` no lugar de `.venv\Scripts\python.exe`
 
 O onboarding faz perguntas e devolve um perfil em JSON. Não grava as respostas automaticamente. A conversa com a IA é a opção mais simples; o comando é útil para integrações.
 
-Para conferir um exemplo sintético com todos os campos e, depois, o registro histórico da pesquisa:
+Para conferir a revalidação real, o exemplo sintético e o registro histórico da pesquisa:
 
 ```powershell
+.venv\Scripts\python.exe -m receitas_tradicionais validate examples/feijoada_revalidada.json
 .venv\Scripts\python.exe -m receitas_tradicionais validate examples/pesquisa_sintetica.json
 .venv\Scripts\python.exe -m receitas_tradicionais validate examples/feijoada_pesquisa.json
 .venv\Scripts\python.exe -m receitas_tradicionais schema
 ```
 
-O exemplo sintético deve retornar código 0, que indica estrutura aceita. Ele não apresenta fontes reais. O registro histórico de feijoada deve retornar código 1: há sete fontes, mas as reformulações após buscas sem fonte elegível não foram medidas. O protocolo novo bloqueia essa lacuna; os contadores desconhecidos não foram preenchidos com zero. O comando `schema` retorna código 0 e não faz pesquisa.
+A revalidação real e o exemplo sintético devem retornar código 0, que indica estrutura aceita. A revalidação reutiliza fontes conhecidas e mede seus próprios contadores; o exemplo sintético não apresenta fontes reais. O registro histórico de feijoada deve retornar código 1: há sete fontes, mas as reformulações após buscas sem fonte elegível não foram medidas. O protocolo novo bloqueia essa lacuna; os contadores desconhecidos não foram preenchidos com zero. O comando `schema` retorna código 0 e não faz pesquisa.
 
 O pacote fixa o SDK oficial MCP em 2.3.0. Uma atualização da dependência exige os testes de integração, não apenas a troca do número.
 

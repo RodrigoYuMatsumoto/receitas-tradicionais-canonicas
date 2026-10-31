@@ -79,6 +79,8 @@ A pesquisa inicial e a descoberta do coordenador precederam a instalação do pa
 
 O ensaio não mediu o número de reformulações feitas após uma busca sem fonte elegível em cada trajetória. O pesquisador confirmou que os logs não permitem reconstruir esse número rigorosamente. Por isso os dois contadores permanecem desconhecidos no JSON e o validador novo deve retornar `reformulacoes_nao_medidas`, impedindo uma aprovação integral retroativa. Refinamento exploratório bem-sucedido não equivale automaticamente a retry de fracasso. A descoberta documental permanece válida com essa limitação metodológica explícita.
 
+Depois da implementação e da correção das URLs, uma rodada separada de [revalidação assistida](REVALIDACAO_DOCUMENTAL.json) leu novamente as sete receitas e suas provas editoriais: uma consulta com o nome do prato, 12 URLs distintas, dois contextos de pesquisa, zero falhas e zero reformulações. O [novo lote](../examples/feijoada_revalidada.json) passou no contrato documental. Os endereços foram reaproveitados do registro anterior; isso não constitui nova descoberta cega. O histórico permanece intacto e reprovado quanto aos seus contadores desconhecidos.
+
 Confiança: alta na presença do ingrediente nas páginas lidas e na identificação da republicação; média na caracterização das variantes e na generalização do método, pois houve um único prato e direção regional explícita na segunda rodada.
 
 Pendências: contagem retrospectiva de retries desconhecida; teste de cozinha; confirmação da infusão e dos efeitos fisiológicos; revisão dos livros citados por fontes secundárias; investigação completa de dependência intelectual; avaliação cega com outros pratos; revisão por outra família de modelos.

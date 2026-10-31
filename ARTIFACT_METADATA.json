@@ -165,6 +165,15 @@
       "subject": "Instruções, contratos, código ou evidências de pesquisa culinária documentada"
     },
     {
+      "path": "evidence/REVALIDACAO_DOCUMENTAL.json",
+      "lang": "pt-BR",
+      "author": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "keywords": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "manager": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "title": "Artefato de receitas tradicionais: REVALIDACAO_DOCUMENTAL",
+      "subject": "Instruções, contratos, código ou evidências de pesquisa culinária documentada"
+    },
+    {
       "path": "evidence/REVISAO_INDEPENDENTE.md",
       "lang": "pt-BR",
       "author": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
@@ -198,6 +207,15 @@
       "keywords": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
       "manager": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
       "title": "Artefato de receitas tradicionais: feijoada_pesquisa",
+      "subject": "Instruções, contratos, código ou evidências de pesquisa culinária documentada"
+    },
+    {
+      "path": "examples/feijoada_revalidada.json",
+      "lang": "pt-BR",
+      "author": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "keywords": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "manager": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "title": "Artefato de receitas tradicionais: feijoada_revalidada",
       "subject": "Instruções, contratos, código ou evidências de pesquisa culinária documentada"
     },
     {

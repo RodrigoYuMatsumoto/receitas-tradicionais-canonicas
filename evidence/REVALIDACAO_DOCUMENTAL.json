@@ -1,0 +1,40 @@
+{
+  "lang": "pt-BR",
+  "date": "2026-10-31",
+  "purpose": "Revalidação assistida de sete fontes conhecidas; não é descoberta cega.",
+  "queries": 1,
+  "unique_pages_read": 12,
+  "researchers": 2,
+  "failures": 0,
+  "reformulations_by_track": {
+    "base": 0,
+    "domestic_regional": 0
+  },
+  "gate_result": {
+    "ok": true,
+    "issues": [],
+    "semantic_review_required": true,
+    "limitations": [
+      "Controle documental local: URLs, país, grupo e autoria são declarações que exigem revisão semântica humana.",
+      "A ferramenta não acessa páginas nem comprova leitura, proveniência, tradição ou independência editorial.",
+      "Aprovação da pesquisa não aprova ingredientes para o perfil nem substitui validate_delivery.",
+      "Notas e comentários podem estar declarados como inacessíveis; isso não comprova sua ausência nem sua leitura."
+    ],
+    "checked_at": "2026-10-31"
+  },
+  "source_example": "examples/feijoada_revalidada.json",
+  "urls_read": [
+    "https://panelinha.com.br/receita/feijoada-na-pressao",
+    "https://panelinha.com.br/termos-de-uso",
+    "https://receitas.globo.com/receitas-da-tv/e-de-casa/feijoada-e-de-casa.ghtml",
+    "https://www.camil.com.br/receitas/feijoada",
+    "https://www.camil.com.br/historia/",
+    "https://www.receiteria.com.br/receita/feijoada/",
+    "https://www.receiteria.com.br/sobre/",
+    "https://jc.uol.com.br/receitadaboa/aprenda-como-fazer-feijoada-receita-tradicional-brasileira-para-reunir-a-familia-a-mesa.html",
+    "https://jc.uol.com.br/receitadaboa/quem-somos",
+    "https://www.band.com.br/entretenimento/realities/masterchef/ritmista-da-portela-salvador-ensina-feijoada-perfeita-para-preparar-ouvindo-samba-veja-a-receita-16310456",
+    "https://www.tudogostoso.com.br/receita/296211-feijoada-baiana.html",
+    "https://www.tudogostoso.com.br/privacidade"
+  ]
+}

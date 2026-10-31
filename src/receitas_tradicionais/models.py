@@ -104,6 +104,10 @@ def validate_http_url(value: str) -> str:
     try:
         parsed = urlsplit(value)
         port = parsed.port
+        if parsed.hostname:
+            parsed.hostname.encode("idna")
+    except UnicodeError as exc:
+        raise ValueError("Informe uma URL com hostname IDNA válido.") from exc
     except ValueError as exc:
         raise ValueError("Informe uma URL HTTP ou HTTPS válida.") from exc
     if (

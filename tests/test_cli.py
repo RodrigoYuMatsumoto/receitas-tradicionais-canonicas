@@ -11,7 +11,7 @@ import unittest
 from pathlib import Path
 
 from receitas_tradicionais.models import MAX_INPUT_BYTES
-from test_core import batch_data, request_data
+from test_core import batch_data, delivery_data, request_data
 
 
 class CliTests(unittest.TestCase):
@@ -53,6 +53,29 @@ class CliTests(unittest.TestCase):
             result = self.run_cli("plan", str(path))
             self.assertEqual(result.returncode, 2)
             self.assertNotIn("marcador_privado", result.stdout + result.stderr)
+
+    def test_invalid_idna_hosts_return_sanitized_json_in_both_validators(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "entrada.json"
+            for command in ["validate", "validate-delivery"]:
+                for field in ["url", "provenance_origin", "editorial_country_evidence"]:
+                    for hostname in ["a..example.test", "a" * 64 + ".example.test"]:
+                        data = batch_data() if command == "validate" else delivery_data()
+                        batch = data if command == "validate" else data["research"]
+                        url = f"https://{hostname}/marcador_privado"
+                        if field == "editorial_country_evidence":
+                            batch["sources"][0][field]["url"] = url
+                        else:
+                            batch["sources"][0][field] = url
+                        path.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+                        with self.subTest(command=command, field=field, hostname=hostname):
+                            result = self.run_cli(command, str(path))
+                            self.assertEqual(result.returncode, 2)
+                            response = json.loads(result.stdout)
+                            self.assertFalse(response["ok"])
+                            self.assertEqual(response["error"], "dados_invalidos")
+                            self.assertNotIn("Traceback", result.stdout + result.stderr)
+                            self.assertNotIn("marcador_privado", result.stdout + result.stderr)
 
     def test_interactive_onboarding_accepts_allergy_without_writing(self) -> None:
         answers = "\namendoim\n\n\npanela\n\n4\nsimples\nsim\n"
