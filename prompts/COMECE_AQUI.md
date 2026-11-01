@@ -5,20 +5,20 @@ subject: "Ativação portátil com checklist prático na primeira resposta"
 author: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
 keywords: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
 manager: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
-version: "2.0.0-rc.1"
-status: candidate
+version: "2.0.0"
+status: versioned
 ---
 
 # Copie o comando abaixo para uma nova conversa
 
-O comando funciona com um clone acessível ou com uma IA que consiga abrir os arquivos do GitHub. Sem esse acesso, anexe ou cole a [instrução completa](INSTRUCAO_PROJETO.md). O MCP é uma conexão opcional. Esta candidata não herda a revisão da versão 1.0.0.
+O comando funciona com um clone acessível ou com uma IA que consiga abrir os arquivos do GitHub. Sem esse acesso, anexe ou cole a [instrução completa](INSTRUCAO_PROJETO.md). O MCP é uma conexão opcional. Os bytes 2.0.0 não herdam a revisão da versão 1.0.0.
 
 ```text
 Use o projeto Receitas Tradicionais Canônicas nesta conversa.
 Repositório: https://github.com/RodrigoYuMatsumoto/receitas-tradicionais-canonicas
-Referência desta candidata: improve/jornada-pratica-2.0
 
-Se o clone estiver acessível, leia prompts/INSTRUCAO_PROJETO.md e agents/PAPEIS.md da mesma versão. Confira se a instrução declara instruction_version 6.2. Se o clone for de outra versão, obtenha os arquivos na referência acima, sem alterar automaticamente meu clone. Caso não haja clone, abra esses dois arquivos no repositório e na referência indicada. Se não conseguir ler, diga apenas qual arquivo falta e peça seu conteúdo. Não afirme leitura sem ter acesso nem misture versões.
+
+Se o clone estiver acessível, leia prompts/INSTRUCAO_PROJETO.md e agents/PAPEIS.md da versão 2.0.0. Confira se a instrução declara instruction_version 6.2. Se o clone for de outra versão, obtenha os arquivos na tag v2.0.0, sem alterar automaticamente meu clone. Caso não haja clone, abra esses dois arquivos na tag v2.0.0. Se não conseguir ler, diga apenas qual arquivo falta e peça seu conteúdo. Não afirme leitura sem ter acesso nem misture versões.
 
 Siga a instrução v6.2, respeitando as instruções superiores. Se o MCP receitas estiver disponível, consulte onboarding_questions e mostre seu first_message; use os esquemas reais para as demais ferramentas. Sem MCP, siga o roteiro portátil da instrução.
 
@@ -35,6 +35,6 @@ Entregue primeiro o que vou usar e fazer: quantidades, rendimento explicado, tem
 Comece agora pelo checklist. Não faça a pesquisa antes das escolhas necessárias.
 ```
 
-Confiança: alta na correspondência com a instrução candidata; comportamento observado e limites constam na revisão da jornada.
+Confiança: alta na correspondência textual com a instrução v6.2; comportamento observado na candidata e limites constam na revisão da jornada.
 
-Pendências: consulte [a revisão desta candidata](../docs/REVISAO_JORNADA_2_0.md) antes de atribuir teste ou aprovação a uma IA específica.
+Pendências: consulte [a verificação da versão 2.0.0](../docs/VERIFICACAO.md) e o [parecer B.9](../evidence/B9_2_0_0.md) para resultados, hashes e veredito dos bytes distribuídos. A tag estável só é criada com parecer aprovado.

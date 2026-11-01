@@ -13,6 +13,7 @@ from test_core import delivery_data, request_data
 
 def practical_delivery_data() -> dict:
     data = delivery_data()
+    data["research"]["request"]["profile"]["equipment"] = ["panela"]
     data["steps"] = ["Cozinhe o arroz com a água em fogo baixo."]
     data["labels_reviewed"] = False
     data["recipe_card"] = {
@@ -38,6 +39,97 @@ def practical_delivery_data() -> dict:
 class PracticalJourneyTests(unittest.TestCase):
     def report(self, data: dict):
         return validate_delivery(Delivery.model_validate(data))
+
+    def test_number_flexions_block_every_delivery_surface_in_both_directions(self) -> None:
+        pairs = [
+            ("ovo", "ovos"), ("camarão", "camarões"), ("pimentão", "pimentões"),
+            ("noz", "nozes"), ("noz-pecã", "nozes-pecãs"), ("arroz", "arrozes"),
+            ("anis", "anises"), ("pão", "pães"), ("pastel", "pastéis"),
+            ("vagem", "vagens"), ("atum", "atuns"), ("sal", "sais"),
+            ("farol", "faróis"), ("azul", "azuis"), ("mão", "mãos"),
+        ]
+        for restriction, ingredient in [*pairs, *((b, a) for a, b in pairs)]:
+            for field in ("excluded_ingredients", "allergies", "intolerances"):
+                data = practical_delivery_data()
+                data["research"]["request"]["profile"][field] = [restriction]
+                data["ingredients"].append({"name": ingredient})
+                data["recipe_card"]["ingredients"].append({"name": ingredient, "quantity": "1", "unit": "unidade", "source_ids": ["teste_0"]})
+                data["steps"] = [f"Adicione {ingredient}."]
+                data["recipe_card"]["steps"] = [{"instruction": data["steps"][0], "observable_cue": "Mistura homogênea."}]
+                data["adaptation_notes"] = [f"Use {ingredient} na adaptação."]
+                with self.subTest(restriction=restriction, ingredient=ingredient, field=field):
+                    report = self.report(data)
+                    self.assertFalse(report.ok)
+                    self.assertFalse(report.practical_ready)
+                    self.assertTrue({"ingrediente_restrito", "restricao_na_ficha", "restricao_nas_etapas", "restricao_nas_notas"}.issubset({issue.code for issue in report.issues}))
+
+    def test_specific_restriction_matches_generic_ingredient_label_only(self) -> None:
+        for restriction, ingredient in (("castanhas-de-caju", "castanha"), ("cogumelo shiitake", "cogumelos")):
+            data = practical_delivery_data()
+            data["research"]["request"]["profile"]["excluded_ingredients"] = [restriction]
+            data["ingredients"].append({"name": ingredient})
+            data["recipe_card"]["ingredients"].append({"name": ingredient, "quantity": "1", "unit": "unidade", "source_ids": ["teste_0"]})
+            data["steps"] = [f"Adicione {ingredient}."]
+            data["recipe_card"]["steps"] = [{"instruction": data["steps"][0], "observable_cue": "Mistura homogênea."}]
+            data["adaptation_notes"] = [f"Use {ingredient} na adaptação."]
+            with self.subTest(restriction=restriction, ingredient=ingredient):
+                codes = {issue.code for issue in self.report(data).issues}
+                self.assertIn("ingrediente_restrito", codes)
+                self.assertIn("restricao_na_ficha", codes)
+                self.assertNotIn("restricao_nas_etapas", codes)
+                self.assertNotIn("restricao_nas_notas", codes)
+
+    def test_number_flexions_in_aliases_and_components(self) -> None:
+        for field in ("aliases", "components"):
+            for restriction, label in (("noz", "nozes"), ("pães", "pão"), ("vagem", "vagens")):
+                data = practical_delivery_data()
+                data["research"]["request"]["profile"]["excluded_ingredients"] = [restriction]
+                data["ingredients"][0][field] = [label]
+                data["recipe_card"]["ingredients"][0][field] = [label]
+                with self.subTest(field=field, restriction=restriction, label=label):
+                    codes = {issue.code for issue in self.report(data).issues}
+                    self.assertIn("ingrediente_restrito", codes)
+                    self.assertIn("restricao_na_ficha", codes)
+
+    def test_specific_restriction_in_steps_and_notes_requires_full_phrase(self) -> None:
+        for restriction, phrase in (("castanha de caju", "castanhas-de-caju"), ("cogumelo shiitake", "cogumelos shiitake")):
+            data = practical_delivery_data()
+            data["research"]["request"]["profile"]["excluded_ingredients"] = [restriction]
+            data["steps"] = [f"Acrescente {phrase}."]
+            data["recipe_card"]["steps"] = [{"instruction": data["steps"][0], "observable_cue": "Mistura homogênea."}]
+            data["adaptation_notes"] = [f"Use {phrase} na adaptação."]
+            with self.subTest(restriction=restriction, phrase=phrase):
+                codes = {issue.code for issue in self.report(data).issues}
+                self.assertIn("restricao_nas_etapas", codes)
+                self.assertIn("restricao_nas_notas", codes)
+                self.assertIn("restricao_na_ficha", codes)
+
+    def test_generic_word_in_card_note_does_not_complete_specific_restriction(self) -> None:
+        data = practical_delivery_data()
+        data["research"]["request"]["profile"]["excluded_ingredients"] = ["castanhas de caju"]
+        data["recipe_card"]["ingredients"][0]["note"] = "Confira a castanha no rótulo de outro produto."
+        codes = {issue.code for issue in self.report(data).issues}
+        self.assertNotIn("restricao_na_ficha", codes)
+
+    def test_missing_equipment_requires_confirmation(self) -> None:
+        data = practical_delivery_data()
+        data["research"]["request"]["profile"].pop("equipment")
+        data["recipe_card"]["equipment"] = ["panela de pressão de 6 litros", "liquidificador"]
+        report = self.report(data)
+        self.assertTrue(report.ok)
+        self.assertFalse(report.practical_ready)
+        self.assertIn("equipamento_nao_confirmado", {item.code for item in report.action_items})
+
+    def test_missing_servings_requires_confirmation(self) -> None:
+        data = practical_delivery_data()
+        data["research"]["request"]["profile"].pop("servings")
+        request = Request.model_validate(data["research"]["request"])
+        self.assertIsNone(request.profile.servings)
+        self.assertTrue(plan_research(request)["ok"])
+        report = self.report(data)
+        self.assertTrue(report.ok)
+        self.assertFalse(report.practical_ready)
+        self.assertIn("porcoes_nao_confirmadas", {item.code for item in report.action_items})
 
     def test_complete_card_is_usable_without_universal_label_attestation(self) -> None:
         report = self.report(practical_delivery_data())

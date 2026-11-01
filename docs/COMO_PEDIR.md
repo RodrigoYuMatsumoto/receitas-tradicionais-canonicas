@@ -5,8 +5,8 @@ subject: "Pedidos cotidianos, checklist alimentar e acompanhamento do preparo"
 author: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
 keywords: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
 manager: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
-version: "2.0.0-rc.1"
-status: candidate
+version: "2.0.0"
+status: versioned
 ---
 
 # Peça do seu jeito

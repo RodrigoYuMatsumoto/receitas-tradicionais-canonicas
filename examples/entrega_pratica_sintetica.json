@@ -7,7 +7,8 @@
       "ambiguity_resolved": true,
       "profile": {
         "onboarding_confirmed": true,
-        "servings": 4
+        "servings": 4,
+        "equipment": ["panela"]
       },
       "kitchen": {
         "available_ingredients": [

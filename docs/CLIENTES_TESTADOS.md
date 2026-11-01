@@ -5,11 +5,13 @@ subject: Execuções reais, compatibilidade e problemas encontrados
 author: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
 keywords: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
 manager: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
+version: "2.0.0"
+status: versioned
 ---
 
 # Clientes de IA ensaiados
 
-A candidata 2.0.0-rc.1 tem ensaios próprios na [revisão da jornada](REVISAO_JORNADA_2_0.md) e no [registro de evidências](../evidence/JORNADA_2_0.json). A seção abaixo preserva os ensaios históricos da 1.0.0; suas aprovações não são transferidas à candidata.
+Os ensaios funcionais da candidata 2.0.0-rc.1 constam na [revisão da jornada](REVISAO_JORNADA_2_0.md) e no [registro de evidências](../evidence/JORNADA_2_0.json). Esses ensaios não cobrem os bytes distribuídos da 2.0.0. A seção abaixo preserva os ensaios históricos da 1.0.0; suas aprovações não são transferidas. Resultados de testes, hashes e veredito da 2.0.0 constam no [parecer B.9](../evidence/B9_2_0_0.md). A tag estável só é criada com parecer aprovado.
 
 Os ensaios de 31/10/2026 usam perfis fictícios, configurações temporárias fora do clone e instrução integral. Não são estudo de usabilidade com pessoas nem revisão B.9. Nenhuma configuração global ou credencial foi alterada.
 

@@ -401,6 +401,18 @@ class DeliveryTests(unittest.TestCase):
                     expected_path = "ingredients.0.alcohol" if field == "ingredients" else f"{field}.0"
                     self.assertTrue(any(issue.code == code and issue.path == expected_path for issue in report.issues))
 
+    def test_vinegar_and_cidra_are_not_alcohol_terms(self) -> None:
+        for label in ("cidra", "doce de cidra", "vinagre de vinho tinto", "wine vinegar", "vinagre de sidra", "cider vinegar", "apple cider vinegar", "vinagre de xerez", "sherry vinegar", "vinagre de vino", "rice wine vinegar"):
+            data = delivery_data()
+            data["ingredients"] = [{"name": label}]
+            with self.subTest(label=label):
+                self.assertNotIn("alcool_na_entrega", self.codes(data))
+        for label in ("vinho tinto", "sidra", "cerveja", "wine", "vinagre de vinho tinto e vinho tinto para beber"):
+            data = delivery_data()
+            data["ingredients"] = [{"name": label}]
+            with self.subTest(label=label):
+                self.assertIn("alcool_na_entrega", self.codes(data))
+
 
 if __name__ == "__main__":
     unittest.main()

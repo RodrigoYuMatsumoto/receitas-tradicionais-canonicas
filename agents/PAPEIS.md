@@ -5,13 +5,13 @@ subject: "Responsabilidades, delegação e limites da validação documental"
 author: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
 keywords: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
 manager: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
-version: "2.0.0-rc.1"
-status: candidate
+version: "2.0.0"
+status: versioned
 ---
 
 # Papéis de pesquisa e revisão
 
-Estes papéis executam a [instrução v6.2](../prompts/INSTRUCAO_PROJETO.md). O host coordena a conversa, a pesquisa e a delegação. O MCP local oferece contratos e validações determinísticas; não navega, não chama modelos nem inicia agentes. Consulte seus esquemas reais antes de chamar ferramentas. Papéis e ferramentas ficam nos bastidores da conversa culinária.
+Estes papéis executam a [instrução v6.2](../prompts/INSTRUCAO_PROJETO.md) dos bytes 2.0.0. O host coordena a conversa, a pesquisa e a delegação. O MCP local oferece contratos e validações determinísticas; não navega, não chama modelos nem inicia agentes. Consulte seus esquemas reais antes de chamar ferramentas. Papéis e ferramentas ficam nos bastidores da conversa culinária.
 
 Não é necessário um modelo diferente para cada papel. Com subagentes, distribua responsabilidades e compartilhe o orçamento. Sem subagentes, execute os papéis em sequência e registre essa condição no relatório técnico, disponível sob demanda. Essa separação não demonstra independência de revisão nem conclui B.9. O coordenador integra as duas pesquisas antes da seleção; falha ou resultado parcial de uma delas permanece pendente, sem ser contado como trabalho concluído.
 

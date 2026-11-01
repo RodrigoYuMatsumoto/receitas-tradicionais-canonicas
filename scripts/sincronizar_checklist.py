@@ -34,8 +34,8 @@ subject: "Alimentos a evitar, exemplos e respostas possíveis"
 author: "{OWNER}"
 keywords: "{OWNER}"
 manager: "{OWNER}"
-version: "2.0.0-rc.1"
-status: candidate
+version: "2.0.0"
+status: versioned
 ---
 
 '''

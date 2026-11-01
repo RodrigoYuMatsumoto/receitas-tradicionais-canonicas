@@ -114,6 +114,17 @@ class CliTests(unittest.TestCase):
         self.assertEqual(profile["allergies"], [])
         self.assertEqual(profile["onboarding_unknowns"], ["excluded_ingredients"])
 
+    def test_onboarding_normalizes_unknown_and_none_answers(self) -> None:
+        for answer, unknown in [("Não sei.", True), ("  NAO   SEI!  ", True), ("Prefiro não informar.", True), ("Nenhum.", False), ("NENHUMA!", False)]:
+            responses = f"{answer}\n{answer}\nnenhum\nnenhum\npanela\n\n4\nsimples\nsim\n"
+            with self.subTest(answer=answer):
+                result = self.run_cli("onboarding", input=responses)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                profile = json.loads(result.stdout)
+                self.assertEqual(profile["excluded_ingredients"], [])
+                self.assertEqual(profile["allergies"], [])
+                self.assertEqual(profile["onboarding_unknowns"], ["excluded_ingredients", "allergies"] if unknown else [])
+
     def test_cli_disliked_ingredients_become_exclusions_without_duplicates(self) -> None:
         answers = "coentro\nnenhum\nnenhum\nCOENTRO; pimenta\npanela\n\n4\nsimples\nsim\n"
         result = self.run_cli("onboarding", input=answers)

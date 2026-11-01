@@ -5,13 +5,13 @@ subject: "Escopo, contratos e verificação da distribuição"
 author: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
 keywords: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
 manager: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
-version: "2.0.0-rc.1"
-status: candidate
+version: "2.0.0"
+status: versioned
 ---
 
 # Orientações para agentes
 
-Este repositório público contém a candidata 2.0.0-rc.1 do Receitas Tradicionais Canônicas e a instrução sucessora v6.2. A release 1.0.0 continua sendo a estável anterior. Repositório: [receitas-tradicionais-canonicas](https://github.com/RodrigoYuMatsumoto/receitas-tradicionais-canonicas).
+Esta árvore contém a versão 2.0.0 do Receitas Tradicionais Canônicas e a instrução v6.2. A release 1.0.0 é a versão anterior. Resultados, hashes e veredito dos bytes distribuídos constam no [parecer B.9](evidence/B9_2_0_0.md). Uma tag estável só é criada com parecer aprovado. Repositório: [receitas-tradicionais-canonicas](https://github.com/RodrigoYuMatsumoto/receitas-tradicionais-canonicas).
 
 Leia [a instrução portátil](prompts/INSTRUCAO_PROJETO.md) antes de pesquisar e [os papéis](agents/PAPEIS.md) antes de delegar. O [diagnóstico e plano de migração](docs/DIAGNOSTICO_E_MIGRACAO.md) explica as mudanças em relação à v5.1. O README contém instalação e execução.
 

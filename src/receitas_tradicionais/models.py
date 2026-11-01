@@ -70,7 +70,7 @@ class Profile(StrictModel):
     equipment: TextList = Field(default_factory=list)
     region: ShortText | None = None
     language_style: Literal["simples", "tecnico"] = "simples"
-    servings: Annotated[int, Field(gt=0, le=1000)] = 4
+    servings: Annotated[int, Field(gt=0, le=1000)] | None = None
     alcohol_free: bool = True
     dietary_patterns: TextList = Field(default_factory=list)
     avoid_added_flavor_enhancers: bool = True

@@ -11,6 +11,24 @@ from test_practical import practical_delivery_data
 
 
 class PresentationTests(unittest.TestCase):
+    def test_missing_equipment_and_servings_have_human_actions(self) -> None:
+        data = practical_delivery_data()
+        data["research"]["request"]["profile"].pop("equipment")
+        data["research"]["request"]["profile"].pop("servings")
+        text, code = render_delivery(Delivery.model_validate(data))
+        self.assertEqual(code, 1)
+        self.assertIn("Confirme para quantas pessoas", text)
+        self.assertIn("Confirme o tipo e a capacidade dos utensílios", text)
+    def test_qualitative_quantity_uses_core_normalization(self) -> None:
+        for quantity in ("A gosto", "a gosto."):
+            data = practical_delivery_data()
+            data["recipe_card"]["ingredients"][0]["quantity"] = quantity
+            data["recipe_card"]["ingredients"][0]["note"] = "Adicione aos poucos e prove."
+            text, code = render_delivery(Delivery.model_validate(data))
+            with self.subTest(quantity=quantity):
+                self.assertEqual(code, 0)
+                self.assertIn("arroz: a gosto (medida para ajustar: xícara)", text)
+                self.assertNotIn("a gosto. xícara", text)
     def test_typography_is_deterministic_and_keeps_machine_fragments_intact(self) -> None:
         straight = chr(34)
         for separator in [chr(0x2013), chr(0x2014)]:

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -78,11 +79,12 @@ def interactive_onboarding() -> Profile:
         if field in list_fields:
             if not answer:
                 raise InputError("Resposta em branco não confirma ausência. Informe os itens ou digite nenhum; se preferir não informar, use o modo de conversa e declare a lacuna.")
-            if answer.casefold() in {"não sei", "nao sei", "prefiro não informar", "prefiro nao informar"}:
+            normalized_answer = normalize_text(re.sub(r"[\s.!?;:,]+$", "", answer))
+            if normalized_answer in {"nao sei", "prefiro nao informar"}:
                 unknowns.append(field)
                 values[field] = []
             else:
-                values[field] = [] if answer.casefold() in {"nenhum", "nenhuma"} else [value.strip() for value in answer.split(";") if value.strip()]
+                values[field] = [] if normalized_answer in {"nenhum", "nenhuma"} else [value.strip() for value in answer.split(";") if value.strip()]
         elif field == "region":
             values[field] = answer or None
         elif field == "servings":

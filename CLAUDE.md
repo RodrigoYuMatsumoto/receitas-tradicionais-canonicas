@@ -5,8 +5,8 @@ subject: "Carregamento da instrução culinária e início pelo checklist"
 author: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
 keywords: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
 manager: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
-version: "2.0.0-rc.1"
-status: candidate
+version: "2.0.0"
+status: versioned
 ---
 
 # Receitas Tradicionais Canônicas
@@ -17,4 +17,4 @@ Para uso na cozinha, comece diretamente pelo checklist numerado e com exemplos. 
 
 Depois obtenha somente os dados de cozinha ausentes. Não pesquise antes de resolver ambiguidade material por opções com ingredientes. O host faz as buscas; o MCP valida declarações. Guarde o perfil só na conversa, salvo escolha explícita. Não altere configuração global nem presuma instalação pelo simples acesso ao clone.
 
-Esta candidata não herda revisão ou homologação da versão estável anterior. Consulte [a revisão da jornada](docs/REVISAO_JORNADA_2_0.md) para testes e limites.
+Esta versão não herda revisão ou homologação da 1.0.0. Consulte [a verificação](docs/VERIFICACAO.md) para o método e o [parecer B.9](evidence/B9_2_0_0.md) para resultados, hashes e veredito dos bytes distribuídos. A tag estável só é criada com parecer aprovado.

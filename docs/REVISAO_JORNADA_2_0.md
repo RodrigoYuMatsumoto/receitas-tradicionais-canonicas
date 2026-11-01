@@ -1,12 +1,12 @@
 ---
 lang: pt-BR
 title: "Revisão prática da jornada de receitas, versão 2.0"
-subject: "Entrada, pesquisa, saída humana, correções e limites da candidata"
+subject: "Entrada, pesquisa, saída humana, migração e passagem aos bytes 2.0.0"
 author: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
 keywords: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
 manager: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
-version: "2.0.0-rc.1"
-status: candidate
+version: "2.0.0"
+status: versioned
 ---
 
 # A conversa começa pela comida
@@ -61,7 +61,7 @@ O MCP mantém quatro ferramentas. A navegação e os papéis pertencem à IA hos
 
 ## Migração: por que 2.0
 
-Há mudança de semântica: na 1.0.0, rótulos não conferidos impediam `ok`; nesta candidata, conferências humanas aplicáveis ficam em `action_items` e afetam `preparation_ready`. Por isso foi escolhida uma versão principal nova, mesmo preservando a leitura dos JSON antigos.
+Há mudança de semântica: na 1.0.0, rótulos não conferidos impediam `ok`; na 2.0.0, conferências humanas aplicáveis ficam em `action_items` e afetam `preparation_ready`. Por isso foi escolhida uma versão principal nova, mesmo preservando a leitura dos JSON antigos.
 
 - `ok`: consistência documental e de exclusões declaradas; não é autorização para cozinhar.
 - `practical_ready`: além do resultado documental, a ficha contém os dados operacionais e cabe nas condições declaradas.
@@ -91,12 +91,18 @@ python scripts/validate_repository.py
 
 Os resultados executados e as respostas reais resumidas constam em [evidência da jornada](../evidence/JORNADA_2_0.json). A nova pesquisa de uso está [documentada com fontes e limites](PESQUISA_DE_USO_2026.md); as explicações sensoriais estão no [guia de sabor](SABOR_E_UMAMI.md).
 
-## Estado real e limites
+## Registro histórico da candidata e seus limites
 
-Esta é uma candidata, sem nova promoção estável. A release 1.0.0 e seus registros permanecem preservados. A revisão B.9 daquela versão não cobre os novos bytes. Ensaios funcionais no Claude Code e revisão por subagentes OpenAI não concluem B.9. A verificação arquitetural exige identidade e linhagem suficientes do gerador e do verificador; rótulo de interface ou fornecedor diferente não prova isso sozinho.
+O registro desta seção pertence à candidata 2.0.0-rc.1. A release 1.0.0 e seus registros permanecem preservados. A revisão B.9 daquela versão não cobre os bytes 2.0.0. Ensaios funcionais no Claude Code e revisão por subagentes OpenAI não concluem B.9. A verificação arquitetural exige identidade e linhagem suficientes do gerador e do verificador; rótulo de interface ou fornecedor diferente não prova isso sozinho.
 
 Não houve estudo com usuários finais, teste de cozinha, homologação de todos os clientes ou nova pesquisa cega de sete receitas para cada prato citado nos guias. O Gemini CLI continuou fora dos testes funcionais desta candidata; o impedimento histórico não foi contornado por alterações de autenticação. As entradas `CLAUDE.md` e `GEMINI.md` são adapters locais e não provam, por existirem, carregamento em cada versão desses produtos.
 
 Confiança: alta nas correções reproduzidas e verificações efetivamente registradas; média na generalização para outros modelos e situações de cozinha.
 
-Pendências: B.9 específica com linhagem comprovada, decisão de promoção estável, testes com usuários e cobertura adicional de clientes; desvio tipográfico pontual em resposta livre do modelo.
+Pendências históricas da candidata: B.9 específica com linhagem comprovada, decisão de promoção estável, testes com usuários e cobertura adicional de clientes; desvio tipográfico pontual em resposta livre do modelo. Para resultados, hashes e veredito da versão 2.0.0, consulte o [parecer B.9](../evidence/B9_2_0_0.md).
+
+## Da candidata à versão 2.0.0
+
+Esta seção conserva o histórico da 2.0.0-rc.1. A revisão de outra família reproduziu sete defeitos nos bytes da candidata. A versão 2.0.0 acrescentou correspondência conservadora de singular e plural nas exclusões, ações para porções e utensílios não informados, normalização das respostas “nenhum” e “não sei” na CLI, exceção estreita para nomes de vinagre, apresentação coerente de “a gosto” e precisão nas frases sobre secagem de shiitake e glutamato. A conferência de rótulos ainda depende de `label_required` ou `components` declarados pelo host.
+
+Os ensaios funcionais de conversa acima, registrados em `evidence/JORNADA_2_0.json`, ocorreram na candidata e não cobrem os bytes 2.0.0. Resultados de testes, hashes e veredito dos bytes distribuídos constam no [parecer B.9](../evidence/B9_2_0_0.md). A tag estável só é criada com parecer aprovado.

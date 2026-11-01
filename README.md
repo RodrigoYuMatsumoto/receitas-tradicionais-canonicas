@@ -5,6 +5,8 @@ subject: Pesquisa culinária com sete receitas do país de origem
 author: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
 keywords: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
 manager: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
+version: "2.0.0"
+status: versioned
 ---
 
 # Receitas Tradicionais Canônicas
@@ -13,7 +15,7 @@ Peça um prato à sua IA. Ela pesquisa sete receitas em sites do país de origem
 
 Você recebe ingredientes, passos curtos e sinais para reconhecer o ponto. Pode pedir uma etapa por vez, medidas caseiras ou uma explicação técnica mais detalhada.
 
-**Candidata 2.0.0-rc.1, instrução v6.2.** A versão estável anterior é a [1.0.0](https://github.com/RodrigoYuMatsumoto/receitas-tradicionais-canonicas/releases/tag/v1.0.0). A candidata melhora a conversa inicial e a receita operacional; o alcance dos testes está na [revisão da jornada](docs/REVISAO_JORNADA_2_0.md).
+**Versão 2.0.0, instrução v6.2.** A versão anterior é a [1.0.0](https://github.com/RodrigoYuMatsumoto/receitas-tradicionais-canonicas/releases/tag/v1.0.0). Esta versão confere flexões regulares de ingredientes, pede confirmação de porções e utensílios ausentes e apresenta uma ficha culinária. Consulte a [verificação](docs/VERIFICACAO.md) para o método e o [parecer B.9](evidence/B9_2_0_0.md) para resultados, hashes e veredito dos bytes distribuídos. A tag estável só é criada com parecer aprovado.
 
 ## Comece pela conversa
 

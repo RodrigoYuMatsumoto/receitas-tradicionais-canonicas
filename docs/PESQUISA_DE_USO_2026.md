@@ -5,8 +5,8 @@ subject: "Fontes primárias sobre buscas, conversação culinária e decisões d
 author: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
 keywords: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
 manager: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
-version: "2.0.0-rc.1"
-status: candidate
+version: "2.0.0"
+status: versioned
 verified_at: "2026-10-31"
 ---
 

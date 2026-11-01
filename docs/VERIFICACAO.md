@@ -1,19 +1,19 @@
 ---
 lang: pt-BR
-title: "Verificação da candidata 2.0.0"
-subject: "Escopo das evidências atuais e preservação da versão estável anterior"
+title: "Verificação da versão 2.0.0"
+subject: "Método de verificação e escopo das evidências da versão 2.0.0"
 author: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
 keywords: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
 manager: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
-version: "2.0.0-rc.1"
-status: candidate
+version: "2.0.0"
+status: versioned
 ---
 
-# O que foi verificado nesta candidata
+# Verificação da versão 2.0.0
 
-A candidata 2.0.0-rc.1 contém a instrução v6.2, checklist inicial, contexto de cozinha e ficha operacional. A [revisão completa da jornada](REVISAO_JORNADA_2_0.md) registra achados, migração, testes e limites. A versão estável anterior permanece na tag v1.0.0; seu [relatório original de verificação](VERIFICACAO_1_0_0.md) foi preservado integralmente.
+Os bytes 2.0.0 contêm a instrução v6.2, checklist inicial, contexto de cozinha e ficha operacional. A versão confere flexões regulares no bloqueio de ingredientes, pede confirmação de porções e utensílios ausentes, distingue vinagre de bebida e apresenta “a gosto” de forma coerente. A [revisão da jornada](REVISAO_JORNADA_2_0.md) preserva os achados e ensaios da candidata. A versão anterior está na tag v1.0.0; seu [relatório original de verificação](VERIFICACAO_1_0_0.md) tem escopo próprio.
 
-O [registro atual de evidências](../evidence/JORNADA_2_0.json) separa testes locais, integração MCP e ensaios reais de conversa. Nenhum resultado da 1.0.0 é apresentado como teste dos novos bytes. A CI avalia o commit indicado no próprio GitHub; teste local não é CI remota.
+O [registro da candidata](../evidence/JORNADA_2_0.json) separa testes locais, integração MCP e ensaios reais de conversa da 2.0.0-rc.1. Esses resultados não são testes dos bytes distribuídos. Resultados de testes, hashes e veredito da versão 2.0.0 constam no [parecer B.9](../evidence/B9_2_0_0.md). A CI avalia o commit indicado no próprio GitHub; teste local não é CI remota.
 
 ## Três resultados diferentes
 
@@ -35,9 +35,9 @@ Os testes instalados incluem carregamento fora do clone, sem depender de `PYTHON
 
 ## Revisão independente e estado da versão
 
-Esta candidata não recebeu B.9 conclusiva sobre seus bytes. A revisão da 1.0.0 tem escopo e hashes próprios; não é transferível. Testes funcionais no Claude Code e críticas de subagentes OpenAI são evidências úteis, sem completar a verificação arquitetural distinta.
+O [parecer B.9 da versão 2.0.0](../evidence/B9_2_0_0.md) é a fonte para o veredito, os resultados e os hashes dos bytes distribuídos. A revisão da 1.0.0 tem escopo próprio e não é transferível. Ensaios funcionais no Claude Code registrados em `evidence/JORNADA_2_0.json` pertencem à candidata anterior.
 
-A promoção estrita exige identidade e linhagem suficientes no envelope nativo. Se essa prova faltar, o estado permanece `INDEPENDENCE_UNPROVEN`. Não se deduz o modelo efetivamente servido de um seletor de interface, nem a família apenas do fornecedor. A candidata não foi anunciada como nova release estável.
+A promoção estrita exige identidade e linhagem suficientes no envelope nativo. Se essa prova faltar, o estado permanece `INDEPENDENCE_UNPROVEN`. Não se deduz o modelo efetivamente servido de um seletor de interface, nem a família apenas do fornecedor. A tag estável só é criada com parecer aprovado.
 
 ## Fontes e limitações de cobertura
 
@@ -49,4 +49,4 @@ Markdown contém idioma, título, assunto, autor, palavras-chave e gerente em fr
 
 Confiança: alta nos cenários executados e na integridade conferida; média na generalização da experiência culinária e entre clientes.
 
-Pendências: B.9 específica com linhagem comprovada, promoção estável, estudos com usuários, testes de cozinha e clientes ainda não ensaiados. O desvio tipográfico pontual nas respostas livres permanece declarado.
+Pendências: estudos com usuários, testes de cozinha e clientes ainda não ensaiados. O desvio tipográfico pontual nas respostas livres permanece declarado. Consulte o [parecer B.9](../evidence/B9_2_0_0.md) para pendências específicas da revisão dos bytes distribuídos.

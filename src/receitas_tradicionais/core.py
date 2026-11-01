@@ -23,6 +23,7 @@ RESEARCH_LIMITATIONS = [
 ]
 DELIVERY_LIMITATIONS = [
     "A correspondência usa somente nomes, aliases e componentes declarados; não detecta todos os alérgenos.",
+    "A ação de conferência de rótulos depende de label_required ou components declarados pelo host; omissões desses campos podem ocultar a necessidade de conferência.",
     "A declaração de revisão dos rótulos não comprova ausência de contaminação ou contato cruzado.",
     "O resultado não certifica segurança alimentar nem representa orientação clínica.",
     "Técnicas, identidade editorial, direitos autorais e fidelidade da adaptação exigem revisão humana.",
@@ -40,7 +41,7 @@ ALCOHOL_TERMS = frozenset({
     "rum", "rhum", "cachaca", "vodca", "vodka", "whisky", "whiskey", "bourbon",
     "conhaque", "cognac", "brandy", "tequila", "gin", "gim", "licor", "liqueur",
     "sake", "saque", "mirin", "marsala", "sherry", "xerez", "vermouth", "vermute",
-    "aguardente", "aguardiente", "pisco", "mezcal", "cider", "cidra", "cognac",
+    "aguardente", "aguardiente", "pisco", "mezcal", "cider", "cognac",
     "chopp", "sidra", "soju", "shaoxing",
 })
 
@@ -158,11 +159,50 @@ def validate_research(batch: ResearchBatch, *, today: date | None = None) -> Val
     return ValidationReport(ok=not issues, issues=issues, limitations=RESEARCH_LIMITATIONS, checked_at=checked_at)
 
 
-def _ingredient_match(restriction: str, label: str) -> bool:
-    left, right = normalize_text(restriction), normalize_text(label)
+def _plural_forms(token: str) -> set[str]:
+    """Gera flexões regulares explícitas sem reduzir radicais de palavras distintas."""
+    forms = set()
+    if token.endswith("ao"):
+        forms.update({token[:-2] + ending for ending in ("oes", "aes", "aos")})
+    if token.endswith("al"):
+        forms.add(token[:-2] + "ais")
+    if token.endswith("el"):
+        forms.add(token[:-2] + "eis")
+    if token.endswith("ol"):
+        forms.add(token[:-2] + "ois")
+    if token.endswith("ul"):
+        forms.add(token[:-2] + "uis")
+    if token.endswith("m"):
+        forms.add(token[:-1] + "ns")
+    elif token.endswith(("r", "s", "z")):
+        forms.add(token + "es")
+    elif token.endswith(("a", "e", "i", "o", "u")):
+        forms.add(token + "s")
+    return forms
+
+
+def _ingredient_match(restriction: str, label: str, *, allow_generic_label: bool = True) -> bool:
+    left, right = normalize_text(restriction).split(), normalize_text(label).split()
     if not left or not right:
         return False
-    return f" {left} " in f" {right} " or f" {right} " in f" {left} "
+
+    def contained(short: list[str], long: list[str]) -> bool:
+        return any(
+            all(a == b or b in _plural_forms(a) or a in _plural_forms(b)
+                for a, b in zip(short, long[index:index + len(short)]))
+            for index in range(len(long) - len(short) + 1)
+        )
+
+    return contained(left, right) or (allow_generic_label and contained(right, left))
+
+
+def _contains_alcohol(value: str) -> bool:
+    """Desconsidera apenas nomes explícitos de vinagre, preservando outras bebidas no texto."""
+    normalized = normalize_text(value)
+    drinks = "|".join(re.escape(term) for term in sorted(ALCOHOL_TERMS, key=len, reverse=True))
+    normalized = re.sub(rf"\bvinagre de (?:(?:arroz|apple|rice) )?(?:{drinks})(?: (?:tinto|branco|rose))?\b", " ", normalized)
+    normalized = re.sub(rf"\b(?:(?:apple|rice) )?(?:{drinks}) vinegar\b", " ", normalized)
+    return bool(ALCOHOL_TERMS.intersection(normalized.split()))
 
 
 def _equipment_key(value: str) -> str:
@@ -231,7 +271,7 @@ def validate_delivery(delivery: Delivery, *, today: date | None = None) -> Valid
     restrictions = profile.excluded_ingredients + profile.allergies + profile.intolerances
     for index, ingredient in enumerate(delivery.ingredients):
         labels = [ingredient.name, *ingredient.aliases, *ingredient.components]
-        if ingredient.alcohol or any(ALCOHOL_TERMS.intersection(normalize_text(label).split()) for label in labels):
+        if ingredient.alcohol or any(_contains_alcohol(label) for label in labels):
             add("alcool_na_entrega", "A política deste projeto exige entrega sem álcool.", f"ingredients.{index}.alcohol")
         if any(_ingredient_match(restriction, label) for restriction in restrictions for label in labels):
             add("ingrediente_restrito", "O inventário contém correspondência com uma exclusão, alergia ou intolerância declarada.", f"ingredients.{index}")
@@ -240,14 +280,14 @@ def validate_delivery(delivery: Delivery, *, today: date | None = None) -> Valid
         ):
             add("realcador_adicionado", "O inventário contém realçador comercial incompatível com a preferência declarada.", f"ingredients.{index}")
     for index, step in enumerate(delivery.steps):
-        if ALCOHOL_TERMS.intersection(normalize_text(step).split()):
+        if _contains_alcohol(step):
             add("alcool_nas_etapas", "As etapas contêm termo explícito incompatível com a política sem álcool.", f"steps.{index}")
-        if any(_ingredient_match(restriction, step) for restriction in restrictions):
+        if any(_ingredient_match(restriction, step, allow_generic_label=False) for restriction in restrictions):
             add("restricao_nas_etapas", "As etapas contêm correspondência textual com uma restrição declarada.", f"steps.{index}")
     for index, note in enumerate(delivery.adaptation_notes):
-        if ALCOHOL_TERMS.intersection(normalize_text(note).split()):
+        if _contains_alcohol(note):
             add("alcool_nas_notas", "As notas de adaptação contêm termo explícito incompatível com a política sem álcool.", f"adaptation_notes.{index}")
-        if any(_ingredient_match(restriction, note) for restriction in restrictions):
+        if any(_ingredient_match(restriction, note, allow_generic_label=False) for restriction in restrictions):
             add("restricao_nas_notas", "As notas de adaptação contêm correspondência textual com uma restrição declarada.", f"adaptation_notes.{index}")
     for field in ("steps", "adaptation_notes"):
         if profile.avoid_added_flavor_enhancers:
@@ -281,7 +321,9 @@ def validate_delivery(delivery: Delivery, *, today: date | None = None) -> Valid
             action("fontes_da_ficha_divergentes", "Vincule a ficha às mesmas sete fontes selecionadas na pesquisa.", "recipe_card.source_ids")
         if card.active_minutes > card.total_minutes:
             action("tempos_inconsistentes", "O tempo ativo não pode exceder o tempo total, que inclui esperas.", "recipe_card.active_minutes")
-        if card.servings != profile.servings:
+        if profile.servings is None:
+            action("porcoes_nao_confirmadas", "Confirme para quantas pessoas é a receita antes de aceitar o rendimento da ficha.", "research.request.profile.servings")
+        elif card.servings != profile.servings:
             action("rendimento_divergente", "Ajuste a ficha às porções pedidas ou peça confirmação da diferença.", "recipe_card.servings")
         if card.yield_basis == "estimate" and "estim" not in normalize_text(card.yield_note):
             action("estimativa_nao_explicita", "Identifique expressamente o rendimento como estimativa.", "recipe_card.yield_note")
@@ -307,7 +349,9 @@ def validate_delivery(delivery: Delivery, *, today: date | None = None) -> Valid
             action("tempo_indisponivel", "O tempo total excede o disponível. Peça ao usuário que escolha outro horário ou outro preparo.", "recipe_card.total_minutes")
         if kitchen.shopping_allowed is False and card.shopping_list:
             action("compras_nao_autorizadas", "A pessoa escolheu cozinhar sem compras; revise o plano com ela.", "recipe_card.shopping_list")
-        if profile.equipment:
+        if not profile.equipment:
+            action("equipamento_nao_confirmado", "Confirme quais utensílios da ficha estão disponíveis antes de usar o plano.", "recipe_card.equipment")
+        else:
             missing = [item for item in card.equipment if _equipment_key(item) not in {_equipment_key(known) for known in profile.equipment}]
             if missing:
                 action("equipamento_nao_confirmado", "Confirme os utensílios da ficha que ainda não constam entre os disponíveis; não troque a técnica automaticamente.", "recipe_card.equipment")
@@ -335,9 +379,10 @@ def validate_delivery(delivery: Delivery, *, today: date | None = None) -> Valid
         if card.detail_search_note is not None:
             texts.append(("detail_search_note", card.detail_search_note))
         for path, text in texts:
-            if ALCOHOL_TERMS.intersection(normalize_text(text).split()):
+            if _contains_alcohol(text):
                 add("alcool_na_ficha", "A ficha contém termo explícito incompatível com a política sem álcool.", f"recipe_card.{path}")
-            if any(_ingredient_match(restriction, text) for restriction in restrictions):
+            ingredient_label = re.fullmatch(r"ingredients\.\d+\.(?:name|aliases\.\d+|components\.\d+)", path) is not None
+            if any(_ingredient_match(restriction, text, allow_generic_label=ingredient_label) for restriction in restrictions):
                 add("restricao_na_ficha", "A ficha contém correspondência textual com uma restrição declarada.", f"recipe_card.{path}")
             if profile.avoid_added_flavor_enhancers and any(_ingredient_match(term, text) for term in FLAVOR_ENHANCER_TERMS):
                 add("realcador_adicionado", "A ficha contém realçador comercial incompatível com a preferência declarada.", f"recipe_card.{path}")

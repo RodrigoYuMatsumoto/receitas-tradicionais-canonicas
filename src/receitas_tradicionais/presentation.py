@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import re
 
-from .core import validate_delivery
+from .core import normalize_text, validate_delivery
 from .models import Delivery, GateIssue
 
 _MACHINE_SPANS = re.compile(r"```[\s\S]*?```|`[^`\n]*`|https?://[^\s<>\"'`]+|(?m:^(?:\$ |> |python |python3 |receitas |git |npm |pip ).*$)")
@@ -67,6 +67,7 @@ def _plain_action(issue: GateIssue) -> str:
         "tempos_inconsistentes": "Corrija os tempos: o total precisa incluir o trabalho e as esperas.",
         "tempo_indisponivel": "O preparo demora mais que o tempo disponível. Escolha outro horário ou outro preparo antes de começar.",
         "rendimento_divergente": "Ajuste as quantidades ao número de pessoas ou confirme o rendimento diferente.",
+        "porcoes_nao_confirmadas": "Confirme para quantas pessoas será a receita antes de usar o rendimento da ficha.",
         "estimativa_nao_explicita": "Indique claramente que o rendimento é estimado.",
         "escala_sem_calculo": "Explique de quantas para quantas porções as quantidades foram ajustadas.",
         "inventarios_divergentes": "Faça a lista de ingredientes e as quantidades da ficha corresponderem à mesma receita.",
@@ -119,7 +120,7 @@ def render_delivery(delivery: Delivery) -> tuple[str, int]:
         "", "Ingredientes", "",
     ])
     for ingredient in card.ingredients:
-        if ingredient.quantity.casefold() == "a gosto":
+        if normalize_text(ingredient.quantity) == "a gosto":
             line = f"- {human_text(ingredient.name)}: a gosto (medida para ajustar: {human_text(ingredient.unit)})"
         else:
             line = f"- {human_text(ingredient.name)}: {human_text(ingredient.quantity)} {human_text(ingredient.unit)}"

@@ -5,9 +5,19 @@ subject: Histórico de versões, correções e verificações
 author: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
 keywords: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
 manager: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
+version: "2.0.0"
+status: versioned
 ---
 
 # Histórico de alterações
+
+## 2.0.0 - 01/11/2026
+
+Corrigidas as flexões de número na conferência de exclusões, as ações para porções e utensílios não informados, as respostas “nenhum” e “não sei” no onboarding, a distinção entre vinagre e bebida e a exibição de quantidade “a gosto”. O guia de sabor agora limita o estudo de shiitake ao processo de secagem e descreve com precisão a afirmação da FSANZ. Os esquemas e o checklist acompanham os contratos 2.0.0.
+
+**Mudanças incompatíveis adicionais:** `Profile.servings` ausente passa a `None`, sem assumir quatro pessoas; clientes devem perguntar pelas porções e tratar `porcoes_nao_confirmadas` antes de usar a ficha. Utensílios não informados geram `equipamento_nao_confirmado`; confirme a disponibilidade antes de tratar a receita como `practical_ready`. O planejamento da pesquisa continua aceitando essas lacunas.
+
+Os ensaios funcionais preservados abaixo e em `evidence/JORNADA_2_0.json` pertencem à candidata 2.0.0-rc.1; não são ensaios dos bytes 2.0.0. Resultados de testes, hashes e veredito desta versão constam no [parecer B.9](evidence/B9_2_0_0.md). A tag estável só é criada com parecer aprovado.
 
 ## 2.0.0-rc.1 candidata - 31/10/2026
 

@@ -5,6 +5,8 @@ subject: Uso pela conversa, pacote local e configuração de clientes MCP
 author: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
 keywords: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
 manager: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
+version: "2.0.0"
+status: versioned
 ---
 
 # Instalação e conexão com sua IA
@@ -19,10 +21,10 @@ Essa alternativa também serve a clientes web que não conseguem iniciar process
 
 ## Instale o pacote local
 
-Esta opção exige Git e Python 3.11 ou superior. Os comandos abaixo instalam a candidata 2.0.0-rc.1, na branch indicada. A branch principal e a tag v1.0.0 continuam sendo a versão estável anterior; cloná-las não instala os novos comandos. Execute em uma pasta escolhida por você:
+Esta opção exige Git e Python 3.11 ou superior. Os comandos abaixo selecionam a tag estável v2.0.0, criada somente com parecer B.9 aprovado. Execute em uma pasta escolhida por você:
 
 ```powershell
-git clone --branch improve/jornada-pratica-2.0 --single-branch https://github.com/RodrigoYuMatsumoto/receitas-tradicionais-canonicas.git
+git clone --branch v2.0.0 --single-branch https://github.com/RodrigoYuMatsumoto/receitas-tradicionais-canonicas.git
 cd receitas-tradicionais-canonicas
 python -m venv .venv
 .venv\Scripts\python.exe -m pip install .
@@ -86,7 +88,7 @@ Em uma instalação elegível, a futura conferência começa na pasta do projeto
 
 A IA deve reconhecer as quatro ferramentas, chamar `onboarding_questions` e mostrar `first_message` diretamente, com grupos e exemplos, sem presumir ausência de restrições. Não deve usar a abertura técnica dos antigos exemplos da 1.0.0. Um nome ambíguo exige opções com ingredientes básicos antes da escolha. Depois, o plano precisa conservar o nome confirmado como primeira consulta.
 
-Na candidata 2.0.0-rc.1, `receitas://project/checklist` permite ler o checklist e os esquemas incluem `kitchen` e `card`. O cartão de receita em `Delivery.recipe_card` alimenta `practical_ready`; o antigo `ok` continua indicando somente a conferência documental. `preparation_ready` também considera as ações humanas aplicáveis antes de começar. Veja a [revisão da jornada](REVISAO_JORNADA_2_0.md) para migração, compatibilidade e testes da candidata; os ensaios históricos abaixo pertencem à versão indicada em cada registro.
+Na versão 2.0.0, `receitas://project/checklist` permite ler o checklist e os esquemas incluem `kitchen` e `card`. O cartão de receita em `Delivery.recipe_card` alimenta `practical_ready`; o antigo `ok` continua indicando somente a conferência documental. Porções e utensílios não informados impedem essa prontidão até confirmação. `preparation_ready` também considera as ações humanas aplicáveis antes de começar. Veja a [revisão da jornada](REVISAO_JORNADA_2_0.md) para migração e ensaios da candidata; os ensaios históricos abaixo pertencem à versão indicada em cada registro.
 
 Para uma verificação completa, o cliente deve aceitar o lote real de sete fontes e rejeitar uma cópia com seis. Também deve rejeitar entrega que recomende ingrediente explicitamente excluído. O relato precisa distinguir esses dados de teste de uma pesquisa nova. Se só houver texto simulando chamadas, a conexão ainda não foi comprovada.
 
@@ -105,6 +107,8 @@ Os dois primeiros retornam código 0 para estrutura aceita. O registro históric
 
 Para atualizar, preserve a configuração particular, leia o changelog e instale a nova versão em outro ambiente antes de trocar o executável em uso. Para voltar, aponte para o ambiente anterior. No Claude Code iniciado pelos comandos acima, basta encerrar e deixar de fornecer o arquivo. No Gemini CLI, remova apenas a entrada `receitas` do arquivo local usado. O projeto não instala tarefas recorrentes.
 
-Confiança: alta nos comportamentos observados do Claude Code e nos testes do pacote; limitada nos demais clientes e interfaces, conforme [clientes testados](CLIENTES_TESTADOS.md).
+Para voltar especificamente à 1.0.0, crie outro clone e ambiente com `git clone --branch v1.0.0 --single-branch https://github.com/RodrigoYuMatsumoto/receitas-tradicionais-canonicas.git`, instale o pacote desse clone e aponte o cliente para o Python desse ambiente. Preserve o ambiente 2.0.0 para poder retornar sem sobrescrever configurações particulares.
 
-Pendências: ensaio funcional do Gemini CLI em instalação elegível e estudo de compreensão com usuários finais. Outras limitações e a cobertura de cada versão estão em [verificação](VERIFICACAO.md).
+Confiança: alta nos comportamentos documentados da candidata nos ensaios de Claude Code; limitada nos demais clientes e interfaces, conforme [clientes testados](CLIENTES_TESTADOS.md). A cobertura dos bytes distribuídos consta no [parecer B.9](../evidence/B9_2_0_0.md).
+
+Pendências: ensaio funcional do Gemini CLI em instalação elegível e estudo de compreensão com usuários finais. Resultados de testes, hashes e veredito dos bytes distribuídos constam no [parecer B.9](../evidence/B9_2_0_0.md); outras limitações e a cobertura de cada versão estão em [verificação](VERIFICACAO.md).

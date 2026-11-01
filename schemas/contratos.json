@@ -81,11 +81,18 @@
         "type": "string"
       },
       "servings": {
-        "default": 4,
-        "exclusiveMinimum": 0,
-        "maximum": 1000,
-        "title": "Servings",
-        "type": "integer"
+        "anyOf": [
+          {
+            "exclusiveMinimum": 0,
+            "maximum": 1000,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Servings"
       },
       "alcohol_free": {
         "default": true,
@@ -289,11 +296,18 @@
             "type": "string"
           },
           "servings": {
-            "default": 4,
-            "exclusiveMinimum": 0,
-            "maximum": 1000,
-            "title": "Servings",
-            "type": "integer"
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "maximum": 1000,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Servings"
           },
           "alcohol_free": {
             "default": true,
@@ -572,11 +586,18 @@
             "type": "string"
           },
           "servings": {
-            "default": 4,
-            "exclusiveMinimum": 0,
-            "maximum": 1000,
-            "title": "Servings",
-            "type": "integer"
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "maximum": 1000,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Servings"
           },
           "alcohol_free": {
             "default": true,
@@ -1341,11 +1362,18 @@
             "type": "string"
           },
           "servings": {
-            "default": 4,
-            "exclusiveMinimum": 0,
-            "maximum": 1000,
-            "title": "Servings",
-            "type": "integer"
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "maximum": 1000,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Servings"
           },
           "alcohol_free": {
             "default": true,
