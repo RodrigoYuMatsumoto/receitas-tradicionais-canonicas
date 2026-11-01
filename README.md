@@ -5,6 +5,8 @@ subject: Pesquisa culinária com sete receitas do país de origem
 author: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
 keywords: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
 manager: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
+version: "2.0.0"
+status: versioned
 ---
 
 # Receitas Tradicionais Canônicas
@@ -13,13 +15,22 @@ Peça um prato à sua IA. Ela pesquisa sete receitas em sites do país de origem
 
 Você recebe ingredientes, passos curtos e sinais para reconhecer o ponto. Pode pedir uma etapa por vez, medidas caseiras ou uma explicação técnica mais detalhada.
 
-**Distribuição 1.0.0, instrução v6.1.** A pesquisa depende de uma IA com acesso à internet. O projeto organiza e verifica o processo; não promete encontrar todo conhecimento culinário existente.
+**Versão 2.0.0, instrução v6.2.** A versão anterior é a [1.0.0](https://github.com/RodrigoYuMatsumoto/receitas-tradicionais-canonicas/releases/tag/v1.0.0). Esta versão confere flexões regulares de ingredientes, pede confirmação de porções e utensílios ausentes e apresenta uma ficha culinária. Consulte a [verificação](docs/VERIFICACAO.md) para o método e o [parecer B.9](evidence/B9_2_0_0.md) para resultados, hashes e veredito dos bytes distribuídos. A tag estável só é criada com parecer aprovado.
 
 ## Comece pela conversa
 
-1. Abra a [instrução para sua IA](prompts/INSTRUCAO_PROJETO.md) e copie o conteúdo para as instruções do projeto ou para uma nova conversa.
-2. Diga: “Vamos configurar minha cozinha”. A IA pergunta quais alimentos evitar, alergias, intolerâncias, preferências, porções e utensílios. Você pode responder uma pergunta por vez.
-3. Peça, por exemplo: “Quero uma feijoada brasileira. Mostre as diferenças regionais antes de escolhermos”.
+1. Copie o [comando para começar](prompts/COMECE_AQUI.md) em uma nova conversa com sua IA. Também pode colar a [instrução completa](prompts/INSTRUCAO_PROJETO.md) no projeto.
+2. A primeira resposta já traz uma lista de alimentos a evitar, com exemplos. Responda pelos nomes, números ou do seu jeito. Pode dizer “nenhum” ou “não sei”. Não precisa lembrar tudo de cabeça.
+3. Conte só o que ainda falta: o que quer preparar ou aproveitar, pessoas, tempo, utensílios, compras e orçamento.
+
+Exemplos de pedidos:
+
+- “Tenho arroz, feijão e abóbora. Quero gastar pouco.”
+- “Feijoada para seis pessoas; só tenho uma panela pequena.”
+- “Um jantar de até meia hora, sem leite.”
+- “Minha sopa está aguada. Me ajude uma etapa por vez.”
+
+Veja [como pedir e cozinhar](docs/COMO_PEDIR.md). Você recebe quantidades, rendimento explicado, tempo ativo e total, utensílios, compras necessárias e passos com sinais de ponto. Pode pedir a receita inteira ou acompanhamento por etapas. A pesquisa sustenta a receita; os relatórios técnicos ficam disponíveis quando você quiser consultá-los.
 
 Se o mesmo nome indicar pratos diferentes, a IA apresenta os nomes comuns, o país ou região e os ingredientes básicos de cada opção. A escolha é sua.
 
@@ -36,11 +47,27 @@ O perfil vale para a conversa. Guardá-lo em memória ou arquivo depende de sua 
 
 O padrão deste projeto é preparo sem bebidas alcoólicas. As demais escolhas alimentares são configuráveis; instruções superiores da sua IA continuam aplicáveis.
 
+## O toque que faz diferença
+
+Uma ordem de preparo, um caldo bem extraído ou uma finalização podem mudar o resultado. A IA procura esses detalhes nas fontes domésticas e regionais, sem exigir que você já conheça o segredo.
+
+O objetivo é sabor com ingredientes e técnicas, sem adicionar realçador comercial. Umami, aroma, frescor, textura e equilíbrio têm funções diferentes. A hortelã encontrada em uma feijoada regional é exemplo de aroma e frescor; não comprova umami ou efeito digestivo. O [guia de sabor](docs/SABOR_E_UMAMI.md) mostra exemplos japoneses, brasileiros e de outros contextos, com fontes e limites.
+
 ## Para conectar por MCP
 
 O servidor local oferece perguntas iniciais, plano de pesquisa, esquemas e validadores. Ele não navega na internet nem chama outros modelos. A IA conectada realiza as buscas e a coordenação dos papéis com suas próprias ferramentas.
 
 A instrução completa acompanha o pacote e é oferecida pelo MCP. Veja a [instalação e conexão](docs/INSTALACAO.md) e os [clientes efetivamente testados](docs/CLIENTES_TESTADOS.md). Também é possível usar apenas a instrução, sem instalar software.
+
+Para imprimir apenas o checklist inicial depois de instalar:
+
+```powershell
+receitas iniciar
+```
+
+Para ver a saída humana de uma ficha já preenchida, use `receitas mostrar examples/entrega_pratica_sintetica.json`. É um exemplo de teste, sem pesquisa culinária real. A conversa com a IA preenche esses dados para você.
+
+Os contratos distinguem pesquisa documentada (`ok`), cartão operacional completo (`practical_ready`) e conferências necessárias antes do preparo (`preparation_ready`). Uma conferência de rótulo pendente aparece como ação concreta, sem impedir a leitura do plano da receita. Esses estados não certificam segurança individual nem substituem as condições reais da cozinha.
 
 ## Ensaio de feijoada
 
@@ -54,6 +81,8 @@ Pode copiar, adaptar e distribuir. Preserve os créditos e cite o [repositório 
 
 Receitas e imagens dos sites consultados continuam sob os direitos de seus respectivos autores. Os exemplos contêm inventários factuais e resumos próprios, com links, sem reproduzir os textos integrais.
 
-Confiança: alta nos contratos e cenários ensaiados; a experiência em outras IAs depende das capacidades do cliente.
+As mudanças de conversa foram informadas por [fontes atuais sobre uso culinário](docs/PESQUISA_DE_USO_2026.md), incluindo buscas brasileiras por utensílio e assistência durante o preparo. Exemplos de fornecedores e rankings de tendências não são uma medida representativa de todos os usuários.
+
+Confiança: alta no código e nos cenários efetivamente registrados; a experiência em outras IAs depende das capacidades do cliente.
 
 Pendências de cobertura: interfaces não ensaiadas, outros pratos e estudos com usuários. Consulte [verificação](docs/VERIFICACAO.md) e [clientes testados](docs/CLIENTES_TESTADOS.md) para o alcance das evidências.

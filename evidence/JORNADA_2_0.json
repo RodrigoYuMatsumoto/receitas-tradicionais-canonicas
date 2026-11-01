@@ -1,0 +1,291 @@
+{
+  "lang": "pt-BR",
+  "author": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+  "keywords": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+  "manager": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+  "version": "2.0.0-rc.1",
+  "status": "candidate",
+  "title": "Evidências da jornada prática de receitas 2.0",
+  "subject": "Testes instalados, MCP e ensaios funcionais reais com dados fictícios",
+  "input_base": {
+    "git_commit": "4f7b39cb7fffa6fb245384e4a145c8466d3977d9",
+    "tracked_files_preserved": 55
+  },
+  "environment": {
+    "python": "3.14.3",
+    "package": "2.0.0rc1",
+    "mcp": "2.3.0",
+    "pydantic": "2.14.2",
+    "platform": "Windows"
+  },
+  "installed_tests": {
+    "command": "python -m unittest discover -s tests -v",
+    "exit_code": 0,
+    "elapsed_seconds": 25.586,
+    "log_sha256": "afc75a791c73a2d11f125466dbe5c3a85a20f0f8a5c62f0e210de1b19c9a29d4",
+    "summary_lines": [
+      "----------------------------------------------------------------------",
+      "Ran 86 tests in 23.761s",
+      "",
+      "OK"
+    ],
+    "tests_passed": 86,
+    "tests_failed": 0,
+    "includes": [
+      "contratos e limites de pesquisa",
+      "CLI e apresentação humana",
+      "MCP stdio com negociação, chamadas e recursos",
+      "pacote carregado fora do clone",
+      "restrições no cartão, compras e adaptações",
+      "plano versus conferências antes do preparo",
+      "equivalência conservadora de equipamentos",
+      "quantidades e padrões alimentares"
+    ]
+  },
+  "client_trials": [
+    {
+      "source_hashes": {
+        "prompts/INSTRUCAO_PROJETO.md": "9d9de7d6e85c5aae2c5814e2c6e37ca3fe875589bad6935b0efc845067ed7be0",
+        "agents/PAPEIS.md": "2cab3dca5d077f7f61a9eddbb4eb7a50f8c6326b62f09b57273e5ac489d2b35c"
+      },
+      "criteria_sha256": "85c752518b6eeb178e718559d0e673435b634469e4dd01aa2145cbb72ff8f240",
+      "started_at": "2026-11-01T00:17:19.130317+00:00",
+      "finished_at": "2026-11-01T00:18:11.061509+00:00",
+      "sources_unchanged": true,
+      "total_cost_usd": 0.1229374,
+      "semantic_review": "Concluída por leitura das quatro respostas, registrada em Avaliacao_Semantica.json: 3 PASS e 1 FAIL nos critérios pré-registrados; achados adicionais preservados.",
+      "round": "R1",
+      "sessions": [
+        {
+          "id": "01_inicio",
+          "state": "completed",
+          "exit_code": 0,
+          "elapsed_seconds": 9.116,
+          "models_observed": [
+            "claude-sonnet-5-5"
+          ],
+          "response_sha256": "736cf5ec3af705d32d429c5b2fe146ca245bcd2734fe50dbf72e6159bd30a7b7",
+          "response_characters": 1622,
+          "total_cost_usd": 0.0659498
+        },
+        {
+          "id": "02_dados_conhecidos",
+          "state": "completed",
+          "exit_code": 0,
+          "elapsed_seconds": 18.416,
+          "models_observed": [
+            "claude-sonnet-5-5"
+          ],
+          "response_sha256": "a3e486c743bdf8c26b52382aa52e180e9ba6d7606057460741ab87107d2148ab",
+          "response_characters": 1714,
+          "total_cost_usd": 0.0236332
+        },
+        {
+          "id": "03_canjica",
+          "state": "completed",
+          "exit_code": 0,
+          "elapsed_seconds": 15.072,
+          "models_observed": [
+            "claude-sonnet-5-5"
+          ],
+          "response_sha256": "8dca99aacdf89ed6793a2894e23275c14d5801783e3474e56ba29a0cff38cb92",
+          "response_characters": 1285,
+          "total_cost_usd": 0.0204592
+        },
+        {
+          "id": "04_sopa",
+          "state": "completed",
+          "exit_code": 0,
+          "elapsed_seconds": 9.31,
+          "models_observed": [
+            "claude-sonnet-5-5"
+          ],
+          "response_sha256": "bc2f97a9b3a979559a88d3997e41d784d480ad5c758fbd0c8a583d8973ea7269",
+          "response_characters": 537,
+          "total_cost_usd": 0.012895199999999999
+        }
+      ],
+      "tools_observed_total": 0
+    },
+    {
+      "source_hashes": {
+        "prompts/INSTRUCAO_PROJETO.md": "ca3476075ddbb320e644855ae775cff980e3f4657954b0b6a30ab07dba75ebad",
+        "agents/PAPEIS.md": "786a8fa44f693605fb976a986d102f04f9d71ecb9ad9fbeab7c2aac097c86509"
+      },
+      "criteria_sha256": "f32e5df5d566f0e6a3883bfcf50de743db7f62326f58ba9fc0a9428929b79776",
+      "started_at": "2026-11-01T00:21:36.315094+00:00",
+      "finished_at": "2026-11-01T00:22:18.889735+00:00",
+      "sources_unchanged": true,
+      "total_cost_usd": 0.1107903,
+      "semantic_review": "Concluída por leitura das quatro respostas, registrada em Avaliacao_Semantica.json: 2 PASS e 2 FAIL nos critérios pré-registrados. Abertura funcional passou, mas tipografia falhou; escolha entre canjicas funcionou, mas sem nomes comuns ou regiões.",
+      "round": "R2",
+      "sessions": [
+        {
+          "id": "01_inicio",
+          "state": "completed",
+          "exit_code": 0,
+          "elapsed_seconds": 8.375,
+          "models_observed": [
+            "claude-sonnet-5-5"
+          ],
+          "response_sha256": "719bf8d430136bdad736c952da0d3a0149d856b3d5c098fb47562b8ec0ade36c",
+          "response_characters": 1482,
+          "total_cost_usd": 0.0689858
+        },
+        {
+          "id": "02_dados_conhecidos",
+          "state": "completed",
+          "exit_code": 0,
+          "elapsed_seconds": 8.588,
+          "models_observed": [
+            "claude-sonnet-5-5"
+          ],
+          "response_sha256": "08fa5d434ad9d066f2a2b4cadea9471b32fbca28e2cc29978f0e130209527418",
+          "response_characters": 448,
+          "total_cost_usd": 0.011075499999999999
+        },
+        {
+          "id": "03_canjica",
+          "state": "completed",
+          "exit_code": 0,
+          "elapsed_seconds": 14.06,
+          "models_observed": [
+            "claude-sonnet-5-5"
+          ],
+          "response_sha256": "2a728a4d97ef1809ce208e3adce980a97a81ef110ba78125349f5283572e1515",
+          "response_characters": 934,
+          "total_cost_usd": 0.016931500000000002
+        },
+        {
+          "id": "04_sopa",
+          "state": "completed",
+          "exit_code": 0,
+          "elapsed_seconds": 11.528,
+          "models_observed": [
+            "claude-sonnet-5-5"
+          ],
+          "response_sha256": "0ba30e0ff538f7398b4d1d90a89fc531cadf9eed34cfe3316cfca94ec0c66c0c",
+          "response_characters": 756,
+          "total_cost_usd": 0.013797499999999999
+        }
+      ],
+      "tools_observed_total": 0
+    },
+    {
+      "source_hashes": {
+        "prompts/INSTRUCAO_PROJETO.md": "4b39987652535f3081eeeea91b07a3fb000777290d2b09f30ac96d1a12259d8a",
+        "agents/PAPEIS.md": "786a8fa44f693605fb976a986d102f04f9d71ecb9ad9fbeab7c2aac097c86509"
+      },
+      "criteria_sha256": "53aeb3c2127944f5905934d649892375d5635c985c2595ad431a2fd974da9f9f",
+      "started_at": "2026-11-01T00:26:16.308217+00:00",
+      "finished_at": "2026-11-01T00:26:53.475294+00:00",
+      "sources_unchanged": true,
+      "total_cost_usd": 0.11331639999999998,
+      "criteria_result": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4
+      },
+      "semantic_review": "Concluída por leitura das quatro respostas: 4 PASS nos critérios pré-registrados. Ressalva adicional de baixa severidade: aspas de máquina na resposta de desambiguação; não declarar conformidade tipográfica integral.",
+      "round": "R3",
+      "sessions": [
+        {
+          "id": "01_inicio",
+          "state": "completed",
+          "exit_code": 0,
+          "elapsed_seconds": 8.898,
+          "models_observed": [
+            "claude-sonnet-5-5"
+          ],
+          "response_sha256": "72ed038df061a17ad04c10a2cf8fe89a397f87d313d8789ada9f7b69ca3427dd",
+          "response_characters": 1725,
+          "total_cost_usd": 0.07251179999999999
+        },
+        {
+          "id": "02_dados_conhecidos",
+          "state": "completed",
+          "exit_code": 0,
+          "elapsed_seconds": 7.575,
+          "models_observed": [
+            "claude-sonnet-5-5"
+          ],
+          "response_sha256": "445da4e0becbefd0d0388f1015f1661bf7317d14bc8a7947edbcbe3fda3f0b4e",
+          "response_characters": 285,
+          "total_cost_usd": 0.011032199999999999
+        },
+        {
+          "id": "03_canjica",
+          "state": "completed",
+          "exit_code": 0,
+          "elapsed_seconds": 10.428,
+          "models_observed": [
+            "claude-sonnet-5-5"
+          ],
+          "response_sha256": "e06db35d16750fc5debf49d11a259b012ff1221f67d78b39d28bd717b2601704",
+          "response_characters": 1147,
+          "total_cost_usd": 0.014968200000000001
+        },
+        {
+          "id": "04_sopa",
+          "state": "completed",
+          "exit_code": 0,
+          "elapsed_seconds": 10.247,
+          "models_observed": [
+            "claude-sonnet-5-5"
+          ],
+          "response_sha256": "c1f67f6dca2503c70a3726e949f15ae9235e665974539fd8f79cdd29833c3da3",
+          "response_characters": 888,
+          "total_cost_usd": 0.0148042
+        }
+      ],
+      "tools_observed_total": 0
+    }
+  ],
+  "functional_final": {
+    "passed": 4,
+    "total": 4,
+    "client": "Claude Code",
+    "observed_model_id": "claude-sonnet-5-5",
+    "tools_used": 0,
+    "not_b9": true,
+    "additional_low_severity_observation": "A resposta livre de desambiguação ainda usou aspas incompatíveis; não se afirma conformidade tipográfica integral do modelo. A saída determinística tem normalização própria testada."
+  },
+  "source_hashes": {
+    "agents/PAPEIS.md": "786a8fa44f693605fb976a986d102f04f9d71ecb9ad9fbeab7c2aac097c86509",
+    "prompts/INSTRUCAO_PROJETO.md": "4b39987652535f3081eeeea91b07a3fb000777290d2b09f30ac96d1a12259d8a",
+    "schemas/contratos.json": "6fc405b265b71e1aae6529b4cfe9a6cc71cf5e592b19525b8b2e716df4f7c52d",
+    "src/receitas_tradicionais/__init__.py": "35a264213f7cdcac6dd22d2a6d400e028f6c8fb1f131798e0df498bd84d9d7d2",
+    "src/receitas_tradicionais/__main__.py": "1698941fc1aeb65e0a4d55c43877e25e632e5e19cf4a108505b5d48f8b373ee8",
+    "src/receitas_tradicionais/cli.py": "d3f1005f38a17727286cc9a1bf915050e18f4a651b51b6d87f8739b6c92ef43d",
+    "src/receitas_tradicionais/core.py": "c919b3a7350a4610638e02d948bde9fc9595c76c56c18e24189a7a8a75c2f9a7",
+    "src/receitas_tradicionais/models.py": "6f2cf3e9af6db46dd6f33ccbfd2fb2003b1d3c5c5311a05f0cc47c6cfb725c77",
+    "src/receitas_tradicionais/onboarding.py": "1051c2c55156d6bc5dcccf771676c47f7a020514a42d769803a220bd9ed881fd",
+    "src/receitas_tradicionais/presentation.py": "8e694abb9a3f67e0424b8dd2fafa9912fd0125c4e4e9d0769474292f8e949f05",
+    "src/receitas_tradicionais/server.py": "182a2f6e7ba987873f786081ca03145f03e3a930abf6b9bdadcdd4049b44f548",
+    "tests/test_cli.py": "c68675b702700933b2bb4f074a3200e1ddee063ce9cbcc450ee3fbe78807755c",
+    "tests/test_core.py": "4121dceb0662c8fafcbddc758c0c8b0a54de58dd112cc428cf1f87a185d718bf",
+    "tests/test_mcp.py": "fae1e114a972f4a18595dea523085fe7ba7d14fccda764710970b8c48e7180ce",
+    "tests/test_package.py": "068dd8c6c1bd827c0fcee44c2560cb378e4efffadd3ceb44878315b01e50ce4d",
+    "tests/test_practical.py": "07f0101cafc17c740dcbeb6dea50167a24bf451a2a76cb2e61b7c83d58b811f3",
+    "tests/test_presentation.py": "4c9e05f48edc95c4c1bbddb6940a3a0b8c44f515c55364b9d3451224c0b784d0"
+  },
+  "b9": {
+    "state": "PENDING_SPECIFIC_REVIEW",
+    "architectural_identity": "INDEPENDENCE_UNPROVEN",
+    "inherited_from_1_0_0": false,
+    "reason": "Ensaios funcionais e revisão OpenAI não substituem avaliação específica com linhagem comprovada sobre o conjunto congelado."
+  },
+  "release": {
+    "state": "CANDIDATE",
+    "stable_promotion": false,
+    "prior_stable": "v1.0.0"
+  },
+  "coverage_limits": [
+    "Não é estudo de usabilidade com pessoas.",
+    "Não houve teste físico de cozinha.",
+    "A rodada portátil não realizou nova pesquisa web nem chamadas MCP. A integração MCP foi testada separadamente pela suíte instalada.",
+    "Gemini CLI e outros clientes não foram homologados nesta candidata.",
+    "Atribuição documental e campos confirmados não comprovam sozinhos a veracidade das fontes.",
+    "Registros históricos foram preservados, sem promoção retroativa."
+  ]
+}

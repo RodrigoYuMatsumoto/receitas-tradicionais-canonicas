@@ -1,0 +1,111 @@
+{
+  "lang": "pt-BR",
+  "title": "Testes da correção de ingredientes genéricos",
+  "subject": "Reprodução anterior, plano consultável e identificação antes do preparo",
+  "author": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+  "keywords": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+  "manager": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+  "version": "2.0.0",
+  "verified_at": "2026-11-01T10:22:24.204096+00:00",
+  "generator_family": "OpenAI",
+  "not_independent_b9": true,
+  "base_commit": "d597261fb4c0a2d912a2933f6dd4b529ccd48d9a",
+  "pre_fix_core_sha256": "b709412f3d9b54e8190b9fabeeca2a8f4f2af255cafead39455ed8720618b9ac",
+  "pre_fix_observed": {
+    "excluded_ingredient": "castanha-de-caju",
+    "declared_inventory": [
+      "arroz",
+      "água"
+    ],
+    "separate_cases": [
+      "steps e instrução do cartão: Adicione castanhas picadas.",
+      "compras permitidas e shopping_list: castanhas"
+    ],
+    "result_in_both_cases": {
+      "ok": true,
+      "practical_ready": true,
+      "preparation_ready": true,
+      "issues": [],
+      "action_items": []
+    }
+  },
+  "installed_tests": {
+    "command": "python -m unittest discover -s tests -v",
+    "exit_code": 0,
+    "tests": 110,
+    "elapsed_seconds": 91.923,
+    "log_sha256": "16db55b81dd7dde831b662f20a6cf279f7ebd51d5ac5d2f88a28c132cf5e8770",
+    "summary": [
+      "----------------------------------------------------------------------",
+      "Ran 110 tests in 51.940s",
+      "",
+      "OK"
+    ]
+  },
+  "post_fix_observed": {
+    "package": "2.0.0",
+    "source_equals_installed": true,
+    "cases": [
+      {
+        "surface": "steps",
+        "ok": true,
+        "practical_ready": true,
+        "preparation_ready": false,
+        "issues": [],
+        "action_codes": [
+          "ingrediente_generico_pendente"
+        ]
+      },
+      {
+        "surface": "shopping_list",
+        "ok": true,
+        "practical_ready": true,
+        "preparation_ready": false,
+        "issues": [],
+        "action_codes": [
+          "ingrediente_generico_pendente"
+        ]
+      }
+    ]
+  },
+  "local_environment": {
+    "python": "3.14.3",
+    "package": "2.0.0",
+    "mcp": "2.3.0",
+    "pydantic": "2.14.2",
+    "platform": "Windows"
+  },
+  "coverage": [
+    "menção genérica em etapas ou compras",
+    "exclusão, alergia e intolerância declaradas em casos fictícios",
+    "outros textos operacionais e nomes em plural",
+    "variedade alternativa qualificada e declarada",
+    "ocorrência qualificada seguida de nova ocorrência genérica",
+    "descritores de preparo que não identificam variedade",
+    "núcleo que também é palavra usada como descritor",
+    "preservação do bloqueio de restrição explícita",
+    "plano humano com ação de identificação",
+    "chamada MCP real com novo código de ação"
+  ],
+  "source_hashes": {
+    "src/receitas_tradicionais/core.py": "a2fc72f8dcd79dbfd387e011574d18d1210b5daf3e62b0d6c190e52afab6fd53",
+    "src/receitas_tradicionais/presentation.py": "e9b14e2955cd475fe95a549f442c33a4d6f339b6cf71d34328cc705aa2537f51",
+    "tests/test_generic_restrictions.py": "94061c42159817b055d9d403b52d412f05dfa9a0709f5462abd33258ca1dae4a",
+    "tests/test_mcp.py": "2399b4521e25dc366358c86dc381d9ca822e75a1cb6afe4d951a1a1505517659",
+    "docs/VERIFICACAO.md": "f2313027a1959ad759da6d3f64b751cb95293c1d82d3f0053cb4b5e7fded9a1b",
+    "evidence/RESTRICAO_GENERICA_2_0.md": "f0e4b42cc12215428e2b246f7ea443448177c85783cafe401876e641101048a0"
+  },
+  "independent_review_policy": {
+    "prior_review_commit": "fb38940feb0c7a45c4005a2567889065fcd2ab5c",
+    "prior_verdict_inherited": false,
+    "requires_independent_delta_review": true,
+    "independent_verdict_in_this_record": null,
+    "verdict_source": "evidence/B9_2_0_0.md"
+  },
+  "ci_policy": "A CI deve ser lida no commit que contiver este complemento; resultados de HEAD anterior não são herdados.",
+  "limitations": [
+    "Método lexical dependente dos dados declarados, sem ontologia completa.",
+    "Este registro não é parecer B.9 nem certificação de segurança individual.",
+    "Dados sintéticos e testes de software; nenhum teste físico de cozinha."
+  ]
+}

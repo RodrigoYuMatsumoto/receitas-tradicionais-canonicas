@@ -119,8 +119,21 @@ def check() -> list[str]:
     target = "hortel" + chr(0xE3)
     if any(target in q["text"].casefold() for q in case["queries"]):
         errors.append("Ingrediente-alvo presente nas consultas do ensaio.")
-    from receitas_tradicionais.core import validate_research
-    from receitas_tradicionais.models import ResearchBatch
+    from receitas_tradicionais.core import PROJECT_INSTRUCTIONS, onboarding_questions, validate_delivery, validate_research
+    from receitas_tradicionais.models import SCHEMA_MODELS, Delivery, ResearchBatch
+    canonical = (ROOT / "prompts" / "INSTRUCAO_PROJETO.md").read_bytes()
+    packaged = (ROOT / "src" / "receitas_tradicionais" / "INSTRUCAO_PROJETO.md").read_bytes()
+    if canonical != packaged or canonical != PROJECT_INSTRUCTIONS.encode("utf-8"):
+        errors.append("A instrução canônica, a cópia empacotada e a instrução instalada divergem.")
+    contracts = json.loads((ROOT / "schemas" / "contratos.json").read_text(encoding="utf-8"))
+    if contracts != {name: model.model_json_schema() for name, model in SCHEMA_MODELS.items()}:
+        errors.append("Os esquemas distribuídos divergem dos contratos atuais do pacote.")
+    checklist = onboarding_questions()
+    rendered = (ROOT / "docs" / "CHECKLIST_INICIAL.md").read_text(encoding="utf-8")
+    if checklist["first_message"] not in rendered:
+        errors.append("O checklist humano distribuído diverge da primeira mensagem do servidor.")
+    if checklist["first_message"] not in PROJECT_INSTRUCTIONS:
+        errors.append("O checklist da instrução portátil diverge da primeira mensagem do servidor.")
     report = validate_research(ResearchBatch.model_validate(case))
     # Compatibilidade do registro 0.1: os novos campos ausentes permanecem pendentes.
     historical_issues = {"reformulacoes_nao_medidas", "pais_editorial_pendente", "independencia_pendente"}
@@ -129,6 +142,10 @@ def check() -> list[str]:
     revalidated = json.loads((ROOT / "examples" / "feijoada_revalidada.json").read_text(encoding="utf-8"))
     if not validate_research(ResearchBatch.model_validate(revalidated)).ok:
         errors.append("O lote real revalidado precisa passar no contrato documental.")
+    practical_case = json.loads((ROOT / "examples" / "entrega_pratica_sintetica.json").read_text(encoding="utf-8"))
+    practical_report = validate_delivery(Delivery.model_validate(practical_case))
+    if not practical_report.ok or not practical_report.practical_ready or not practical_report.preparation_ready:
+        errors.append("O exemplo sintético de cartão operacional não passa na jornada prática.")
     return errors
 
 

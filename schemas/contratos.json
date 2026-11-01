@@ -81,16 +81,48 @@
         "type": "string"
       },
       "servings": {
-        "default": 4,
-        "exclusiveMinimum": 0,
-        "maximum": 1000,
-        "title": "Servings",
-        "type": "integer"
+        "anyOf": [
+          {
+            "exclusiveMinimum": 0,
+            "maximum": 1000,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Servings"
       },
       "alcohol_free": {
         "default": true,
         "title": "Alcohol Free",
         "type": "boolean"
+      },
+      "dietary_patterns": {
+        "items": {
+          "maxLength": 10000,
+          "minLength": 1,
+          "type": "string"
+        },
+        "maxItems": 200,
+        "title": "Dietary Patterns",
+        "type": "array"
+      },
+      "avoid_added_flavor_enhancers": {
+        "default": true,
+        "title": "Avoid Added Flavor Enhancers",
+        "type": "boolean"
+      },
+      "onboarding_unknowns": {
+        "items": {
+          "maxLength": 10000,
+          "minLength": 1,
+          "type": "string"
+        },
+        "maxItems": 200,
+        "title": "Onboarding Unknowns",
+        "type": "array"
       }
     },
     "required": [
@@ -101,6 +133,87 @@
   },
   "request": {
     "$defs": {
+      "KitchenContext": {
+        "additionalProperties": false,
+        "description": "Condições deste preparo; não se tornam preferências permanentes.",
+        "properties": {
+          "available_ingredients": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Available Ingredients",
+            "type": "array"
+          },
+          "time_available_minutes": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "maximum": 43200,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Time Available Minutes"
+          },
+          "budget": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Budget"
+          },
+          "shopping_allowed": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Shopping Allowed"
+          },
+          "output_mode": {
+            "default": "completa",
+            "enum": [
+              "completa",
+              "passo_a_passo"
+            ],
+            "title": "Output Mode",
+            "type": "string"
+          },
+          "taste_goal": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Taste Goal"
+          }
+        },
+        "title": "KitchenContext",
+        "type": "object"
+      },
       "Profile": {
         "additionalProperties": false,
         "description": "Preferências declaradas, sem identificação pessoal nem inferência clínica.",
@@ -183,16 +296,48 @@
             "type": "string"
           },
           "servings": {
-            "default": 4,
-            "exclusiveMinimum": 0,
-            "maximum": 1000,
-            "title": "Servings",
-            "type": "integer"
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "maximum": 1000,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Servings"
           },
           "alcohol_free": {
             "default": true,
             "title": "Alcohol Free",
             "type": "boolean"
+          },
+          "dietary_patterns": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Dietary Patterns",
+            "type": "array"
+          },
+          "avoid_added_flavor_enhancers": {
+            "default": true,
+            "title": "Avoid Added Flavor Enhancers",
+            "type": "boolean"
+          },
+          "onboarding_unknowns": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Onboarding Unknowns",
+            "type": "array"
           }
         },
         "required": [
@@ -228,6 +373,9 @@
       },
       "profile": {
         "$ref": "#/$defs/Profile"
+      },
+      "kitchen": {
+        "$ref": "#/$defs/KitchenContext"
       }
     },
     "required": [
@@ -275,6 +423,87 @@
         "title": "EditorialCountryEvidence",
         "type": "object"
       },
+      "KitchenContext": {
+        "additionalProperties": false,
+        "description": "Condições deste preparo; não se tornam preferências permanentes.",
+        "properties": {
+          "available_ingredients": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Available Ingredients",
+            "type": "array"
+          },
+          "time_available_minutes": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "maximum": 43200,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Time Available Minutes"
+          },
+          "budget": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Budget"
+          },
+          "shopping_allowed": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Shopping Allowed"
+          },
+          "output_mode": {
+            "default": "completa",
+            "enum": [
+              "completa",
+              "passo_a_passo"
+            ],
+            "title": "Output Mode",
+            "type": "string"
+          },
+          "taste_goal": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Taste Goal"
+          }
+        },
+        "title": "KitchenContext",
+        "type": "object"
+      },
       "Profile": {
         "additionalProperties": false,
         "description": "Preferências declaradas, sem identificação pessoal nem inferência clínica.",
@@ -357,16 +586,48 @@
             "type": "string"
           },
           "servings": {
-            "default": 4,
-            "exclusiveMinimum": 0,
-            "maximum": 1000,
-            "title": "Servings",
-            "type": "integer"
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "maximum": 1000,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Servings"
           },
           "alcohol_free": {
             "default": true,
             "title": "Alcohol Free",
             "type": "boolean"
+          },
+          "dietary_patterns": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Dietary Patterns",
+            "type": "array"
+          },
+          "avoid_added_flavor_enhancers": {
+            "default": true,
+            "title": "Avoid Added Flavor Enhancers",
+            "type": "boolean"
+          },
+          "onboarding_unknowns": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Onboarding Unknowns",
+            "type": "array"
           }
         },
         "required": [
@@ -469,6 +730,9 @@
           },
           "profile": {
             "$ref": "#/$defs/Profile"
+          },
+          "kitchen": {
+            "$ref": "#/$defs/KitchenContext"
           }
         },
         "required": [
@@ -764,6 +1028,47 @@
   },
   "delivery": {
     "$defs": {
+      "DietaryPatternReview": {
+        "additionalProperties": false,
+        "description": "Revisão semântica declarada, sem converter um padrão em diagnóstico.",
+        "properties": {
+          "pattern": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Pattern",
+            "type": "string"
+          },
+          "excluded_ingredients": {
+            "items": {
+              "maxLength": 500,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "minItems": 1,
+            "title": "Excluded Ingredients",
+            "type": "array"
+          },
+          "compatibility_reviewed": {
+            "default": false,
+            "title": "Compatibility Reviewed",
+            "type": "boolean"
+          },
+          "review_note": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Review Note",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pattern",
+          "excluded_ingredients",
+          "review_note"
+        ],
+        "title": "DietaryPatternReview",
+        "type": "object"
+      },
       "EditorialCountryEvidence": {
         "additionalProperties": false,
         "properties": {
@@ -795,6 +1100,52 @@
           "url"
         ],
         "title": "EditorialCountryEvidence",
+        "type": "object"
+      },
+      "FlavorDetail": {
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Action",
+            "type": "string"
+          },
+          "effect": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Effect",
+            "type": "string"
+          },
+          "category": {
+            "enum": [
+              "umami",
+              "aroma",
+              "texture",
+              "balance"
+            ],
+            "title": "Category",
+            "type": "string"
+          },
+          "source_ids": {
+            "items": {
+              "maxLength": 500,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 7,
+            "minItems": 1,
+            "title": "Source Ids",
+            "type": "array"
+          }
+        },
+        "required": [
+          "action",
+          "effect",
+          "category",
+          "source_ids"
+        ],
+        "title": "FlavorDetail",
         "type": "object"
       },
       "IngredientItem": {
@@ -830,12 +1181,103 @@
             "default": false,
             "title": "Alcohol",
             "type": "boolean"
+          },
+          "label_required": {
+            "default": false,
+            "title": "Label Required",
+            "type": "boolean"
+          },
+          "added_flavor_enhancer": {
+            "default": false,
+            "title": "Added Flavor Enhancer",
+            "type": "boolean"
           }
         },
         "required": [
           "name"
         ],
         "title": "IngredientItem",
+        "type": "object"
+      },
+      "KitchenContext": {
+        "additionalProperties": false,
+        "description": "Condições deste preparo; não se tornam preferências permanentes.",
+        "properties": {
+          "available_ingredients": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Available Ingredients",
+            "type": "array"
+          },
+          "time_available_minutes": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "maximum": 43200,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Time Available Minutes"
+          },
+          "budget": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Budget"
+          },
+          "shopping_allowed": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Shopping Allowed"
+          },
+          "output_mode": {
+            "default": "completa",
+            "enum": [
+              "completa",
+              "passo_a_passo"
+            ],
+            "title": "Output Mode",
+            "type": "string"
+          },
+          "taste_goal": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Taste Goal"
+          }
+        },
+        "title": "KitchenContext",
         "type": "object"
       },
       "Profile": {
@@ -920,16 +1362,48 @@
             "type": "string"
           },
           "servings": {
-            "default": 4,
-            "exclusiveMinimum": 0,
-            "maximum": 1000,
-            "title": "Servings",
-            "type": "integer"
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "maximum": 1000,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Servings"
           },
           "alcohol_free": {
             "default": true,
             "title": "Alcohol Free",
             "type": "boolean"
+          },
+          "dietary_patterns": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Dietary Patterns",
+            "type": "array"
+          },
+          "avoid_added_flavor_enhancers": {
+            "default": true,
+            "title": "Avoid Added Flavor Enhancers",
+            "type": "boolean"
+          },
+          "onboarding_unknowns": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Onboarding Unknowns",
+            "type": "array"
           }
         },
         "required": [
@@ -966,6 +1440,292 @@
           "text"
         ],
         "title": "Query",
+        "type": "object"
+      },
+      "RecipeCard": {
+        "additionalProperties": false,
+        "description": "Ficha operacional: medidas, rendimento, tempo e sinais de ponto explícitos.",
+        "properties": {
+          "title": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Title",
+            "type": "string"
+          },
+          "servings": {
+            "exclusiveMinimum": 0,
+            "maximum": 1000,
+            "title": "Servings",
+            "type": "integer"
+          },
+          "yield_basis": {
+            "enum": [
+              "source",
+              "scaled",
+              "estimate"
+            ],
+            "title": "Yield Basis",
+            "type": "string"
+          },
+          "yield_note": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Yield Note",
+            "type": "string"
+          },
+          "active_minutes": {
+            "maximum": 43200,
+            "minimum": 0,
+            "title": "Active Minutes",
+            "type": "integer"
+          },
+          "total_minutes": {
+            "exclusiveMinimum": 0,
+            "maximum": 43200,
+            "title": "Total Minutes",
+            "type": "integer"
+          },
+          "equipment": {
+            "items": {
+              "maxLength": 500,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 30,
+            "minItems": 1,
+            "title": "Equipment",
+            "type": "array"
+          },
+          "ingredients": {
+            "items": {
+              "$ref": "#/$defs/RecipeIngredient"
+            },
+            "maxItems": 200,
+            "minItems": 1,
+            "title": "Ingredients",
+            "type": "array"
+          },
+          "steps": {
+            "items": {
+              "$ref": "#/$defs/RecipeStep"
+            },
+            "maxItems": 200,
+            "minItems": 1,
+            "title": "Steps",
+            "type": "array"
+          },
+          "shopping_list": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Shopping List",
+            "type": "array"
+          },
+          "flavor_detail": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/FlavorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "detail_search_note": {
+            "anyOf": [
+              {
+                "maxLength": 10000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Detail Search Note"
+          },
+          "adaptations": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Adaptations",
+            "type": "array"
+          },
+          "source_ids": {
+            "items": {
+              "maxLength": 500,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 7,
+            "minItems": 7,
+            "title": "Source Ids",
+            "type": "array"
+          }
+        },
+        "required": [
+          "title",
+          "servings",
+          "yield_basis",
+          "yield_note",
+          "active_minutes",
+          "total_minutes",
+          "equipment",
+          "ingredients",
+          "steps",
+          "source_ids"
+        ],
+        "title": "RecipeCard",
+        "type": "object"
+      },
+      "RecipeIngredient": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "aliases": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Aliases",
+            "type": "array"
+          },
+          "components": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Components",
+            "type": "array"
+          },
+          "alcohol": {
+            "default": false,
+            "title": "Alcohol",
+            "type": "boolean"
+          },
+          "label_required": {
+            "default": false,
+            "title": "Label Required",
+            "type": "boolean"
+          },
+          "added_flavor_enhancer": {
+            "default": false,
+            "title": "Added Flavor Enhancer",
+            "type": "boolean"
+          },
+          "quantity": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Quantity",
+            "type": "string"
+          },
+          "unit": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Unit",
+            "type": "string"
+          },
+          "household_measure": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Household Measure"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Note"
+          },
+          "source_ids": {
+            "items": {
+              "maxLength": 500,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 7,
+            "minItems": 1,
+            "title": "Source Ids",
+            "type": "array"
+          }
+        },
+        "required": [
+          "name",
+          "quantity",
+          "unit",
+          "source_ids"
+        ],
+        "title": "RecipeIngredient",
+        "type": "object"
+      },
+      "RecipeStep": {
+        "additionalProperties": false,
+        "properties": {
+          "instruction": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Instruction",
+            "type": "string"
+          },
+          "observable_cue": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Observable Cue",
+            "type": "string"
+          },
+          "time_hint": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Time Hint"
+          }
+        },
+        "required": [
+          "instruction",
+          "observable_cue"
+        ],
+        "title": "RecipeStep",
         "type": "object"
       },
       "ReformulationsByTrack": {
@@ -1032,6 +1792,9 @@
           },
           "profile": {
             "$ref": "#/$defs/Profile"
+          },
+          "kitchen": {
+            "$ref": "#/$defs/KitchenContext"
           }
         },
         "required": [
@@ -1368,6 +2131,25 @@
         "maxItems": 200,
         "title": "Adaptation Notes",
         "type": "array"
+      },
+      "recipe_card": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/RecipeCard"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null
+      },
+      "dietary_pattern_review": {
+        "items": {
+          "$ref": "#/$defs/DietaryPatternReview"
+        },
+        "maxItems": 50,
+        "title": "Dietary Pattern Review",
+        "type": "array"
       }
     },
     "required": [
@@ -1377,6 +2159,421 @@
       "labels_reviewed"
     ],
     "title": "Delivery",
+    "type": "object"
+  },
+  "kitchen": {
+    "additionalProperties": false,
+    "description": "Condições deste preparo; não se tornam preferências permanentes.",
+    "properties": {
+      "available_ingredients": {
+        "items": {
+          "maxLength": 10000,
+          "minLength": 1,
+          "type": "string"
+        },
+        "maxItems": 200,
+        "title": "Available Ingredients",
+        "type": "array"
+      },
+      "time_available_minutes": {
+        "anyOf": [
+          {
+            "exclusiveMinimum": 0,
+            "maximum": 43200,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Time Available Minutes"
+      },
+      "budget": {
+        "anyOf": [
+          {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Budget"
+      },
+      "shopping_allowed": {
+        "anyOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Shopping Allowed"
+      },
+      "output_mode": {
+        "default": "completa",
+        "enum": [
+          "completa",
+          "passo_a_passo"
+        ],
+        "title": "Output Mode",
+        "type": "string"
+      },
+      "taste_goal": {
+        "anyOf": [
+          {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Taste Goal"
+      }
+    },
+    "title": "KitchenContext",
+    "type": "object"
+  },
+  "card": {
+    "$defs": {
+      "FlavorDetail": {
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Action",
+            "type": "string"
+          },
+          "effect": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Effect",
+            "type": "string"
+          },
+          "category": {
+            "enum": [
+              "umami",
+              "aroma",
+              "texture",
+              "balance"
+            ],
+            "title": "Category",
+            "type": "string"
+          },
+          "source_ids": {
+            "items": {
+              "maxLength": 500,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 7,
+            "minItems": 1,
+            "title": "Source Ids",
+            "type": "array"
+          }
+        },
+        "required": [
+          "action",
+          "effect",
+          "category",
+          "source_ids"
+        ],
+        "title": "FlavorDetail",
+        "type": "object"
+      },
+      "RecipeIngredient": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "aliases": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Aliases",
+            "type": "array"
+          },
+          "components": {
+            "items": {
+              "maxLength": 10000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Components",
+            "type": "array"
+          },
+          "alcohol": {
+            "default": false,
+            "title": "Alcohol",
+            "type": "boolean"
+          },
+          "label_required": {
+            "default": false,
+            "title": "Label Required",
+            "type": "boolean"
+          },
+          "added_flavor_enhancer": {
+            "default": false,
+            "title": "Added Flavor Enhancer",
+            "type": "boolean"
+          },
+          "quantity": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Quantity",
+            "type": "string"
+          },
+          "unit": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Unit",
+            "type": "string"
+          },
+          "household_measure": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Household Measure"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Note"
+          },
+          "source_ids": {
+            "items": {
+              "maxLength": 500,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 7,
+            "minItems": 1,
+            "title": "Source Ids",
+            "type": "array"
+          }
+        },
+        "required": [
+          "name",
+          "quantity",
+          "unit",
+          "source_ids"
+        ],
+        "title": "RecipeIngredient",
+        "type": "object"
+      },
+      "RecipeStep": {
+        "additionalProperties": false,
+        "properties": {
+          "instruction": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Instruction",
+            "type": "string"
+          },
+          "observable_cue": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Observable Cue",
+            "type": "string"
+          },
+          "time_hint": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Time Hint"
+          }
+        },
+        "required": [
+          "instruction",
+          "observable_cue"
+        ],
+        "title": "RecipeStep",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "description": "Ficha operacional: medidas, rendimento, tempo e sinais de ponto explícitos.",
+    "properties": {
+      "title": {
+        "maxLength": 500,
+        "minLength": 1,
+        "title": "Title",
+        "type": "string"
+      },
+      "servings": {
+        "exclusiveMinimum": 0,
+        "maximum": 1000,
+        "title": "Servings",
+        "type": "integer"
+      },
+      "yield_basis": {
+        "enum": [
+          "source",
+          "scaled",
+          "estimate"
+        ],
+        "title": "Yield Basis",
+        "type": "string"
+      },
+      "yield_note": {
+        "maxLength": 10000,
+        "minLength": 1,
+        "title": "Yield Note",
+        "type": "string"
+      },
+      "active_minutes": {
+        "maximum": 43200,
+        "minimum": 0,
+        "title": "Active Minutes",
+        "type": "integer"
+      },
+      "total_minutes": {
+        "exclusiveMinimum": 0,
+        "maximum": 43200,
+        "title": "Total Minutes",
+        "type": "integer"
+      },
+      "equipment": {
+        "items": {
+          "maxLength": 500,
+          "minLength": 1,
+          "type": "string"
+        },
+        "maxItems": 30,
+        "minItems": 1,
+        "title": "Equipment",
+        "type": "array"
+      },
+      "ingredients": {
+        "items": {
+          "$ref": "#/$defs/RecipeIngredient"
+        },
+        "maxItems": 200,
+        "minItems": 1,
+        "title": "Ingredients",
+        "type": "array"
+      },
+      "steps": {
+        "items": {
+          "$ref": "#/$defs/RecipeStep"
+        },
+        "maxItems": 200,
+        "minItems": 1,
+        "title": "Steps",
+        "type": "array"
+      },
+      "shopping_list": {
+        "items": {
+          "maxLength": 10000,
+          "minLength": 1,
+          "type": "string"
+        },
+        "maxItems": 200,
+        "title": "Shopping List",
+        "type": "array"
+      },
+      "flavor_detail": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/FlavorDetail"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null
+      },
+      "detail_search_note": {
+        "anyOf": [
+          {
+            "maxLength": 10000,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Detail Search Note"
+      },
+      "adaptations": {
+        "items": {
+          "maxLength": 10000,
+          "minLength": 1,
+          "type": "string"
+        },
+        "maxItems": 200,
+        "title": "Adaptations",
+        "type": "array"
+      },
+      "source_ids": {
+        "items": {
+          "maxLength": 500,
+          "minLength": 1,
+          "type": "string"
+        },
+        "maxItems": 7,
+        "minItems": 7,
+        "title": "Source Ids",
+        "type": "array"
+      }
+    },
+    "required": [
+      "title",
+      "servings",
+      "yield_basis",
+      "yield_note",
+      "active_minutes",
+      "total_minutes",
+      "equipment",
+      "ingredients",
+      "steps",
+      "source_ids"
+    ],
+    "title": "RecipeCard",
     "type": "object"
   }
 }
