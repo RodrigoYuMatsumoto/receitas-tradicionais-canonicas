@@ -79,6 +79,7 @@ def _plain_action(issue: GateIssue) -> str:
         "rotulos_pendentes": "Antes de preparar, confira os ingredientes e os avisos dos rótulos dos produtos compostos.",
         "contato_cruzado_pendente": "Antes de preparar, confira utensílios, superfícies e ingredientes que possam ter contato com o alimento evitado por alergia.",
         "duvidas_alimentares_pendentes": "Esclareça a dúvida sobre o alimento a evitar antes de começar o preparo.",
+        "ingrediente_generico_pendente": "Identifique qual ingrediente será usado, inclua-o no inventário e confira se atende aos alimentos que você pediu para evitar antes de começar.",
         "onboarding_pendente": "Confirme os ingredientes a evitar e as informações da sua cozinha.",
         "ambiguidade_pendente": "Escolha qual versão do prato deseja, comparando os ingredientes que distinguem cada opção.",
         "inventario_ausente": "Complete a lista de ingredientes antes de apresentar o preparo.",

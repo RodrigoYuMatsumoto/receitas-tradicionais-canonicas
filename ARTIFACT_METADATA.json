@@ -345,6 +345,15 @@
       "subject": "Instruções, contratos, código ou evidências de pesquisa culinária documentada"
     },
     {
+      "path": "evidence/RESTRICAO_GENERICA_2_0.md",
+      "lang": "pt-BR",
+      "author": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "keywords": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "manager": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "title": "Artefato de receitas tradicionais: RESTRICAO_GENERICA_2_0",
+      "subject": "Instruções, contratos, código ou evidências de pesquisa culinária documentada"
+    },
+    {
       "path": "evidence/REVALIDACAO_DOCUMENTAL.json",
       "lang": "pt-BR",
       "author": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
@@ -378,6 +387,15 @@
       "keywords": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
       "manager": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
       "title": "Artefato de receitas tradicionais: TESTES_1_0_0",
+      "subject": "Instruções, contratos, código ou evidências de pesquisa culinária documentada"
+    },
+    {
+      "path": "evidence/TESTES_RESTRICAO_GENERICA_2_0.json",
+      "lang": "pt-BR",
+      "author": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "keywords": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "manager": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "title": "Artefato de receitas tradicionais: TESTES_RESTRICAO_GENERICA_2_0",
       "subject": "Instruções, contratos, código ou evidências de pesquisa culinária documentada"
     },
     {
@@ -648,6 +666,15 @@
       "keywords": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
       "manager": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
       "title": "Artefato de receitas tradicionais: test_core",
+      "subject": "Instruções, contratos, código ou evidências de pesquisa culinária documentada"
+    },
+    {
+      "path": "tests/test_generic_restrictions.py",
+      "lang": "pt-BR",
+      "author": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "keywords": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "manager": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+      "title": "Artefato de receitas tradicionais: test_generic_restrictions",
       "subject": "Instruções, contratos, código ou evidências de pesquisa culinária documentada"
     },
     {

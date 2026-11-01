@@ -23,6 +23,7 @@ RESEARCH_LIMITATIONS = [
 ]
 DELIVERY_LIMITATIONS = [
     "A correspondência usa somente nomes, aliases e componentes declarados; não detecta todos os alérgenos.",
+    "A pendência de ingrediente genérico usa núcleos de restrições compostas, nomes declarados e uma lista explícita de descritores de preparo em pt-BR; não é uma ontologia alimentar nem comprova compatibilidade clínica.",
     "A ação de conferência de rótulos depende de label_required ou components declarados pelo host; omissões desses campos podem ocultar a necessidade de conferência.",
     "A declaração de revisão dos rótulos não comprova ausência de contaminação ou contato cruzado.",
     "O resultado não certifica segurança alimentar nem representa orientação clínica.",
@@ -194,6 +195,72 @@ def _ingredient_match(restriction: str, label: str, *, allow_generic_label: bool
         )
 
     return contained(left, right) or (allow_generic_label and contained(right, left))
+
+
+_GENERIC_FUNCTION_WORDS = frozenset({"a", "as", "o", "os", "de", "do", "da", "dos", "das", "e", "ou", "com", "em", "sem", "para", "por", "no", "na", "nos", "nas"})
+# Lista limitada de descritores de preparo em pt-BR, sem inferir espécie ou variedade.
+_PREPARATION_WORDS = frozenset(
+    form
+    for word in (
+        "picado", "picada", "torrado", "torrada", "moido", "moida", "inteiro", "inteira",
+        "triturado", "triturada", "cru", "crua", "fresco", "fresca", "seco", "seca",
+        "ralado", "ralada", "laminado", "laminada", "cortado", "cortada", "cozido", "cozida",
+        "assado", "assada", "descascado", "descascada", "congelado", "congelada", "desidratado",
+        "desidratada", "salgado", "salgada", "fino", "fina", "grosso", "grossa", "natural",
+        "organico", "organica", "pedaco", "cubo", "casca", "sal", "po", "fritar", "assar", "cozinhar", "fritura",
+    )
+    for form in (word, *_plural_forms(word))
+)
+
+
+def _same_ingredient_word(left: str, right: str) -> bool:
+    return left == right or right in _plural_forms(left) or left in _plural_forms(right)
+
+
+def _ingredient_content(words: list[str]) -> list[str]:
+    # A normalização também converte o nome geográfico Pará em para.
+    return [word for index, word in enumerate(words) if word not in _GENERIC_FUNCTION_WORDS or (word == "para" and index > 0 and words[index - 1] in {"do", "da"})]
+
+
+def _generic_ingredient_context(restriction: str, labels: list[str]) -> tuple[str, list[list[str]]] | None:
+    """Qualificação lexical declarada, sem deduzir variedade de um adjetivo de preparo."""
+    content = _ingredient_content(normalize_text(restriction).split())
+    if len(content) < 2:
+        return None
+    # Palavras como sal e casca também podem ser o próprio ingrediente excluído.
+    head = next((word for word in content if len(word) >= 3), None)
+    if head is None:
+        return None
+    # A menção exata já recebe o bloqueio de restrição; não é uma identidade pendente.
+    identified = [normalize_text(restriction).split()]
+    for label in labels:
+        words = normalize_text(label).split()
+        if _ingredient_match(restriction, label):
+            continue
+        for index, word in enumerate(words):
+            if not _same_ingredient_word(head, word):
+                continue
+            # Coordenação ou acompanhamento não identifica a variedade do núcleo.
+            end = next((i for i in range(index + 1, len(words)) if words[i] in {"com", "e", "ou"}), len(words))
+            identity = [term for term in _ingredient_content(words[index:end]) if term not in _PREPARATION_WORDS]
+            if len(identity) >= 2:
+                identified.append(words)
+                break
+    return head, identified
+
+
+def _unresolved_generic_ingredient(words: list[str], context: tuple[str, list[list[str]]]) -> bool:
+    """Uma menção qualificada não libera outras menções genéricas no mesmo texto."""
+    head, identified = context
+    positions = {index for index, word in enumerate(words) if _same_ingredient_word(head, word)}
+    if not positions:
+        return False
+    covered = set()
+    for label in identified:
+        for start in range(len(words) - len(label) + 1):
+            if all(_same_ingredient_word(left, right) for left, right in zip(label, words[start:start + len(label)])):
+                covered.update(range(start, start + len(label)))
+    return bool(positions - covered)
 
 
 def _contains_alcohol(value: str) -> bool:
@@ -390,6 +457,16 @@ def validate_delivery(delivery: Delivery, *, today: date | None = None) -> Valid
     practical_ready = not issues and not actions
     # Revisões humanas pendentes não impedem consultar o plano. Nunca são atestadas pela IA.
     label_items = [*delivery.ingredients, *(card.ingredients if card else [])]
+    declared_labels = [label for item in label_items for label in (item.name, *item.aliases, *item.components)]
+    contexts = [context for restriction in set(restrictions) if (context := _generic_ingredient_context(restriction, declared_labels)) is not None]
+    operational_texts = [(f"steps.{index}", text) for index, text in enumerate(delivery.steps)]
+    operational_texts.extend((f"adaptation_notes.{index}", text) for index, text in enumerate(delivery.adaptation_notes))
+    if card is not None:
+        operational_texts.extend((f"recipe_card.{path}", text) for path, text in texts)
+    for path, text in operational_texts:
+        words = normalize_text(text).split()
+        if any(_unresolved_generic_ingredient(words, context) for context in contexts):
+            action("ingrediente_generico_pendente", "Identifique o ingrediente citado pelo nome genérico e confira sua correspondência com o inventário e os alimentos evitados antes de preparar.", path)
     if (profile.allergies or profile.intolerances) and any(item.label_required or item.components for item in label_items) and not delivery.labels_reviewed:
         action("rotulos_pendentes", "Antes de preparar, a pessoa responsável precisa conferir os componentes e rótulos aplicáveis aos ingredientes compostos.", "labels_reviewed")
     if profile.allergies and not delivery.cross_contact_reviewed:

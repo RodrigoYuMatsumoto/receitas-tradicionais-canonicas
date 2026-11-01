@@ -21,6 +21,8 @@ O [registro da candidata](../evidence/JORNADA_2_0.json) separa testes locais, in
 - `practical_ready` também exige ficha operacional completa e consistente com as condições registradas.
 - `preparation_ready` considera as ações humanas aplicáveis antes de começar, sem certificar segurança individual.
 
+Uma referência genérica que pode abranger uma exclusão específica pede identificação antes do preparo. O [suplemento de ingredientes genéricos](../evidence/RESTRICAO_GENERICA_2_0.md) descreve o caso reproduzido, a regra e seus limites. A aprovação dos bytes anteriores não cobre automaticamente essa correção: confira o escopo e os hashes do parecer independente correspondente antes da promoção.
+
 A mudança de tratamento dos rótulos exige migração dos consumidores da 1.0.0. Registros antigos continuam legíveis; sua ausência de ficha não é preenchida nem promovida a prontidão prática.
 
 O servidor não abre páginas, não chama modelos, não salva perfis nem executa a pesquisa. Estado confirmado de país e independência é declaração auditável do revisor, não prova obtida automaticamente pelo MCP. Leitura real, procedência, tradição, preço, rendimento e resultado culinário continuam exigindo evidência semântica.

@@ -94,6 +94,14 @@ class McpStdioTests(unittest.TestCase):
                     self.assertTrue(allergy_plan.structured_content["ok"])
                     self.assertTrue(allergy_plan.structured_content["practical_ready"])
                     self.assertFalse(allergy_plan.structured_content["preparation_ready"])
+                    generic_data = practical_delivery_data()
+                    generic_data["research"]["request"]["profile"]["excluded_ingredients"] = ["castanha-de-caju"]
+                    generic_data["recipe_card"]["shopping_list"] = ["castanhas"]
+                    generic_plan = await client.call_tool("validate_delivery", {"delivery": generic_data})
+                    self.assertTrue(generic_plan.structured_content["ok"])
+                    self.assertTrue(generic_plan.structured_content["practical_ready"])
+                    self.assertFalse(generic_plan.structured_content["preparation_ready"])
+                    self.assertIn("ingrediente_generico_pendente", {item["code"] for item in generic_plan.structured_content["action_items"]})
                     instructions = await client.read_resource("receitas://project/instructions")
                     self.assertEqual(instructions.contents[0].text, PROJECT_INSTRUCTIONS)
                     self.assertIn("## 7. Valide e entregue", instructions.contents[0].text)
