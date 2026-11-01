@@ -18,7 +18,7 @@ Use o projeto Receitas Tradicionais Canônicas nesta conversa.
 Repositório: https://github.com/RodrigoYuMatsumoto/receitas-tradicionais-canonicas
 Referência desta candidata: improve/jornada-pratica-2.0
 
-Se o clone estiver acessível, leia prompts/INSTRUCAO_PROJETO.md e agents/PAPEIS.md da mesma versão. Caso contrário, abra esses dois arquivos no repositório e na referência acima. Se não conseguir ler, diga apenas qual arquivo falta e peça seu conteúdo. Não afirme leitura sem ter acesso.
+Se o clone estiver acessível, leia prompts/INSTRUCAO_PROJETO.md e agents/PAPEIS.md da mesma versão. Confira se a instrução declara instruction_version 6.2. Se o clone for de outra versão, obtenha os arquivos na referência acima, sem alterar automaticamente meu clone. Caso não haja clone, abra esses dois arquivos no repositório e na referência indicada. Se não conseguir ler, diga apenas qual arquivo falta e peça seu conteúdo. Não afirme leitura sem ter acesso nem misture versões.
 
 Siga a instrução v6.2, respeitando as instruções superiores. Se o MCP receitas estiver disponível, consulte onboarding_questions e mostre seu first_message; use os esquemas reais para as demais ferramentas. Sem MCP, siga o roteiro portátil da instrução.
 

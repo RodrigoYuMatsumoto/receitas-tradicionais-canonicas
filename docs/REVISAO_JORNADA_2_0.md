@@ -23,7 +23,7 @@ Foram aplicadas as especializações de ecossistema, agente, instrução, prompt
 
 ## Achados e correções
 
-Contagem: **16 candidatos; 14 achados mantidos e corrigidos; 2 rebaixados a ampliação de escopo ou limitação; zero descartados**. As etapas abaixo distinguem problemas da base e problemas encontrados durante a construção da candidata.
+Contagem: **17 candidatos; 15 achados mantidos e corrigidos; 2 rebaixados a ampliação de escopo ou limitação; zero descartados**. As etapas abaixo distinguem problemas da base e problemas encontrados durante a construção da candidata.
 
 | Achado | Origem observável | Correção e verificação |
 |---|---|---|
@@ -41,6 +41,7 @@ Contagem: **16 candidatos; 14 achados mantidos e corrigidos; 2 rebaixados a ampl
 | 12. A IA avançou sobre dúvida de leite e sugeriu observar mal-estar. | Primeira rodada real no Claude Code. | Pergunta somente pelo alcance da exclusão provisória; não sugere experimentar ou inferir diagnóstico. |
 | 13. Desambiguação omitiu nomes comuns ou generalizou ingrediente opcional. | Rodadas reais sobre canjica. | Exemplos por nomes, regiões e ingredientes distintivos; sem generalização de amendoim. |
 | 14. Correção de sopa recomendou liquidificador quente sem verificar o modelo. | Primeira rodada real de acompanhamento. | Alternativa sem bater quente ou consulta ao manual específico antes dessa operação. |
+| 15. Instalação da candidata ainda clonava a branch da versão estável anterior. | Readback final dos comandos de instalação e início. | Clone explícito da branch candidata; comando portátil confere a versão antes de carregar arquivos locais. |
 
 Confiança dos achados: alta nos cenários reproduzidos. O falsificador de cada correção é a repetição do cenário original produzindo novamente a conduta descrita; os testes estruturais não substituem a observação semântica das respostas.
 

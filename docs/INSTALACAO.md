@@ -19,10 +19,10 @@ Essa alternativa também serve a clientes web que não conseguem iniciar process
 
 ## Instale o pacote local
 
-Esta opção exige Git e Python 3.11 ou superior. Execute em uma pasta escolhida por você:
+Esta opção exige Git e Python 3.11 ou superior. Os comandos abaixo instalam a candidata 2.0.0-rc.1, na branch indicada. A branch principal e a tag v1.0.0 continuam sendo a versão estável anterior; cloná-las não instala os novos comandos. Execute em uma pasta escolhida por você:
 
 ```powershell
-git clone https://github.com/RodrigoYuMatsumoto/receitas-tradicionais-canonicas.git
+git clone --branch improve/jornada-pratica-2.0 --single-branch https://github.com/RodrigoYuMatsumoto/receitas-tradicionais-canonicas.git
 cd receitas-tradicionais-canonicas
 python -m venv .venv
 .venv\Scripts\python.exe -m pip install .
