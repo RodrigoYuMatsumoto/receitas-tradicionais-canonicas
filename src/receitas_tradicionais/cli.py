@@ -11,6 +11,7 @@ from pydantic import ValidationError
 
 from .core import onboarding_questions, plan_research, validate_delivery, validate_research
 from .models import MAX_INPUT_BYTES, SCHEMA_MODELS, Delivery, Profile, Request, ResearchBatch
+from .core import normalize_text
 
 
 class InputError(Exception):
@@ -67,7 +68,9 @@ def _ask(question: str) -> str:
 
 def interactive_onboarding() -> Profile:
     values: dict = {}
+    unknowns: list[str] = []
     list_fields = {"excluded_ingredients", "allergies", "intolerances", "preferences", "equipment"}
+    print(onboarding_questions()["first_message"], file=sys.stderr, flush=True)
     for item in onboarding_questions()["questions"]:
         field = item["field"]
         suffix = " Separe itens por ponto e vírgula; digite nenhum para confirmar ausência. Não deixe em branco." if field in list_fields else ""
@@ -75,7 +78,11 @@ def interactive_onboarding() -> Profile:
         if field in list_fields:
             if not answer:
                 raise InputError("Resposta em branco não confirma ausência. Informe os itens ou digite nenhum; se preferir não informar, use o modo de conversa e declare a lacuna.")
-            values[field] = [] if answer.casefold() in {"nenhum", "nenhuma"} else [value.strip() for value in answer.split(";") if value.strip()]
+            if answer.casefold() in {"não sei", "nao sei", "prefiro não informar", "prefiro nao informar"}:
+                unknowns.append(field)
+                values[field] = []
+            else:
+                values[field] = [] if answer.casefold() in {"nenhum", "nenhuma"} else [value.strip() for value in answer.split(";") if value.strip()]
         elif field == "region":
             values[field] = answer or None
         elif field == "servings":
@@ -90,6 +97,13 @@ def interactive_onboarding() -> Profile:
             values[field] = style[answer.casefold()]
         elif field == "onboarding_confirmed":
             values[field] = answer.casefold() in {"sim", "s"}
+    values["onboarding_unknowns"] = unknowns
+    # Nesta pergunta da CLI, preferência significa ingrediente a evitar.
+    # A API continua aceitando preferências gerais sem convertê-las silenciosamente.
+    excluded = values["excluded_ingredients"]
+    for ingredient in values["preferences"]:
+        if normalize_text(ingredient) not in {normalize_text(item) for item in excluded}:
+            excluded.append(ingredient)
     return Profile.model_validate(values)
 
 
@@ -105,6 +119,7 @@ def main(argv: list[str] | None = None) -> int:
             stream.reconfigure(encoding="utf-8")
     parser = JsonArgumentParser(description="Pesquisa culinária documentada e local.")
     sub = parser.add_subparsers(dest="command", required=True, parser_class=JsonArgumentParser)
+    sub.add_parser("iniciar", help="Mostra o checklist inicial em texto simples, sem coletar nem salvar respostas.")
     sub.add_parser("onboarding", help="Levantamento alimentar interativo, sem salvar perfil.")
     plan = sub.add_parser("plan", help="Planeja a busca a partir de pedido JSON explícito.")
     plan.add_argument("path")
@@ -112,11 +127,24 @@ def main(argv: list[str] | None = None) -> int:
     validate.add_argument("path")
     delivery = sub.add_parser("validate-delivery", help="Valida entrega e lote incorporado.")
     delivery.add_argument("path")
+    show = sub.add_parser("mostrar", help="Mostra uma ficha em texto para cozinhar, sem salvar resultado.")
+    show.add_argument("path")
     schema = sub.add_parser("schema", help="Exporta contratos JSON Schema para stdout.")
     schema.add_argument("model", choices=[*SCHEMA_MODELS, "all"], default="all", nargs="?")
     sub.add_parser("mcp", help="Inicia o servidor MCP oficial por stdio.")
+    human_output = False
     try:
         args = parser.parse_args(argv)
+        human_output = args.command == "mostrar"
+        if args.command == "iniciar":
+            print(onboarding_questions()["first_message"])
+            return 0
+        if args.command == "mostrar":
+            from .presentation import render_delivery
+
+            rendered, exit_code = render_delivery(Delivery.model_validate(read_json(args.path)))
+            print(rendered)
+            return exit_code
         if args.command == "mcp":
             from .server import main as run_server
 
@@ -139,12 +167,21 @@ def main(argv: list[str] | None = None) -> int:
             return 1
         return 0
     except ValidationError:
+        if human_output:
+            print("A ficha está incompleta ou contém dados inválidos. Complete as informações da receita antes de mostrar o preparo.")
+            return 2
         _print_json({"ok": False, "error": "dados_invalidos", "message": "Dados inválidos: confira o contrato, os tipos, as datas e os campos obrigatórios com o comando schema."})
         return 2
     except InputError as exc:
+        if human_output:
+            print(str(exc))
+            return 2
         _print_json({"ok": False, "error": "entrada_invalida", "message": str(exc)})
         return 2
     except (KeyboardInterrupt, EOFError):
+        if human_output:
+            print("Operação interrompida, sem salvar a ficha.")
+            return 130
         _print_json({"ok": False, "error": "interrompido", "message": "Operação interrompida, sem salvar perfil."})
         return 130
 

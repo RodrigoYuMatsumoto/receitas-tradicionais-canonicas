@@ -11,7 +11,7 @@ manager: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
 
 ## Comece pela conversa
 
-Abra [a instrução completa](../prompts/INSTRUCAO_PROJETO.md), copie o conteúdo e coloque nas instruções de projeto da sua IA. Se não existir esse campo, cole no início de uma conversa. Depois diga: “Vamos configurar minha cozinha”. Você pode responder uma pergunta por vez e aproveitar informações que já contou.
+Copie [o comando de início](../prompts/COMECE_AQUI.md) para uma conversa nova ou coloque [a instrução completa](../prompts/INSTRUCAO_PROJETO.md) nas instruções do projeto da sua IA. A primeira resposta deve mostrar o checklist alimentar numerado com exemplos, aceitando “nenhum”, “não sei” e respostas livres. Depois a IA pergunta apenas os dados de cozinha ainda ausentes. Não é necessário ouvir um relatório de instalação antes de começar.
 
 A IA precisa conseguir pesquisar e abrir páginas para executar uma pesquisa nova. Um link para o repositório não significa que ela tenha lido a instrução. Quando a interface aceitar voz, você pode responder falando e pedir a leitura de uma etapa por vez; este projeto não instala áudio próprio.
 
@@ -29,6 +29,8 @@ python -m venv .venv
 .venv\Scripts\python.exe -m receitas_tradicionais onboarding
 ```
 
+Para mostrar somente o checklist em linguagem comum, use `.venv\Scripts\python.exe -m receitas_tradicionais iniciar`. Esse comando não lê respostas nem salva perfil. `onboarding` é a alternativa técnica interativa que devolve JSON.
+
 No Linux ou macOS, troque `.venv\Scripts\python.exe` por `.venv/bin/python`. O onboarding devolve um perfil em JSON e não grava as respostas automaticamente. Para uso cotidiano, a conversa com a IA costuma ser mais simples.
 
 O pacote fixa MCP 2.3.0 e Pydantic 2.14.2. Atualizar essas dependências exige os testes de integração, além da troca dos números.
@@ -39,7 +41,7 @@ No transporte `stdio`, o cliente inicia o Python instalado e conversa com ele pe
 
 | Ferramenta | Para que serve |
 |---|---|
-| `onboarding_questions` | Fornecer as perguntas iniciais. |
+| `onboarding_questions` | Fornecer checklist com exemplos e primeira mensagem pronta. |
 | `plan_research` | Planejar a pesquisa após perfil e prato confirmados. |
 | `validate_research` | Conferir o registro das sete fontes. |
 | `validate_delivery` | Conferir a entrega e as exclusões do perfil incorporado. |
@@ -57,19 +59,18 @@ O ensaio de 31/10/2026 usou **Claude Code 2.1.304**, MCP local e instrução com
 3. Abra uma sessão interativa a partir da raiz do clone:
 
 ```powershell
-$instrucaoReceitas = Get-Content -LiteralPath prompts/INSTRUCAO_PROJETO.md -Raw -Encoding UTF8
-claude --mcp-config .local/claude_code.json --strict-mcp-config --append-system-prompt $instrucaoReceitas
+claude --mcp-config .local/claude_code.json --strict-mcp-config --append-system-prompt-file prompts/INSTRUCAO_PROJETO.md
 ```
 
-Diga: “Liste as quatro ferramentas do MCP receitas, chame onboarding_questions e vamos configurar minha cozinha”. A configuração vale para essa execução. `--strict-mcp-config` restringe os servidores MCP aos fornecidos no arquivo; as demais políticas e permissões do Claude continuam aplicáveis. O modo interativo segue a política de histórico do aplicativo.
+Diga: “Vamos configurar minha cozinha. Comece pelo checklist com exemplos”. A IA consulta as ferramentas nos bastidores e mostra diretamente a pergunta prática. A configuração vale para essa execução. `--strict-mcp-config` restringe os servidores MCP aos fornecidos no arquivo; as demais políticas e permissões do Claude continuam aplicáveis. O modo interativo segue a política de histórico do aplicativo.
 
 Para um diagnóstico curto sem persistir a sessão local do Claude:
 
 ```powershell
-claude --print --no-session-persistence --max-budget-usd 0.50 --mcp-config .local/claude_code.json --strict-mcp-config --append-system-prompt $instrucaoReceitas "Liste as quatro ferramentas do MCP receitas e chame onboarding_questions. Não pesquise nem salve arquivos."
+claude --print --no-session-persistence --max-budget-usd 0.50 --mcp-config .local/claude_code.json --strict-mcp-config --append-system-prompt-file prompts/INSTRUCAO_PROJETO.md "Liste as quatro ferramentas do MCP receitas e chame onboarding_questions. Não pesquise nem salve arquivos."
 ```
 
-Os nomes das ferramentas podem aparecer com o prefixo `mcp__receitas__`. A opção de orçamento aplica-se ao modo `--print`. O ensaio automatizado também limitou as ferramentas permitidas às quatro deste servidor, usou diretório temporário e não alterou configuração global. Não usou modo de permissões irrestritas nem modo mínimo de autenticação. A ausência de persistência local não altera a política de histórico ou retenção do provedor.
+Os nomes das ferramentas podem aparecer com o prefixo `mcp__receitas__`. A opção de orçamento aplica-se ao modo `--print`. O arquivo de prompt evita exceder o limite de argumentos do Windows ao transportar instruções longas; foi usado no ensaio final da candidata. O ensaio automatizado também limitou as ferramentas permitidas às quatro deste servidor, usou diretório temporário e não alterou configuração global. Não usou modo de permissões irrestritas nem modo mínimo de autenticação. A ausência de persistência local não altera a política de histórico ou retenção do provedor.
 
 As opções acima foram conferidas em `claude --help` e na [referência oficial da CLI](https://code.claude.com/docs/en/cli-reference). A [documentação oficial MCP](https://code.claude.com/docs/en/mcp) explica conexão, permissões e políticas gerenciadas.
 
@@ -83,7 +84,9 @@ Em uma instalação elegível, a futura conferência começa na pasta do projeto
 
 ## Como reconhecer uma conexão funcional
 
-A IA deve reconhecer as quatro ferramentas, chamar `onboarding_questions` e iniciar um perfil conversacional sem presumir ausência de restrições. Um nome ambíguo exige opções com ingredientes básicos antes da escolha. Depois, o plano precisa conservar o nome confirmado como primeira consulta.
+A IA deve reconhecer as quatro ferramentas, chamar `onboarding_questions` e mostrar `first_message` diretamente, com grupos e exemplos, sem presumir ausência de restrições. Não deve usar a abertura técnica dos antigos exemplos da 1.0.0. Um nome ambíguo exige opções com ingredientes básicos antes da escolha. Depois, o plano precisa conservar o nome confirmado como primeira consulta.
+
+Na candidata 2.0.0-rc.1, `receitas://project/checklist` permite ler o checklist e os esquemas incluem `kitchen` e `card`. O cartão de receita em `Delivery.recipe_card` alimenta `practical_ready`; o antigo `ok` continua indicando somente a conferência documental. `preparation_ready` também considera as ações humanas aplicáveis antes de começar. Veja a [revisão da jornada](REVISAO_JORNADA_2_0.md) para migração, compatibilidade e testes da candidata; os ensaios históricos abaixo pertencem à versão indicada em cada registro.
 
 Para uma verificação completa, o cliente deve aceitar o lote real de sete fontes e rejeitar uma cópia com seis. Também deve rejeitar entrega que recomende ingrediente explicitamente excluído. O relato precisa distinguir esses dados de teste de uma pesquisa nova. Se só houver texto simulando chamadas, a conexão ainda não foi comprovada.
 

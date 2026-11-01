@@ -1,50 +1,52 @@
 ---
 lang: pt-BR
-title: Verificação da distribuição 1.0.0
-subject: Escopo da estabilidade, evidências técnicas e revisão independente
-author: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
-keywords: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
-manager: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
+title: "Verificação da candidata 2.0.0"
+subject: "Escopo das evidências atuais e preservação da versão estável anterior"
+author: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
+keywords: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
+manager: "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B"
+version: "2.0.0-rc.1"
+status: candidate
 ---
 
-# Verificação da distribuição 1.0.0
+# O que foi verificado nesta candidata
 
-A distribuição reúne instrução portátil v6.1, papéis de pesquisa, CLI e servidor MCP local. A estabilidade publicada é identificada pela release correspondente no GitHub. Os rótulos de versão não certificam leitura de páginas, identidade editorial, tradição ou segurança alimentar.
+A candidata 2.0.0-rc.1 contém a instrução v6.2, checklist inicial, contexto de cozinha e ficha operacional. A [revisão completa da jornada](REVISAO_JORNADA_2_0.md) registra achados, migração, testes e limites. A versão estável anterior permanece na tag v1.0.0; seu [relatório original de verificação](VERIFICACAO_1_0_0.md) foi preservado integralmente.
 
-## Contratos e evidências
+O [registro atual de evidências](../evidence/JORNADA_2_0.json) separa testes locais, integração MCP e ensaios reais de conversa. Nenhum resultado da 1.0.0 é apresentado como teste dos novos bytes. A CI avalia o commit indicado no próprio GitHub; teste local não é CI remota.
 
-O lote exige exatamente sete fontes de grupos e origens distintos, país do pedido, ingredientes e preparo lidos, duas trajetórias e pelo menos uma prática doméstica. Qualificação de país e independência têm estados explícitos: `pending` impede aprovação. Campos omitidos não recebem confirmação automática. Mesmo `confirmed` é uma declaração do revisor, que deve confrontar a prova com o conteúdo lido.
+## Três resultados diferentes
 
-A entrega incorpora o lote e seu único perfil. Inventário, componentes, aliases, etapas e notas de adaptação são comparados com as restrições explícitas. Aprovação não certifica ingredientes ocultos, contato cruzado ou segurança individual. Revisão de rótulos e, quando aplicável, contato cruzado dependem da pessoa responsável.
+- `ok` verifica os dados documentais e as correspondências de exclusões declaradas.
+- `practical_ready` também exige ficha operacional completa e consistente com as condições registradas.
+- `preparation_ready` considera as ações humanas aplicáveis antes de começar, sem certificar segurança individual.
 
-A primeira consulta é exatamente o nome confirmado do prato. O host executa busca e papéis com teto global de 32 consultas, 40 páginas lidas, três pesquisadores e duas reformulações por trajetória. O servidor confere declarações e não mede nem executa a navegação do host.
+A mudança de tratamento dos rótulos exige migração dos consumidores da 1.0.0. Registros antigos continuam legíveis; sua ausência de ficha não é preenchida nem promovida a prontidão prática.
 
-## Portabilidade e regressões
+O servidor não abre páginas, não chama modelos, não salva perfis nem executa a pesquisa. Estado confirmado de país e independência é declaração auditável do revisor, não prova obtida automaticamente pelo MCP. Leitura real, procedência, tradição, preço, rendimento e resultado culinário continuam exigindo evidência semântica.
 
-A instrução completa é dado do pacote e precisa ser idêntica ao prompt canônico. Testes leem o recurso instalado fora do clone, sem `PYTHONPATH`, e verificam a instrução na inicialização MCP. O contrato é exercitado por negociação, listagem das quatro ferramentas, chamadas e leitura de recursos.
+## Integridade e portabilidade
 
-A suíte cobre contagem, países, qualificação pendente, URLs, grupos, origem de republicação, datas, leitura de seções, limites, ambiguidade, onboarding, inventário, etapas e notas incompatíveis, JSON malformado e erros sem eco de dados privados. Os resultados finais desta distribuição constam em [testes 1.0.0](../evidence/TESTES_1_0_0.json); o registro experimental de 42 testes permanece histórico.
+O validador compara a instrução canônica, a cópia empacotada e o pacote instalado; os schemas são comparados aos modelos; o checklist humano e o portátil precisam corresponder à fonte determinística. O sincronizador preserva backups antes de escrever. Metadados, referências locais, conjunto público e hashes são conferidos em todos os arquivos distribuídos.
 
-Os [clientes ensaiados](CLIENTES_TESTADOS.md) separam chamadas funcionais, comportamento da conversa e pesquisa real. A aprovação documental de uma IA não foi tratada como sucesso semântico quando suas próprias notas reconheciam prova insuficiente.
+Os testes instalados incluem carregamento fora do clone, sem depender de `PYTHONPATH`, e comunicação MCP real por stdio. As quatro ferramentas permanecem locais e somente de leitura em relação ao ambiente externo. As anotações de ferramenta são informações ao cliente; o comportamento de menor acesso está na implementação, sem rede ou comandos nas tools.
 
-## Estudo culinário inicial
+`receitas iniciar` apresenta o checklist e `receitas mostrar` apresenta a ficha em texto humano, após validação. A apresentação determinística corrige pontuação no texto humano e conserva URLs; não altera o JSON recebido. Respostas livres da IA hospedeira ainda podem ter desvio tipográfico, como registrado no ensaio final.
 
-O [ensaio de feijoada](../evidence/ENSAIO_FEIJOADA.md) preserva a sequência original: primeira exploração sem o detalhe procurado; descoberta posterior na ampliação regional, sem incluir o ingrediente-alvo nas consultas. Presença culinária não confirma infusão, remoção de gordura ou efeito digestivo.
+## Revisão independente e estado da versão
 
-O [lote revalidado](../examples/feijoada_revalidada.json) reúne sete fontes já qualificadas e contadores medidos; seus estados explícitos registram a revisão documental anterior. Reutiliza URLs conhecidas e não é outra descoberta cega. O [registro histórico](../examples/feijoada_pesquisa.json) não foi reescrito: além dos retries não medidos, não contém os novos estados de qualificação. Deve ser rejeitado pelo contrato atual, sem retropreencher confirmações.
+Esta candidata não recebeu B.9 conclusiva sobre seus bytes. A revisão da 1.0.0 tem escopo e hashes próprios; não é transferível. Testes funcionais no Claude Code e críticas de subagentes OpenAI são evidências úteis, sem completar a verificação arquitetural distinta.
 
-## Revisão B.9 e publicação
+A promoção estrita exige identidade e linhagem suficientes no envelope nativo. Se essa prova faltar, o estado permanece `INDEPENDENCE_UNPROVEN`. Não se deduz o modelo efetivamente servido de um seletor de interface, nem a família apenas do fornecedor. A candidata não foi anunciada como nova release estável.
 
-A B.9 avalia um conjunto funcional congelado, com critérios fixados antes das respostas, gerador identificado como OpenAI e verificadores de outras famílias pelo navegador. Relatórios, objeções e triagem ficam em [revisão B.9](../evidence/B9_1_0_0.md). A revisão cobre os arquivos e hashes indicados, não alterações futuras ou todos os dados factuais da internet.
+## Fontes e limitações de cobertura
 
-A publicação estável depende do resultado conclusivo da rodada final, da resolução das objeções materiais, das regressões e da CI sobre a alteração integrada. Um parecer do próprio gerador ou teste técnico não substitui esse requisito. Não há promoção por simples troca de número de versão.
+A [pesquisa de uso](PESQUISA_DE_USO_2026.md) distingue tendências brasileiras, estudos empíricos, relatos e exemplos de fornecedores. O [guia de sabor](SABOR_E_UMAMI.md) distingue umami, aroma, frescor, textura e equilíbrio, sem transformar presença de ingrediente em promessa de saúde. Ciência internacional não completa a contagem das sete receitas nacionais.
 
-## Fontes técnicas e limites
+Foram consultadas as documentações oficiais de [MCP](https://github.com/modelcontextprotocol/python-sdk), [Claude Code](https://code.claude.com/docs/en/cli-reference), [arquivos de contexto Claude](https://code.claude.com/docs/en/memory) e [GEMINI.md](https://geminicli.com/docs/cli/gemini-md/). Os adapters são candidatos; não se presume homologação universal ou carregamento em todos os clientes.
 
-Foram consultados o [SDK oficial MCP](https://github.com/modelcontextprotocol/python-sdk), sua [documentação](https://py.sdk.modelcontextprotocol.io/), o [CLI oficial Claude Code](https://code.claude.com/docs/en/cli-reference) e a [documentação MCP do Gemini CLI](https://geminicli.com/docs/tools/mcp-server/). A configuração foi confrontada com as versões locais efetivamente executadas.
+Markdown contém idioma, título, assunto, autor, palavras-chave e gerente em frontmatter. Código, JSON, YAML, TOML e manifest usam [registro auxiliar por caminho](../ARTIFACT_METADATA.json), pois não possuem campos documentais nativos universais. O pacote usa autor e palavras-chave nativos, com gerente e idioma na tabela personalizada do projeto.
 
-Markdown registra idioma, título, assunto, autor, palavras-chave e gerente no frontmatter. Código e JSON usam [registro auxiliar](../ARTIFACT_METADATA.json), pois não possuem propriedades documentais nativas universais. Não há serviço remoto hospedado, persistência automática de perfis ou instalação global.
+Confiança: alta nos cenários executados e na integridade conferida; média na generalização da experiência culinária e entre clientes.
 
-Confiança: alta nos contratos e execuções cobertos pelas evidências; média na generalização do método culinário, avaliado em poucos cenários.
-
-Pendências de cobertura: pesquisa comparativa com outros pratos, interfaces não ensaiadas e estudos com usuários. Não se promete descoberta universal de saber não publicado.
+Pendências: B.9 específica com linhagem comprovada, promoção estável, estudos com usuários, testes de cozinha e clientes ainda não ensaiados. O desvio tipográfico pontual nas respostas livres permanece declarado.

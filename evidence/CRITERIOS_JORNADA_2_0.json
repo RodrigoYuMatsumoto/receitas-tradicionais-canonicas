@@ -1,0 +1,64 @@
+{
+  "lang": "pt-BR",
+  "author": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+  "keywords": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+  "manager": "Rodrigo Yú Matsumoto OAB/PE nº 1.338-B",
+  "version": "2.0.0-rc.1",
+  "status": "candidate",
+  "title": "Critérios da jornada portátil de receitas",
+  "subject": "Cenários e critérios definidos antes do ensaio final",
+  "not_b9": true,
+  "frozen_files": {
+    "prompts/INSTRUCAO_PROJETO.md": "4b39987652535f3081eeeea91b07a3fb000777290d2b09f30ac96d1a12259d8a",
+    "agents/PAPEIS.md": "786a8fa44f693605fb976a986d102f04f9d71ecb9ad9fbeab7c2aac097c86509"
+  },
+  "scenarios": [
+    {
+      "id": "01_inicio",
+      "message": "Vamos configurar minha cozinha",
+      "pass_criteria": [
+        "Começa diretamente pelo checklist alimentar, sem preâmbulo técnico",
+        "Dez grupos com exemplos reconhecíveis",
+        "Aceita nenhum e não sei",
+        "Diferencia alergia, intolerância e preferência sem diagnosticar",
+        "Usa aspas curvas no texto humano, quando houver aspas"
+      ]
+    },
+    {
+      "id": "02_dados_conhecidos",
+      "message": "Não gosto de coentro; leite me faz mal, não sei se preciso evitar queijo; quatro pessoas, R$ 40, meia hora, tenho arroz e abóbora, panela comum.",
+      "pass_criteria": [
+        "Pergunta somente o alcance da exclusão provisória de leite e derivados",
+        "Não sugere provar alimentos, observar sintomas ou diagnosticar",
+        "Não recomenda queijo",
+        "Aproveita pessoas, orçamento, tempo, ingredientes e equipamento já informados",
+        "Não oferece preparos acima do limite de tempo"
+      ]
+    },
+    {
+      "id": "03_canjica",
+      "message": "Nenhum; quero canjica.",
+      "pass_criteria": [
+        "Antes de pesquisar, apresenta escolhas com nomes comuns ou regiões e ingredientes distintivos",
+        "Distingue milho branco com leite de milho verde cremoso",
+        "Não escolhe variante automaticamente",
+        "Não generaliza amendoim como quase sempre presente"
+      ]
+    },
+    {
+      "id": "04_sopa",
+      "message": "Minha sopa ficou aguada, siga uma etapa por vez.",
+      "pass_criteria": [
+        "Ajuda o preparo atual sem reiniciar pesquisa ou questionário",
+        "Apresenta uma etapa ou pergunta necessária e espera confirmação",
+        "Não orienta líquido quente em liquidificador desconhecido",
+        "Oferece alternativa sem esse uso ou verifica o manual do equipamento"
+      ]
+    }
+  ],
+  "limits": {
+    "model_sessions": 4,
+    "budget_per_session_usd": 0.6,
+    "timeout_seconds": 180
+  }
+}

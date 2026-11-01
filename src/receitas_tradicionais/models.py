@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import ipaddress
 import re
 from datetime import date
 from typing import Annotated, Any, Literal
@@ -71,6 +72,20 @@ class Profile(StrictModel):
     language_style: Literal["simples", "tecnico"] = "simples"
     servings: Annotated[int, Field(gt=0, le=1000)] = 4
     alcohol_free: bool = True
+    dietary_patterns: TextList = Field(default_factory=list)
+    avoid_added_flavor_enhancers: bool = True
+    onboarding_unknowns: TextList = Field(default_factory=list)
+
+
+class KitchenContext(StrictModel):
+    """Condições deste preparo; não se tornam preferências permanentes."""
+
+    available_ingredients: TextList = Field(default_factory=list)
+    time_available_minutes: Annotated[int, Field(gt=0, le=43_200)] | None = None
+    budget: ShortText | None = None
+    shopping_allowed: bool | None = None
+    output_mode: Literal["completa", "passo_a_passo"] = "completa"
+    taste_goal: ShortText | None = None
 
 
 class Request(StrictModel):
@@ -81,6 +96,7 @@ class Request(StrictModel):
     variant: ShortText
     ambiguity_resolved: bool
     profile: Profile
+    kitchen: KitchenContext = Field(default_factory=KitchenContext)
 
     @field_validator("country")
     @classmethod
@@ -105,6 +121,7 @@ class EditorialCountryEvidence(StrictModel):
 
 
 def validate_http_url(value: str) -> str:
+    """Validação sintática, sem consulta DNS nem garantia de destino público real."""
     try:
         parsed = urlsplit(value)
         port = parsed.port
@@ -117,14 +134,29 @@ def validate_http_url(value: str) -> str:
     if (
         parsed.scheme.lower() not in {"http", "https"}
         or not parsed.hostname
-        or "." not in parsed.hostname
         or parsed.username is not None
         or parsed.password is not None
         or any(char.isspace() for char in value)
+        or any(ord(char) < 32 or ord(char) == 127 for char in value)
         or "\\" in value
         or (port is not None and not 0 < port < 65536)
     ):
-        raise ValueError("Informe uma URL HTTP ou HTTPS pública e sem credenciais.")
+        raise ValueError("Informe uma URL HTTP ou HTTPS válida e sem credenciais.")
+    hostname = parsed.hostname.rstrip(".").casefold()
+    try:
+        address = ipaddress.ip_address(hostname)
+    except ValueError:
+        if (
+            "." not in hostname
+            or hostname.endswith((".localhost", ".local", ".internal", ".home", ".lan"))
+            or hostname == "localhost"
+            or re.fullmatch(r"[0-9.]+", hostname)
+            or any(not re.fullmatch(r"[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", label, re.I) for label in hostname.encode("idna").decode("ascii").split("."))
+        ):
+            raise ValueError("Endereço local ou hostname inválido não é aceito.")
+    else:
+        if not address.is_global:
+            raise ValueError("Endereço IP privado, local ou reservado não é aceito.")
     return value
 
 
@@ -201,6 +233,57 @@ class IngredientItem(StrictModel):
     aliases: TextList = Field(default_factory=list)
     components: TextList = Field(default_factory=list)
     alcohol: bool = False
+    label_required: bool = False
+    added_flavor_enhancer: bool = False
+
+
+class RecipeIngredient(IngredientItem):
+    quantity: ShortText
+    unit: ShortText
+    household_measure: ShortText | None = None
+    note: ShortText | None = None
+    source_ids: Annotated[list[ShortText], Field(min_length=1, max_length=7)]
+
+
+class RecipeStep(StrictModel):
+    instruction: Text
+    observable_cue: ShortText
+    time_hint: ShortText | None = None
+
+
+class FlavorDetail(StrictModel):
+    action: Text
+    effect: Text
+    category: Literal["umami", "aroma", "texture", "balance"]
+    source_ids: Annotated[list[ShortText], Field(min_length=1, max_length=7)]
+
+
+class RecipeCard(StrictModel):
+    """Ficha operacional: medidas, rendimento, tempo e sinais de ponto explícitos."""
+
+    title: ShortText
+    servings: Annotated[int, Field(gt=0, le=1000)]
+    yield_basis: Literal["source", "scaled", "estimate"]
+    yield_note: Text
+    active_minutes: Annotated[int, Field(ge=0, le=43_200)]
+    total_minutes: Annotated[int, Field(gt=0, le=43_200)]
+    equipment: Annotated[list[ShortText], Field(min_length=1, max_length=30)]
+    ingredients: Annotated[list[RecipeIngredient], Field(min_length=1, max_length=200)]
+    steps: Annotated[list[RecipeStep], Field(min_length=1, max_length=200)]
+    shopping_list: TextList = Field(default_factory=list)
+    flavor_detail: FlavorDetail | None = None
+    detail_search_note: Text | None = None
+    adaptations: TextList = Field(default_factory=list)
+    source_ids: Annotated[list[ShortText], Field(min_length=7, max_length=7)]
+
+
+class DietaryPatternReview(StrictModel):
+    """Revisão semântica declarada, sem converter um padrão em diagnóstico."""
+
+    pattern: ShortText
+    excluded_ingredients: Annotated[list[ShortText], Field(min_length=1, max_length=200)]
+    compatibility_reviewed: bool = False
+    review_note: Text
 
 
 class Delivery(StrictModel):
@@ -212,6 +295,8 @@ class Delivery(StrictModel):
     labels_reviewed: bool
     cross_contact_reviewed: bool = False
     adaptation_notes: TextList = Field(default_factory=list)
+    recipe_card: RecipeCard | None = None
+    dietary_pattern_review: Annotated[list[DietaryPatternReview], Field(max_length=50)] = Field(default_factory=list)
 
 
 class GateIssue(StrictModel):
@@ -226,6 +311,9 @@ class ValidationReport(StrictModel):
     semantic_review_required: bool = True
     limitations: list[str]
     checked_at: ISODate
+    practical_ready: bool = False
+    preparation_ready: bool = False
+    action_items: list[GateIssue] = Field(default_factory=list)
 
 
 SCHEMA_MODELS = {
@@ -233,4 +321,6 @@ SCHEMA_MODELS = {
     "request": Request,
     "research": ResearchBatch,
     "delivery": Delivery,
+    "kitchen": KitchenContext,
+    "card": RecipeCard,
 }

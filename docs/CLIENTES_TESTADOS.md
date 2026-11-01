@@ -9,6 +9,8 @@ manager: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
 
 # Clientes de IA ensaiados
 
+A candidata 2.0.0-rc.1 tem ensaios próprios na [revisão da jornada](REVISAO_JORNADA_2_0.md) e no [registro de evidências](../evidence/JORNADA_2_0.json). A seção abaixo preserva os ensaios históricos da 1.0.0; suas aprovações não são transferidas à candidata.
+
 Os ensaios de 31/10/2026 usam perfis fictícios, configurações temporárias fora do clone e instrução integral. Não são estudo de usabilidade com pessoas nem revisão B.9. Nenhuma configuração global ou credencial foi alterada.
 
 | Cliente e modo | Resultado observado | Limite |

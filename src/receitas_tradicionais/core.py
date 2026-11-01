@@ -3,11 +3,14 @@
 from __future__ import annotations
 
 import unicodedata
+import re
 from datetime import date
+from fractions import Fraction
 from importlib.resources import files
 from urllib.parse import quote, unquote, urlsplit, urlunsplit
 
 from .models import Delivery, GateIssue, Request, ResearchBatch, ValidationReport
+from .onboarding import onboarding_questions
 
 PROJECT_INSTRUCTIONS = files("receitas_tradicionais").joinpath("INSTRUCAO_PROJETO.md").read_text(encoding="utf-8")
 
@@ -24,7 +27,12 @@ DELIVERY_LIMITATIONS = [
     "O resultado não certifica segurança alimentar nem representa orientação clínica.",
     "Técnicas, identidade editorial, direitos autorais e fidelidade da adaptação exigem revisão humana.",
     "A detecção de termos explícitos nas etapas e notas de adaptação é conservadora, não interpreta negações e pode exigir reformulação do texto.",
+    "practical_ready verifica a completude declarada da ficha, não prova viabilidade, preço, rendimento real ou sabor.",
+    "preparation_ready registra a ausência de pendências explícitas neste contrato, sem certificar segurança individual.",
+    "A revisão de padrões alimentares é uma declaração semântica do host; não prova decomposição completa nem constitui avaliação clínica.",
 ]
+
+FLAVOR_ENHANCER_TERMS = ("ajinomoto", "glutamato monossodico", "monosodium glutamate", "msg", "e621", "ins 621")
 
 ALCOHOL_TERMS = frozenset({
     "alcool", "alcohol", "etanol", "ethanol", "cerveja", "beer", "biere", "cerveza",
@@ -47,30 +55,13 @@ def normalize_url(value: str) -> str:
     """Agrupa variações de rastreamento; pode exigir revisão de falsos duplicados."""
     parsed = urlsplit(value)
     host = (parsed.hostname or "").lower().rstrip(".").removeprefix("www.").encode("idna").decode("ascii")
+    if ":" in host:
+        host = f"[{host}]"
     port = parsed.port
     if port and not (parsed.scheme.lower() == "http" and port == 80) and not (parsed.scheme.lower() == "https" and port == 443):
         host += f":{port}"
     path = quote(unquote(parsed.path), safe="/:-._~").rstrip("/") or "/"
     return urlunsplit(("https", host, path, "", ""))
-
-
-def onboarding_questions() -> dict:
-    return {
-        "questions": [
-            {"field": "excluded_ingredients", "question": "Quais ingredientes devem ser excluídos? Informe também os nomes alternativos que conhece."},
-            {"field": "allergies", "question": "Há alergias alimentares já conhecidas que deseja declarar? Não é necessário informar diagnóstico ou identidade."},
-            {"field": "intolerances", "question": "Há intolerâncias alimentares já conhecidas que deseja declarar?"},
-            {"field": "preferences", "question": "Quais são suas preferências alimentares?"},
-            {"field": "equipment", "question": "Quais utensílios e equipamentos tem disponíveis?"},
-            {"field": "region", "question": "Deseja informar uma região culinária ampla para contextualizar os ingredientes? Não informe endereço."},
-            {"field": "servings", "question": "Para quantas porções deseja preparar?"},
-            {"field": "language_style", "question": "Prefere linguagem simples ou técnica?"},
-            {"field": "onboarding_confirmed", "question": "Confirma que revisou essas informações e deseja usá-las neste pedido?"},
-        ],
-        "alcohol_free_default": True,
-        "privacy": "O servidor não persiste perfis. O host pode ter sua própria política de histórico.",
-        "next_step": "Antes da pesquisa, confirme nome, país, variante e ingredientes característicos para resolver possíveis homônimos.",
-    }
 
 
 def request_issues(request: Request) -> list[GateIssue]:
@@ -90,6 +81,13 @@ def plan_research(request: Request) -> dict:
         "ok": True,
         "queries": [{"text": request.dish, "derived_from": None}],
         "target_sources": 7,
+        "kitchen": request.kitchen.model_dump(mode="json"),
+        "practical_checks": [
+            "Compare o tempo total da fonte, incluindo molho, descanso e espera, com o tempo disponível. Se não couber, explique e peça a escolha; não prometa acelerar a técnica.",
+            "Confira equipamento, capacidade da panela, porções, ingredientes disponíveis e compras permitidas antes de montar a ficha.",
+            "Orçamento não informado é desconhecido; preço estimado não é cotação local confirmada.",
+            "Dúvidas alimentares permanecem registradas; nenhuma resposta em branco ou não sei se transforma em ausência de restrições.",
+        ],
         "limits": {"queries": 32, "pages_read": 40, "researchers": 3, "reformulations_per_track": 2},
         "next_steps": [
             "O host pesquisa o nome do prato e lê os resultados antes de formular refinamentos regionais.",
@@ -167,6 +165,57 @@ def _ingredient_match(restriction: str, label: str) -> bool:
     return f" {left} " in f" {right} " or f" {right} " in f" {left} "
 
 
+def _equipment_key(value: str) -> str:
+    """Equivalências explícitas; nome genérico não comprova tipo nem capacidade."""
+    normalized = normalize_text(value)
+    aliases = {
+        "panela comum": "panela",
+        "airfryer": "air fryer",
+        "fritadeira sem oleo": "air fryer",
+        "microondas": "micro ondas",
+    }
+    return aliases.get(normalized, normalized)
+
+
+def _positive_quantity(value: str, note: str | None) -> bool:
+    """Aceita medidas numéricas legíveis; a unidade fica em campo separado."""
+    if normalize_text(value) == "a gosto":
+        adjustment = normalize_text(note or "")
+        return bool(
+            any(phrase in adjustment for phrase in ("por vez", "aos poucos"))
+            and any(word in adjustment.split() for word in ("prove", "observe", "pare", "ajuste"))
+        )
+    # NFKC torna frações tipográficas legíveis; separa a parte inteira antes.
+    separated = re.sub(r"(?<=\d)([\u00bc-\u00be\u2150-\u215e])", r" \1", value)
+    normalized = unicodedata.normalize("NFKC", separated).replace(chr(0x2044), "/").strip()
+
+    def scalar(part: str) -> Fraction | None:
+        if re.fullmatch(r"\d+[.,]\d+|\d+", part):
+            result = Fraction(part.replace(",", "."))
+        elif re.fullmatch(r"\d+/\d+", part):
+            numerator, denominator = part.split("/")
+            if int(denominator) == 0:
+                return None
+            result = Fraction(int(numerator), int(denominator))
+        elif re.fullmatch(r"\d+\s+\d+/\d+", part):
+            whole, fraction = part.split()
+            fractional = scalar(fraction)
+            if fractional is None:
+                return None
+            result = Fraction(int(whole)) + fractional
+        else:
+            return None
+        return result if result > 0 else None
+
+    parts = re.split(r"\s*(?:-|\ba\b|\baté\b)\s*", normalized, flags=re.I)
+    if len(parts) == 1:
+        return scalar(parts[0]) is not None
+    if len(parts) == 2:
+        lower, upper = (scalar(part) for part in parts)
+        return lower is not None and upper is not None and lower <= upper
+    return False
+
+
 def validate_delivery(delivery: Delivery, *, today: date | None = None) -> ValidationReport:
     report = validate_research(delivery.research, today=today)
     issues = [issue.model_copy(update={"path": f"research.{issue.path}"}) for issue in report.issues]
@@ -179,10 +228,6 @@ def validate_delivery(delivery: Delivery, *, today: date | None = None) -> Valid
         add("inventario_ausente", "Declare o inventário completo de ingredientes da entrega operacional.", "ingredients")
     if not delivery.steps:
         add("etapas_ausentes", "Declare as etapas da entrega operacional.", "steps")
-    if not delivery.labels_reviewed:
-        add("rotulos_pendentes", "A pessoa responsável precisa conferir o inventário, os componentes e os rótulos aplicáveis.", "labels_reviewed")
-    if profile.allergies and not delivery.cross_contact_reviewed:
-        add("contato_cruzado_pendente", "Com alergias declaradas, a pessoa responsável precisa revisar também o contato cruzado.", "cross_contact_reviewed")
     restrictions = profile.excluded_ingredients + profile.allergies + profile.intolerances
     for index, ingredient in enumerate(delivery.ingredients):
         labels = [ingredient.name, *ingredient.aliases, *ingredient.components]
@@ -190,6 +235,10 @@ def validate_delivery(delivery: Delivery, *, today: date | None = None) -> Valid
             add("alcool_na_entrega", "A política deste projeto exige entrega sem álcool.", f"ingredients.{index}.alcohol")
         if any(_ingredient_match(restriction, label) for restriction in restrictions for label in labels):
             add("ingrediente_restrito", "O inventário contém correspondência com uma exclusão, alergia ou intolerância declarada.", f"ingredients.{index}")
+        if profile.avoid_added_flavor_enhancers and (
+            ingredient.added_flavor_enhancer or any(_ingredient_match(term, label) for term in FLAVOR_ENHANCER_TERMS for label in labels)
+        ):
+            add("realcador_adicionado", "O inventário contém realçador comercial incompatível com a preferência declarada.", f"ingredients.{index}")
     for index, step in enumerate(delivery.steps):
         if ALCOHOL_TERMS.intersection(normalize_text(step).split()):
             add("alcool_nas_etapas", "As etapas contêm termo explícito incompatível com a política sem álcool.", f"steps.{index}")
@@ -200,4 +249,110 @@ def validate_delivery(delivery: Delivery, *, today: date | None = None) -> Valid
             add("alcool_nas_notas", "As notas de adaptação contêm termo explícito incompatível com a política sem álcool.", f"adaptation_notes.{index}")
         if any(_ingredient_match(restriction, note) for restriction in restrictions):
             add("restricao_nas_notas", "As notas de adaptação contêm correspondência textual com uma restrição declarada.", f"adaptation_notes.{index}")
-    return ValidationReport(ok=not issues, issues=issues, limitations=[*RESEARCH_LIMITATIONS, *DELIVERY_LIMITATIONS], checked_at=report.checked_at)
+    for field in ("steps", "adaptation_notes"):
+        if profile.avoid_added_flavor_enhancers:
+            for index, text in enumerate(getattr(delivery, field)):
+                if any(_ingredient_match(term, text) for term in FLAVOR_ENHANCER_TERMS):
+                    add("realcador_adicionado", "O preparo contém realçador comercial incompatível com a preferência declarada.", f"{field}.{index}")
+
+    actions: list[GateIssue] = []
+
+    def action(code: str, message: str, path: str) -> None:
+        actions.append(GateIssue(code=code, message=message, path=path))
+
+    # O host decompõe o padrão em exclusões e revê a compatibilidade culinária.
+    # O booleano registra sua declaração auditável, não um atestado humano ou clínico.
+    declared_exclusions = {normalize_text(item) for item in profile.excluded_ingredients}
+    for pattern in profile.dietary_patterns:
+        matching = [item for item in delivery.dietary_pattern_review if normalize_text(item.pattern) == normalize_text(pattern)]
+        if (
+            len(matching) != 1
+            or not matching[0].compatibility_reviewed
+            or not {normalize_text(item) for item in matching[0].excluded_ingredients}.issubset(declared_exclusions)
+        ):
+            action("padrao_alimentar_pendente", "O host precisa traduzir o padrão em exclusões concretas e registrar a revisão da compatibilidade da receita; perguntar ao usuário somente ambiguidades reais.", "dietary_pattern_review")
+
+    card = delivery.recipe_card
+    if card is None:
+        action("ficha_pratica_ausente", "Monte a ficha com quantidades, rendimento, tempos, utensílios e sinais de ponto antes de apresentar uma receita completa.", "recipe_card")
+    else:
+        source_ids = {source.id for source in delivery.research.sources}
+        if len(set(card.source_ids)) != 7 or set(card.source_ids) != source_ids:
+            action("fontes_da_ficha_divergentes", "Vincule a ficha às mesmas sete fontes selecionadas na pesquisa.", "recipe_card.source_ids")
+        if card.active_minutes > card.total_minutes:
+            action("tempos_inconsistentes", "O tempo ativo não pode exceder o tempo total, que inclui esperas.", "recipe_card.active_minutes")
+        if card.servings != profile.servings:
+            action("rendimento_divergente", "Ajuste a ficha às porções pedidas ou peça confirmação da diferença.", "recipe_card.servings")
+        if card.yield_basis == "estimate" and "estim" not in normalize_text(card.yield_note):
+            action("estimativa_nao_explicita", "Identifique expressamente o rendimento como estimativa.", "recipe_card.yield_note")
+        if card.yield_basis == "scaled" and not any(c.isdigit() for c in card.yield_note):
+            action("escala_sem_calculo", "Explique com números o rendimento original e o cálculo da adaptação.", "recipe_card.yield_note")
+        inventory_names = [normalize_text(item.name) for item in delivery.ingredients]
+        card_names = [normalize_text(item.name) for item in card.ingredients]
+        if len(set(card_names)) != len(card_names) or set(card_names) != set(inventory_names):
+            action("inventarios_divergentes", "A ficha e o inventário precisam conter os mesmos ingredientes, sem nomes duplicados.", "recipe_card.ingredients")
+        if [normalize_text(step.instruction) for step in card.steps] != [normalize_text(step) for step in delivery.steps]:
+            action("etapas_divergentes", "As instruções da ficha precisam corresponder às etapas efetivamente validadas.", "recipe_card.steps")
+        for index, ingredient in enumerate(card.ingredients):
+            if not set(ingredient.source_ids).issubset(source_ids):
+                action("fonte_de_ingrediente_desconhecida", "Use somente IDs das receitas-fontes selecionadas.", f"recipe_card.ingredients.{index}.source_ids")
+            if not _positive_quantity(ingredient.quantity, ingredient.note):
+                action("quantidade_pendente", "Informe número positivo, fração, medida mista ou faixa. Para a gosto, registre uma nota com adição gradual e prova ou observação do ponto.", f"recipe_card.ingredients.{index}.quantity")
+        if card.flavor_detail is not None and not set(card.flavor_detail.source_ids).issubset(source_ids):
+            action("fonte_do_detalhe_desconhecida", "Ligue o detalhe de sabor a uma receita-fonte selecionada.", "recipe_card.flavor_detail.source_ids")
+        if card.flavor_detail is None and not card.detail_search_note:
+            action("busca_do_detalhe_nao_registrada", "Se não encontrou um detalhe de sabor aplicável, registre essa conclusão sem inventar um segredo.", "recipe_card.detail_search_note")
+        kitchen = delivery.research.request.kitchen
+        if kitchen.time_available_minutes is not None and card.total_minutes > kitchen.time_available_minutes:
+            action("tempo_indisponivel", "O tempo total excede o disponível. Peça ao usuário que escolha outro horário ou outro preparo.", "recipe_card.total_minutes")
+        if kitchen.shopping_allowed is False and card.shopping_list:
+            action("compras_nao_autorizadas", "A pessoa escolheu cozinhar sem compras; revise o plano com ela.", "recipe_card.shopping_list")
+        if profile.equipment:
+            missing = [item for item in card.equipment if _equipment_key(item) not in {_equipment_key(known) for known in profile.equipment}]
+            if missing:
+                action("equipamento_nao_confirmado", "Confirme os utensílios da ficha que ainda não constam entre os disponíveis; não troque a técnica automaticamente.", "recipe_card.equipment")
+        # Todos os textos que a pessoa recebe passam pelas mesmas exclusões.
+        # Notas, lista de compras e detalhe de sabor não são canais para reintroduzir ingredientes.
+        texts: list[tuple[str, str]] = [("title", card.title), ("yield_note", card.yield_note)]
+        for index, item in enumerate(card.ingredients):
+            for field, text in [("name", item.name), ("quantity", item.quantity), ("unit", item.unit), ("note", item.note), ("household_measure", item.household_measure)]:
+                if text is not None:
+                    texts.append((f"ingredients.{index}.{field}", text))
+            texts.extend((f"ingredients.{index}.aliases.{i}", text) for i, text in enumerate(item.aliases))
+            texts.extend((f"ingredients.{index}.components.{i}", text) for i, text in enumerate(item.components))
+            if item.alcohol:
+                add("alcool_na_ficha", "A política deste projeto exige entrega sem álcool.", f"recipe_card.ingredients.{index}.alcohol")
+            if profile.avoid_added_flavor_enhancers and item.added_flavor_enhancer:
+                add("realcador_adicionado", "A ficha contém realçador comercial incompatível com a preferência declarada.", f"recipe_card.ingredients.{index}.added_flavor_enhancer")
+        for index, step in enumerate(card.steps):
+            texts.extend([(f"steps.{index}.instruction", step.instruction), (f"steps.{index}.observable_cue", step.observable_cue)])
+            if step.time_hint is not None:
+                texts.append((f"steps.{index}.time_hint", step.time_hint))
+        for field in ("shopping_list", "adaptations", "equipment"):
+            texts.extend((f"{field}.{index}", text) for index, text in enumerate(getattr(card, field)))
+        if card.flavor_detail is not None:
+            texts.extend([(f"flavor_detail.{field}", getattr(card.flavor_detail, field)) for field in ("action", "effect")])
+        if card.detail_search_note is not None:
+            texts.append(("detail_search_note", card.detail_search_note))
+        for path, text in texts:
+            if ALCOHOL_TERMS.intersection(normalize_text(text).split()):
+                add("alcool_na_ficha", "A ficha contém termo explícito incompatível com a política sem álcool.", f"recipe_card.{path}")
+            if any(_ingredient_match(restriction, text) for restriction in restrictions):
+                add("restricao_na_ficha", "A ficha contém correspondência textual com uma restrição declarada.", f"recipe_card.{path}")
+            if profile.avoid_added_flavor_enhancers and any(_ingredient_match(term, text) for term in FLAVOR_ENHANCER_TERMS):
+                add("realcador_adicionado", "A ficha contém realçador comercial incompatível com a preferência declarada.", f"recipe_card.{path}")
+
+    practical_ready = not issues and not actions
+    # Revisões humanas pendentes não impedem consultar o plano. Nunca são atestadas pela IA.
+    label_items = [*delivery.ingredients, *(card.ingredients if card else [])]
+    if (profile.allergies or profile.intolerances) and any(item.label_required or item.components for item in label_items) and not delivery.labels_reviewed:
+        action("rotulos_pendentes", "Antes de preparar, a pessoa responsável precisa conferir os componentes e rótulos aplicáveis aos ingredientes compostos.", "labels_reviewed")
+    if profile.allergies and not delivery.cross_contact_reviewed:
+        action("contato_cruzado_pendente", "Antes de preparar, a pessoa responsável precisa revisar as condições reais de contato cruzado.", "cross_contact_reviewed")
+    if profile.onboarding_unknowns:
+        action("duvidas_alimentares_pendentes", "Esclareça as dúvidas alimentares registradas antes de tratar o preparo como pronto para começar.", "research.request.profile.onboarding_unknowns")
+    return ValidationReport(
+        ok=not issues, issues=issues,
+        limitations=[*RESEARCH_LIMITATIONS, *DELIVERY_LIMITATIONS], checked_at=report.checked_at,
+        practical_ready=practical_ready, preparation_ready=practical_ready and not actions, action_items=actions,
+    )

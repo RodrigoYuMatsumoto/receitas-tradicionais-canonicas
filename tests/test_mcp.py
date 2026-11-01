@@ -12,6 +12,7 @@ from mcp import Client, ClientSession, StdioServerParameters, stdio_client
 from receitas_tradicionais import __version__
 from receitas_tradicionais.core import PROJECT_INSTRUCTIONS
 from test_core import batch_data, delivery_data, request_data
+from test_practical import practical_delivery_data
 
 
 class McpStdioTests(unittest.TestCase):
@@ -62,6 +63,8 @@ class McpStdioTests(unittest.TestCase):
                     onboarding = await client.call_tool("onboarding_questions", {})
                     self.assertFalse(onboarding.is_error)
                     self.assertIn("questions", onboarding.structured_content)
+                    self.assertTrue(onboarding.structured_content["first_message"].startswith("O que devo evitar na sua comida?"))
+                    self.assertIn("não sei", onboarding.structured_content["reply_options"])
                     plan = await client.call_tool("plan_research", {"request": request_data()})
                     self.assertFalse(plan.is_error)
                     self.assertTrue(plan.structured_content["ok"])
@@ -71,12 +74,36 @@ class McpStdioTests(unittest.TestCase):
                     delivery = await client.call_tool("validate_delivery", {"delivery": delivery_data()})
                     self.assertFalse(delivery.is_error)
                     self.assertTrue(delivery.structured_content["ok"])
+                    self.assertFalse(delivery.structured_content["practical_ready"])
+                    practical = await client.call_tool("validate_delivery", {"delivery": practical_delivery_data()})
+                    self.assertTrue(practical.structured_content["practical_ready"])
+                    self.assertTrue(practical.structured_content["preparation_ready"])
+                    no_secret_data = practical_delivery_data()
+                    del no_secret_data["recipe_card"]["flavor_detail"]
+                    no_secret_data["recipe_card"]["detail_search_note"] = "A comparação não confirmou detalhe incomum aplicável; nenhuma descoberta foi inventada."
+                    no_secret = await client.call_tool("validate_delivery", {"delivery": no_secret_data})
+                    self.assertTrue(no_secret.structured_content["practical_ready"])
+                    pattern_data = practical_delivery_data()
+                    pattern_data["research"]["request"]["profile"]["dietary_patterns"] = ["vegano"]
+                    pattern = await client.call_tool("validate_delivery", {"delivery": pattern_data})
+                    self.assertFalse(pattern.structured_content["practical_ready"])
+                    self.assertFalse(pattern.structured_content["preparation_ready"])
+                    allergy_data = practical_delivery_data()
+                    allergy_data["research"]["request"]["profile"]["allergies"] = ["amendoim"]
+                    allergy_plan = await client.call_tool("validate_delivery", {"delivery": allergy_data})
+                    self.assertTrue(allergy_plan.structured_content["ok"])
+                    self.assertTrue(allergy_plan.structured_content["practical_ready"])
+                    self.assertFalse(allergy_plan.structured_content["preparation_ready"])
                     instructions = await client.read_resource("receitas://project/instructions")
                     self.assertEqual(instructions.contents[0].text, PROJECT_INSTRUCTIONS)
                     self.assertIn("## 7. Valide e entregue", instructions.contents[0].text)
                     self.assertIn("dados não confiáveis", instructions.contents[0].text)
                     schema = await client.read_resource("receitas://schema/research")
                     self.assertIn("completed_tracks", schema.contents[0].text)
+                    card_schema = await client.read_resource("receitas://schema/card")
+                    self.assertIn("observable_cue", card_schema.contents[0].text)
+                    checklist = await client.read_resource("receitas://project/checklist")
+                    self.assertIn("first_message", checklist.contents[0].text)
                     pending = request_data()
                     pending["ambiguity_resolved"] = False
                     blocked = await client.call_tool("plan_research", {"request": pending})

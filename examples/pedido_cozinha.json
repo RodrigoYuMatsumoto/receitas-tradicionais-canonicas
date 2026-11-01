@@ -1,0 +1,21 @@
+{
+  "dish": "Prato sintético de teste",
+  "country": "BR",
+  "variant": "Variante sintética sem alegação histórica",
+  "ambiguity_resolved": true,
+  "profile": {
+    "onboarding_confirmed": true,
+    "servings": 4
+  },
+  "kitchen": {
+    "available_ingredients": [
+      "arroz",
+      "água"
+    ],
+    "time_available_minutes": 30,
+    "budget": "Exemplo fictício sem compra",
+    "shopping_allowed": false,
+    "output_mode": "passo_a_passo",
+    "taste_goal": "Textura macia, exemplo sintético"
+  }
+}

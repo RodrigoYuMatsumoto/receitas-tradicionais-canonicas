@@ -9,6 +9,16 @@ manager: Rodrigo Yú Matsumoto OAB/PE nº 1.338-B
 
 # Histórico de alterações
 
+## 2.0.0-rc.1 candidata - 31/10/2026
+
+Instrução v6.2. O início agora apresenta um checklist alimentar com dez grupos e exemplos, sem preâmbulo técnico. A mesma fonte gera a pergunta do MCP, a instrução portátil e o documento humano. Acrescentados comando de início, guias de pedidos cotidianos, pesquisa atual de uso, sabor e umami, entradas para clientes e saída culinária legível no terminal.
+
+O pedido passa a incluir contexto de tempo, ingredientes, orçamento e compras. A ficha exige medidas, rendimento explicado, utensílios e pontos observáveis. Foram corrigidos equivalência indevida de equipamento, quantidades inválidas, exclusões da CLI, padrões alimentares não operacionalizados e obrigatoriedade de inventar um detalhe especial. O validador também confere a igualdade dos esquemas e documentos gerados.
+
+**Mudança incompatível:** `ok` deixa de bloquear a leitura do plano por conferências humanas pendentes. Clientes precisam interpretar também `practical_ready`, `preparation_ready` e `action_items`. A leitura de registros antigos foi preservada, mas registros sem ficha não recebem prontidão prática. Essa mudança de semântica justifica a versão principal 2.0.
+
+Os ensaios reais encontraram e orientaram correções sobre dúvida de leite, tempo disponível, nomes de canjica e operação de liquidificador com líquido quente. A rodada final passou nos quatro critérios funcionais, mantendo um desvio tipográfico pontual fora da abertura. Resultados, hashes e limites estão na [revisão da jornada](docs/REVISAO_JORNADA_2_0.md). A candidata não herda B.9 nem promoção da versão anterior.
+
 ## 1.0.0 estável - 31/10/2026
 
 Instrução v6.1 completa no pacote e no MCP, confirmação explícita de ausência no CLI, qualificação editorial pendente com bloqueio, notas de adaptação inspecionadas, origem descrita como URL e estimativa de rendimento identificada. Contratos, exemplos atuais e documentação foram atualizados; o histórico foi preservado.
